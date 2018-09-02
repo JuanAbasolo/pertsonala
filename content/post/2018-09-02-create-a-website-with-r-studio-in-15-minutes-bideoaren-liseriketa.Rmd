@@ -1,0 +1,22 @@
+---
+title: Create a Website with R Studio in 15 Minutes! Bideoaren liseriketa
+author: Urlia Lopez de Artaburu
+date: '2018-09-02'
+slug: create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa
+categories:
+  - aproba
+tags: []
+---
+
+Hurrengo bideotik hartutako ideiak-eta.
+
+```{r echo=TRUE}
+vembedr::embed_youtube("rFr1OmS7V9Y")
+```
+
+Hobeto **RStudio** erabilita, addinsak erabiltzea.
+
+*Academic* eredua darabile. 
+
+* Hasieran `content/home` carpetan ezabatzen dau `hero.md` fitxategia.
+* `config.toml` oso-oso garrantzitsua.
