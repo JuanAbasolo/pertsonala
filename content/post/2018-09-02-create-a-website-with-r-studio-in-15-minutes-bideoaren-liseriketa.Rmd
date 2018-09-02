@@ -9,13 +9,17 @@ tags: [blogdown]
 
 Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
 
+<center>
 ```{r echo=FALSE}
 vembedr::embed_youtube("rFr1OmS7V9Y")
 ```
+</center>
 
 Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
 
-[![](https://bookdown.org/yihui/blogdown/images/cover.png)](https://bookdown.org/yihui/blogdown/)
+<center>
+[![](https://bookdown.org/yihui/blogdown/images/cover.png){width=25%}](https://bookdown.org/yihui/blogdown/)
+</center>
 
 ```{r eval=FALSE}
 installed.packages("blogdown")
@@ -58,10 +62,10 @@ Behin lehenengo bertsioa egindakoan, edukiak-eta gehitzea oso erraza da, RStudio
 * Aukeratu "new site from Git"
 * Joan siteko biltegira
 * "Basic buil settings"  
-  Basic command: `hugo`
-  Publish directory: `public`
-  Advanced build settings
-  New variable>Key `HUGO_VERSION`
+  Basic command: `hugo`  
+  Publish directory: `public`  
+  Advanced build settings  
+  New variable>Key `HUGO_VERSION`  
   Value `0.40`.
   
 Kasu honetan, [hemen](https://github.com/JuanAbasolo/pertsonala/) dago GitHub-eko biltegia eta hementxe web orria bera.
