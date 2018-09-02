@@ -18,9 +18,8 @@
       
       <guid>/2018/09/02/webgunea-rstudio-n-eregi/</guid>
       <description>Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
- Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
-
-installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
+   Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
+   installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
  Segitu pausuak
  Aukeratu HUGO gai bat Kopiatu GitHub-eko helbidea eta hori ipini sortzeko orduan Itxoin dena jaisteko Zelan doan ikusteko Server Site.  Tuneatu norberaren datuekin
 Niri gai batzuk arazoak eman dizkidate config.</description>

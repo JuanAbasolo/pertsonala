@@ -1,0 +1,480 @@
+---
+title: Lematizazio prozesua erraztu nahi
+author: Juan Abasolo
+date: '2018-09-19'
+slug: lematizazio-prozesua-erraztu-nahirik
+categories:
+  - dialektometriaz
+tags:
+  - IPA
+bibliography: Dialektometria.bib
+link-citations: yes
+---
+
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+> Euskaltzaindiak saretutako EHHAko dokumentuak oinarri hartuta, lemekin letorkeen multzoketaren bila eginiko ahalegina
+
+**Laburpena**: 
+
+<small>Bilaketa bi daude honetan: EHHAko datuen trataera digitala, hasieran, eta datu horiek oinarri hartuta horien multzokatze analisia (*Cluster Analisys*), lematizazioarekin bat etorrita.</small>
+
+# Nondik norakoa
+
+Lan-jario bat aurkitu nahi dut, EHHAko datuetatik hasita lemen identifikaziora ahalik eta erarik automatizatuenean iristeko.
+
+Helburu hori lortzeko ahaleginak EHHAko [@dialektologia_batzordea_euskararen_2018] datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako *HAIR.csv* datuekin, ilea izendatzeko moduei buruzkoak^[[Hemen](./HAIR.csv)].
+
+Pausuak, osorik zein zorrozteke daudenak, honela diseinatu ditut:
+
+
+1. Datuak kopiatu EHHAko [PDF](http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/2062.pdf)tik, itsatsi eta prestatu R-n kudeatzeko.
+1. R-ra sartu eta zutabe biko *data frame*a egin (aldagai batean herriak, beste batean herrian jasotako hizkuntz formak).
+1. Formen arteko ALINE distantziak atera [@downey_computational_2008], **alineR** paketea erabilita [@downey_aliner:_2017].
+1. Formen multzokatzeak *Cluster Analysis* teknikak erabilita.  
+    Datu ezagun eta aztertuak direnez, multzo (cluster) kopuru aurrez jakina lortu nahi da, aurreikusitako lemekin bat letorkeena.
+1. Egokitasunaren azterketa egiteko elementuak sortu:  
+    * Dendograma
+    * Zerrendak
+    * Data Framea  
+    Egokitasun azterketa horretan **multzokatze teknika** eta **zatitze neurriak** identifikatu behar dira, beste kasu batzuetan ere aplikagarriak ete diren aztertzeko
+1. Sortu data frame bat hiru aldagaiekin:
+    * Herria
+    * Batutako hizkuntz forma
+    * Multzo kodea  
+    Multzo kode bakoitza lema bati egokitzea espero da, erraz ordezkatzeko modukoa.
+1. Beste datu multzo batzuekin saiatu teknikotan.
+
+## Datuen prestaketa
+
+R-ra ekarri aurretik, datuen prestaketa eta garbiketa egin behar da, nik hurrengo pausen bitartez egitea pentsatu dut:
+
+1. PDFan aukeratu
+2. [Kate](https://kate-editor.org/) testu editorean itsatsi (erdiko erroberarekin klik)
+3. Bertan lehenengo garbiketa bat  
+  Esate baterako:  
+    * *(mark.)* dioten testuak eta *(?)* oharrak ezabatu ^[Aztertu daiteke balioak eurak ere kentzea].
+    * Herrialdeen izenak ezabatu.
+    * Lerro bakarrean utzi herri bakoitza.
+4. Aukeratu eta [LibreOffice Calc](https://www.libreoffice.org/discover/calc/)-en itsatsi, banatzailetzat puntu biak (*:*) eta komak (*,*) hartuta.
+5. Gorde fitxategi hori *.csv* formatuan. Herriak beste lerro izango ditu eta erantzun gehien hartutako herriko erantzun kopurua beste zutabe.
+
+```{r}
+# Datuak 'hair' izenko data frame batera sartu
+hair <- read.table("./HAIR.csv", 
+                   header = F, 
+                   sep = ",", 
+                   stringsAsFactors = F)
+
+knitr::kable(hair[120:132,], caption = "Data framearen zenbait lerro eta aldagai guztiak")
+```
+
+Data frameak aldagai asko ditu (`r ncol(hair)`) eta lerroak/herriak  `r nrow(hair)` dira. 
+
+Ordena zuzendu behar da honelako egiturara:
+
++ Lehenengo aldagaia herriaren izena (errepikatu egingo da)
++ Bigarren aldagaia hizkuntz forma (ez da errepikatuko herrian bertan)
+
+Nahi den egokitzapen horretarako, sortuko ditugu data frameak erantzun-aldagaiak beste, gero denak data frame bakarrean batzeko.
+
+```{r df-sortu, warning=FALSE}
+# Banatu
+df.zerrenda <- c()
+for(i in 1:length(names(hair))) {
+    if(i==1){
+    next
+    } 
+    ixena <- paste("df",i, sep = "")
+    assign(ixena, data.frame(HERRIA = hair[,1], ERANTZUNAK = hair[,i]))
+    # print(ixena)
+    df.zerrenda <- c(df.zerrenda, ixena)
+}
+
+# Batu
+df.hair <- dplyr::bind_rows(df2, df3, df4, df5)
+
+# Kendu balio sobrakoak
+df.hair <- df.hair[!df.hair[,2]=="",]
+
+# Taula bat, aztertzeko
+knitr::kable(tail(df.hair, 15), caption = "data framearen azken balioak")
+```
+
+Oraingo data frameak `r ncol(df.hair)` aldagai eta `r nrow(df.hair)` lerro ditu
+
+Azentu eta karaktere konfigurazio batzuk aldatu behar dira, abisurik ez emateko.
+
+**Oharra**: 
+Puntu honetan berrikus daitezke euskarazko konfigurazio batzuk sinplifikatzea, **alineR**-ek lana hobeto egiteko, esate baterako, bilho/bilo erakoak batu, *lh* guztiak *l* hutsera pasatuaz. Berdin egin behar litzateke, hala egitera, *kh* eta antzerako kasuekin. 
+
+`ipa.garbi`funtzioa eraiki behar da
+
+```{r karaktereak-garbitu}
+# Irteerako datuak garbitzeko, arazodun azentuak-eta ezabatu
+# Funtzio egin behar da
+# Aldagaiak batu bakarrean.
+
+# ipa.garbi(df.hair)
+
+df.hair[,2] <- gsub("r̄",
+                 "r",
+                 df.hair[, 2])
+
+df.hair[, 2] <- gsub("i̯",
+                  "i",
+                  df.hair[, 2])
+
+df.hair[, 2] <- gsub("ɛ́",
+                  "ɛ",
+                  df.hair[, 2])
+
+df.hair[, 2] <- gsub("͜ó",
+                    "o",
+                     df.hair[, 2])
+
+df.hair[, 2] <- gsub("\\*", "", df.hair[, 2])
+df.hair[, 2] <- gsub("\\)", "", df.hair[, 2])
+df.hair[, 2] <- gsub("\\(", "", df.hair[, 2])
+df.hair[, 2] <- gsub("\\?", "", df.hair[, 2])
+
+```
+
+## ALINE distantzien gainetiko azterketa bat
+
+Darabiltzagun datuekin aldaera batzuen arteko ALINE distantzi linguistikoa aztertuko dugu. Oinarritzat Azkoitiako `r df.hair[46,2]` aldaera erabili da beste modu batzuekin alderatzeko.
+
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[50, 2]`)}$ Azkoitia-Bergara
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[47, 2]`)}$ Azkoitia-Azpeitia
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[42, 2]`)}$ Azkoitia-Arrasate
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[29, 2]`)}$ Azkoitia-Orozko
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[92, 2]`)}$Azkoitia-Lekaroz
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[98, 2]`)}$Azkoitia-Urdiain
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[45,2]`)}$ Azkoitia-Ataun
+- $d_{ALINE(`r df.hair[46,2]` - `r df.hair[143,2]`)}$ Azkoitia-SantaEngrazi
+
+
+```{r}
+library(alineR)
+
+# - d~(Azkoitia-Bergara)~
+# Balio berberak
+df.hair[46,2]; df.hair[50, 2]; aline(df.hair[46,2], df.hair[50, 2])
+
+# - d~(Azkoitia-Azpeitia)~
+# Azentu desberdina
+df.hair[46,2]; df.hair[47, 2]; aline(df.hair[46,2], df.hair[47, 2])
+
+# - d~(Azkoitia-Arrasate)~
+# Grafema desberdin bi
+df.hair[46,2]; df.hair[42, 2]; aline(df.hair[46,2], df.hair[42, 2])
+
+# - d~(Azkoitia-Orozko)~
+# Bokal bat aldatzen da 
+df.hair[46,2]; df.hair[29, 2]; aline(df.hair[46,2], df.hair[29, 2])
+
+# - d~(Azkoitia-Urdiain)~
+# Kontsonante bat aldatzen da
+df.hair[46,2]; df.hair[98, 2]; aline(df.hair[46,2], df.hair[98, 2])
+
+# - d~(Azkoitia-Lekaroz)~
+# Hurreko bokal bat aldatzen da
+df.hair[46,2]; df.hair[92, 2]; aline(df.hair[46,2], df.hair[92, 2])
+```
+
+
+```{r}
+# Azkoitia-Ataun
+df.hair[46,2]; df.hair[45,2]
+aline(df.hair[46,2], df.hair[45,2], 
+      mark = TRUE, 
+      m1 = "β",
+      m2 = "b")
+```
+
+```{r results='asis'}
+# Azkoitia-Santa engrazi
+knitr::kable(
+    aline(df.hair[46,2], df.hair[143,2], mark = T, alignment = T),
+    caption = paste(df.hair[46,2], df.hair[143,2])
+)
+
+```
+
+# Distantzien matrizea konputatu
+
+Horretarako Marcelino de la Cruzek pasatutako irtenbidea erabili dut: `aline.dist` funtzioa begizta batez eraikita.
+
+```{r aline.dist funtzioa}
+# Marcelino de la Cruz Rotek r-es-HELP zerrendan emandako irtenbidetik
+# Funtzio bat ALINE distantzia-matrizea konputatzeko
+
+aline.dist <- function(x0, namesx0) {
+    require(alineR)
+    ok <- !is.na(x0)
+    
+    x0.ok <- x0[ok]
+    namesx0.ok <- namesx0[ok]
+    x <- rep(x0.ok, length(x0.ok))
+    y <- rep(x0.ok, each = length(x0.ok))
+    
+    gauza <- aline(w1 = x, w2 = y, m1 = "β", m2 = "b")
+    
+    gauza.m <- matrix(gauza, nr = length(x0.ok), nc = length(x0.ok))
+    dimnames(gauza.m) <- list(namesx0.ok, namesx0.ok)
+    return(as.dist(gauza.m))
+    
+}
+```
+
+
+```{r distantzia, results='asis'}
+# Distantzien konputazioa bera
+d.aline.hair <- aline.dist(df.hair[,2], df.hair[,1])
+
+# Datuen baztertxu bat erakutsi
+knitr::kable(as.matrix(d.aline.hair)[2:25,2:9], 
+             digits = 3, 
+             caption = "Distantzien matrizearen ertz bat")
+```
+
+# Multzoak sortzeko modu batzuk
+
+Azterketa hau R-k bere **base** paketean eskaintzen dituen zortzi multzokatze moduak erabilita dago eginda. Hurrengo tartean zortzi era horiek batera erakusten dira. Hori egitea proposatzen da zein multzokatze era komeni litzatekeen era grafikoan aztertzeko.
+
+Aztergai darabiltzagun datuetan zazpi lema identifikatu behar dituela ematen du:
+
+* ILE
+* ULE
+* BILO
+* KALPAR
+* TXIMA
+* BURUKOILE (Ataunen soilik)
+* ILEONDO (Senperen soilik)
+
+Dendogrametan 7 multzokatze aukeratzeko eskatzen da, ea bilatzen den multzokatze hori zein erak ematen duen, batek ematen badu, behintzat.
+
+
+```{r clusterrakSortu, fig.height=5, fig.width=12}
+
+# MULTZOKATZEAK
+erak <-c("ward.D", "ward.D2", "single", "complete", 
+         "average", "mcquitty", "median","centroid")
+
+# IRUDI BAT MULTZOKO
+for(i in erak) {
+    clus.x <- hclust(d.aline.hair, method = i)
+    plot(clus.x, 
+                    cex = 0.5,
+                    labels = paste(df.hair[,1],df.hair[,2], sep = "-"),
+                    main = "Lemen bila"
+                    )
+    rect.hclust(clus.x,
+            k=7,
+            border="red")
+}
+
+```
+
+Irudien gainetiko azterketa bat:
+
+* ward.D multzokatze era  
+    * Banatzen ditu *ile* eta *iʎe*
+    * Batzen ditu *bilwak*, *burukoilea* eta *biroa*
+* ward.D2
+    * Aurrekoaren antzera.
+    * ILEONDO eta ILE batera ematen ditu
+* single
+    * Batzen ditu ULE eta ILE
+    * Aurrekotik bereiz ematen du ILHE
+    * Kima eta Txima banaturik ematen ditu
+* complete  
+    Aurrekoaren moduan, ILHE eta ILE banatzen ditu. Baina batzen ditu ULE eta ILE.
+* average
+    * Aurrekoaren antzera
+* mcquitty
+    * Batera ILE eta ULE
+    * Bereiz ILHE
+* median
+    * Berdintsu
+* centroid
+    * Berdintsu
+
+Lema bat etiketa-zenbaki bik adierazi behar dutela jakin arren, ez du ematen oraingo pausuan berebizikoa izango denik.
+
+**Oharra**:
+Erabaki behar da ea erabilgarria den ala ez.
+
+## Bigarren ahalegina
+
+Zortziko taldekatzeak ezin erantzun diezaioke gure planteamenduari, datu hauek erabilita.
+Bide posibleak bi dira, beraz:
+
+1. Datuak egokitu. Multzokatze prozesuan idazkera/kodetze moduak hurrundutako batzuk hurreratu.  
+    EB: *lh* -> *l*, edo antzerakoak, aurretik adierazi den moduan
+1. Multzokatze prozesua multzo gehiagotan aztertu.
+
+
+```{r clusterrakSortuBis, fig.height=5, fig.width=12}
+
+# MULTZOKATZEAK
+erak <-c("ward.D", "ward.D2", "single", "complete", 
+         "average", "mcquitty", "median","centroid")
+
+# IRUDI BAT MULTZOKO
+for(i in erak) {
+    clus.x <- hclust(d.aline.hair, method = i)
+    plot(clus.x, 
+                    cex = 0.5,
+                    labels = paste(df.hair[,1],df.hair[,2], sep = "-"),
+                    main = "Lemen bila"
+                    )
+    rect.hclust(clus.x,
+            k=8,
+            border="blue")
+}
+
+```
+
+Aurreko irudiak aztertuta (eskuineko botoiarekin pantaila osoan ikus daitezke), ematen du gure helburuetatik hurbilen dagoen multzokatze era `ward.D2` dela. Baina, datuak dauden moduan Senpereko *ileondo* forma ILE lemaren barruan kokatzen du eta banaketa bat markatzen du BILO eta BILHO artean.
+
+Datuak zuzendu ezik, etiketa bik batu behar lukete ordezkatze prozesuan.
+
+## Hirugarren ahalegina
+
+Honetan soilik aztertuko da `ward.D2` multzokatze era, baina aurretik datuen *lh* formak *l*-ra igaro eta distantzi matrizea berreraikita.
+
+```{r hirugarrena, fig.height=5, fig.width=12}
+# df barria
+df.hair1 <- df.hair
+df.hair1[, 2] <- gsub("lh", "l", df.hair1[, 2])
+
+# distantzi matrize berria
+d.aline.hair1 <- aline.dist(df.hair1[,2], df.hair1[,1])
+
+clus.hair1 <- hclust(d.aline.hair1, method = "ward.D2")
+plot(
+    clus.hair1,
+    cex = 0.5,
+    labels = paste(df.hair[, 1], df.hair[, 2], sep = "-"),
+    main = "Lemen bila v3"
+    )
+rect.hclust(clus.hair1,
+            k = 7,
+            border = "green")
+
+
+```
+
+Azken multzoek ere ez diote ondo erantzuten, Landibarreko *biruak* forma eta Ataungo *burukoile* elkarrekin ematen baititu. Hala ere, ematen du bidea hortik pasa daitekeela.
+
+
+# Zenbat multzo (*cluster*) egin ?
+
+**GARATZEKO**
+
+Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat *k* egitea komeni den. Multzokatzeen Analisirako gidan [@kassambara_practical_2017] zehazten da zelan egin^[[Sarrera zuzena](http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/)].
+
+```
+Aztertu ia alderik dagoan multzokatzeko aldaeren artean. 
+
+Funtzioa egin behar da.
+
+```
+
+# Multzoak zatitu
+
+Multzo era egokia **aukeratutakoan**, multzoak zehaztu eta mugatu behar dira. Hemen agertzen den multzokatze erak ez du beste helbururik bat aukeratuta programazioa garatzea baino.
+
+Oinarrizko galdera: Esperotako multzoak bat datoz ekuz egindako lematizazio lanarekin? 
+
+##  Zerrendak (herrienak)
+
+Erantzun [honetan](https://stackoverflow.com/questions/6518133/clustering-list-for-hclust-function) oinarritua.
+
+
+```{r}
+# Prozesu osoa HAMAR multzotan banatu
+kutri <- cutree(clus.hair1, k = 7)
+```
+
+Cluster arazoduna:
+
+```{r}
+names(kutri)[kutri==3]
+
+```
+
+
+## Datu antolatuekin `data.frame` bat sortu
+
+Datuok berrantolatu daitezke eta *.csv* artxibo batera zuzenean atera.
+
+```{r}
+df.kutri <- data.frame(HERRIAK = names(kutri),
+                       FORMAK = df.hair[,2], 
+                       MULTZOA = kutri)
+# df.kutri
+```
+
+
+### Datuen aurkezpen ordenatua
+
+Lehenengo zutabean herriak zerrendatzen dira, bigarrenean hizkuntz formak, eta azkenik, hirugarrenak diosku zein multzotakoa den elementua.
+
+```{r}
+knitr::kable(dplyr::arrange(df.kutri, kutri), row.names = F)
+```
+
+# *Bonus Trak*: Dendograma eleganteak aztertuaz
+
+
+```{r dendograma pantastiku,  fig.height=5, fig.width=12}
+library(factoextra)
+dendograma.osoa <- fviz_dend(clus.hair1,
+                             k = 7,
+                             cex = 0.5,
+                             rect = FALSE,
+                             k_colors = "jco")
+dendograma.osoa+
+  geom_hline(yintercept = 0.6, linetype = "dashed") +
+  labs(title = "Hair in Basque",
+       subtitle = "ALINE distantzia, Ward.D2, k=?")
+```
+
+```{r dendograma.zatitzen}
+dend_data <- attr(dendograma.osoa, "dendrogram") # Extract dendrogram data
+
+# Cut the dendrogram at height h = 10
+dend_cuts <- cut(dend_data, h = 0.6)
+
+# Visualize the truncated version containing
+# two branches
+fviz_dend(dend_cuts$upper, main = "dendogramaren mozketa: 1.5 distantzian")
+```
+
+```{r}
+# Plot subtree 1
+fviz_dend(dend_cuts$lower[[1]], main = "ULE")
+# Plot subtree 2
+fviz_dend(dend_cuts$lower[[3]], main = "ILE")
+fviz_dend(dend_cuts$lower[[4]], main = "ARAZOA!!")
+# Plot subtree 2
+fviz_dend(dend_cuts$lower[[5]], main = "BILO")
+fviz_dend(dend_cuts$lower[[6]], main = "KALPAR")
+fviz_dend(dend_cuts$lower[[7]], main = "TXIMA")
+
+
+```
+
+# Egitekoak
+
+Multzokatzeko beste eraren batek, agian, eman lezake emaitza hoberik. Emaitzak zorrozteko beste bide bat izan liteke karaktere/karaktere-kateak ordezteko unean.
+
+---
+
+# Erreferentziak
+

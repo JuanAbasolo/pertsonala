@@ -6,10 +6,23 @@
     <description>Recent content in Posts on Juan Abasolo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Sun, 02 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lematizazio prozesua erraztu nahi</title>
+      <link>/2018/09/19/lematizazio-prozesua-erraztu-nahirik/</link>
+      <pubDate>Wed, 19 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/09/19/lematizazio-prozesua-erraztu-nahirik/</guid>
+      <description>Euskaltzaindiak saretutako EHHAko dokumentuak oinarri hartuta, lemekin letorkeen multzoketaren bila eginiko ahalegina
+ Laburpena:
+Bilaketa bi daude honetan: EHHAko datuen trataera digitala, hasieran, eta datu horiek oinarri hartuta horien multzokatze analisia (Cluster Analisys), lematizazioarekin bat etorrita.
+Nondik norakoa Lan-jario bat aurkitu nahi dut, EHHAko datuetatik hasita lemen identifikaziora ahalik eta erarik automatizatuenean iristeko.
+Helburu hori lortzeko ahaleginak EHHAko (Dialektologia batzordea 2018) datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako HAIR.</description>
+    </item>
     
     <item>
       <title>Webgunea RStudio-n eregi eta argitaratu</title>
@@ -18,9 +31,8 @@
       
       <guid>/2018/09/02/webgunea-rstudio-n-eregi/</guid>
       <description>Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
- Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
-
-installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
+   Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
+   installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
  Segitu pausuak
  Aukeratu HUGO gai bat Kopiatu GitHub-eko helbidea eta hori ipini sortzeko orduan Itxoin dena jaisteko Zelan doan ikusteko Server Site.  Tuneatu norberaren datuekin
 Niri gai batzuk arazoak eman dizkidate config.</description>

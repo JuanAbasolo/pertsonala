@@ -1,0 +1,1852 @@
+---
+title: Lematizazio prozesua erraztu nahi
+author: Juan Abasolo
+date: '2018-09-19'
+slug: lematizazio-prozesua-erraztu-nahirik
+categories:
+  - dialektometriaz
+tags:
+  - IPA
+bibliography: Dialektometria.bib
+link-citations: yes
+---
+
+
+
+<blockquote>
+<p>Euskaltzaindiak saretutako EHHAko dokumentuak oinarri hartuta, lemekin letorkeen multzoketaren bila eginiko ahalegina</p>
+</blockquote>
+<p><strong>Laburpena</strong>:</p>
+<p><small>Bilaketa bi daude honetan: EHHAko datuen trataera digitala, hasieran, eta datu horiek oinarri hartuta horien multzokatze analisia (<em>Cluster Analisys</em>), lematizazioarekin bat etorrita.</small></p>
+<div id="nondik-norakoa" class="section level1">
+<h1>Nondik norakoa</h1>
+<p>Lan-jario bat aurkitu nahi dut, EHHAko datuetatik hasita lemen identifikaziora ahalik eta erarik automatizatuenean iristeko.</p>
+<p>Helburu hori lortzeko ahaleginak EHHAko <span class="citation">(Dialektologia batzordea <a href="#ref-dialektologia_batzordea_euskararen_2018">2018</a>)</span> datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako <em>HAIR.csv</em> datuekin, ilea izendatzeko moduei buruzkoak<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>Pausuak, osorik zein zorrozteke daudenak, honela diseinatu ditut:</p>
+<ol style="list-style-type: decimal">
+<li>Datuak kopiatu EHHAko <a href="http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/2062.pdf">PDF</a>tik, itsatsi eta prestatu R-n kudeatzeko.</li>
+<li>R-ra sartu eta zutabe biko <em>data frame</em>a egin (aldagai batean herriak, beste batean herrian jasotako hizkuntz formak).</li>
+<li>Formen arteko ALINE distantziak atera <span class="citation">(Downey et al. <a href="#ref-downey_computational_2008">2008</a>)</span>, <strong>alineR</strong> paketea erabilita <span class="citation">(Downey, Sun, and Norquest <a href="#ref-downey_aliner:_2017">2017</a>)</span>.</li>
+<li>Formen multzokatzeak <em>Cluster Analysis</em> teknikak erabilita.<br />
+Datu ezagun eta aztertuak direnez, multzo (cluster) kopuru aurrez jakina lortu nahi da, aurreikusitako lemekin bat letorkeena.</li>
+<li>Egokitasunaren azterketa egiteko elementuak sortu:
+<ul>
+<li>Dendograma</li>
+<li>Zerrendak</li>
+<li>Data Framea<br />
+Egokitasun azterketa horretan <strong>multzokatze teknika</strong> eta <strong>zatitze neurriak</strong> identifikatu behar dira, beste kasu batzuetan ere aplikagarriak ete diren aztertzeko</li>
+</ul></li>
+<li>Sortu data frame bat hiru aldagaiekin:
+<ul>
+<li>Herria</li>
+<li>Batutako hizkuntz forma</li>
+<li>Multzo kodea<br />
+Multzo kode bakoitza lema bati egokitzea espero da, erraz ordezkatzeko modukoa.</li>
+</ul></li>
+<li>Beste datu multzo batzuekin saiatu teknikotan.</li>
+</ol>
+<div id="datuen-prestaketa" class="section level2">
+<h2>Datuen prestaketa</h2>
+<p>R-ra ekarri aurretik, datuen prestaketa eta garbiketa egin behar da, nik hurrengo pausen bitartez egitea pentsatu dut:</p>
+<ol style="list-style-type: decimal">
+<li>PDFan aukeratu</li>
+<li><a href="https://kate-editor.org/">Kate</a> testu editorean itsatsi (erdiko erroberarekin klik)</li>
+<li>Bertan lehenengo garbiketa bat<br />
+Esate baterako:
+<ul>
+<li><em>(mark.)</em> dioten testuak eta <em>(?)</em> oharrak ezabatu.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
+<li>Herrialdeen izenak ezabatu.</li>
+<li>Lerro bakarrean utzi herri bakoitza.</li>
+</ul></li>
+<li>Aukeratu eta <a href="https://www.libreoffice.org/discover/calc/">LibreOffice Calc</a>-en itsatsi, banatzailetzat puntu biak (<em>:</em>) eta komak (<em>,</em>) hartuta.</li>
+<li>Gorde fitxategi hori <em>.csv</em> formatuan. Herriak beste lerro izango ditu eta erantzun gehien hartutako herriko erantzun kopurua beste zutabe.</li>
+</ol>
+<pre class="r"><code># Datuak &#39;hair&#39; izenko data frame batera sartu
+hair &lt;- read.table(&quot;./HAIR.csv&quot;, 
+                   header = F, 
+                   sep = &quot;,&quot;, 
+                   stringsAsFactors = F)
+
+knitr::kable(hair[120:132,], caption = &quot;Data framearen zenbait lerro eta aldagai guztiak&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>Data framearen zenbait lerro eta aldagai guztiak</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">V1</th>
+<th align="left">V2</th>
+<th align="left">V3</th>
+<th align="left">V4</th>
+<th align="left">V5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>120</td>
+<td align="left">Arrueta</td>
+<td align="left">bílo</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>121</td>
+<td align="left">Baigorri</td>
+<td align="left">ile</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td>122</td>
+<td align="left">Bastida</td>
+<td align="left">íle</td>
+<td align="left">bíle (?)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>123</td>
+<td align="left">Behorlegi</td>
+<td align="left">biló</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td>124</td>
+<td align="left">Bidarrai</td>
+<td align="left">βiló</td>
+<td align="left">íle</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>125</td>
+<td align="left">Ezterenzubi</td>
+<td align="left">bílo</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td>126</td>
+<td align="left">Gamarte</td>
+<td align="left">biló</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>127</td>
+<td align="left">Garrüze</td>
+<td align="left">bílo</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td>128</td>
+<td align="left">Irisarri</td>
+<td align="left">bílo</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>129</td>
+<td align="left">Izturitze</td>
+<td align="left">bílho</td>
+<td align="left">ilhe (?)</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td>130</td>
+<td align="left">Jutsi</td>
+<td align="left">bilho</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td>131</td>
+<td align="left">Landibarre</td>
+<td align="left">biluá</td>
+<td align="left">bírua</td>
+<td align="left">bílo</td>
+<td align="left">ílea</td>
+</tr>
+<tr class="odd">
+<td>132</td>
+<td align="left">Larzabale</td>
+<td align="left">bilho</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Data frameak aldagai asko ditu (5) eta lerroak/herriak 145 dira.</p>
+<p>Ordena zuzendu behar da honelako egiturara:</p>
+<ul>
+<li>Lehenengo aldagaia herriaren izena (errepikatu egingo da)</li>
+<li>Bigarren aldagaia hizkuntz forma (ez da errepikatuko herrian bertan)</li>
+</ul>
+<p>Nahi den egokitzapen horretarako, sortuko ditugu data frameak erantzun-aldagaiak beste, gero denak data frame bakarrean batzeko.</p>
+<pre class="r"><code># Banatu
+df.zerrenda &lt;- c()
+for(i in 1:length(names(hair))) {
+    if(i==1){
+    next
+    } 
+    ixena &lt;- paste(&quot;df&quot;,i, sep = &quot;&quot;)
+    assign(ixena, data.frame(HERRIA = hair[,1], ERANTZUNAK = hair[,i]))
+    # print(ixena)
+    df.zerrenda &lt;- c(df.zerrenda, ixena)
+}
+
+# Batu
+df.hair &lt;- dplyr::bind_rows(df2, df3, df4, df5)
+
+# Kendu balio sobrakoak
+df.hair &lt;- df.hair[!df.hair[,2]==&quot;&quot;,]
+
+# Taula bat, aztertzeko
+knitr::kable(tail(df.hair, 15), caption = &quot;data framearen azken balioak&quot;)</code></pre>
+<table>
+<caption><span id="tab:df-sortu">Table 2: </span>data framearen azken balioak</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">HERRIA</th>
+<th align="left">ERANTZUNAK</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>255</td>
+<td align="left">Makea</td>
+<td align="left">*íle</td>
+</tr>
+<tr class="even">
+<td>258</td>
+<td align="left">Senpere</td>
+<td align="left">*ile͜óndo</td>
+</tr>
+<tr class="odd">
+<td>260</td>
+<td align="left">Uztaritze</td>
+<td align="left">*βiló</td>
+</tr>
+<tr class="even">
+<td>261</td>
+<td align="left">Aldude</td>
+<td align="left">*biló</td>
+</tr>
+<tr class="odd">
+<td>263</td>
+<td align="left">Armendaritze</td>
+<td align="left">biló</td>
+</tr>
+<tr class="even">
+<td>264</td>
+<td align="left">Arnegi</td>
+<td align="left">ilé</td>
+</tr>
+<tr class="odd">
+<td>267</td>
+<td align="left">Bastida</td>
+<td align="left">bíle (?)</td>
+</tr>
+<tr class="even">
+<td>269</td>
+<td align="left">Bidarrai</td>
+<td align="left">íle</td>
+</tr>
+<tr class="odd">
+<td>274</td>
+<td align="left">Izturitze</td>
+<td align="left">ilhe (?)</td>
+</tr>
+<tr class="even">
+<td>276</td>
+<td align="left">Landibarre</td>
+<td align="left">bírua</td>
+</tr>
+<tr class="odd">
+<td>282</td>
+<td align="left">Domintxaine</td>
+<td align="left">bilhó</td>
+</tr>
+<tr class="even">
+<td>283</td>
+<td align="left">Eskiula</td>
+<td align="left">bilhúk</td>
+</tr>
+<tr class="odd">
+<td>386</td>
+<td align="left">Suarbe</td>
+<td align="left">íʎa</td>
+</tr>
+<tr class="even">
+<td>421</td>
+<td align="left">Landibarre</td>
+<td align="left">bílo</td>
+</tr>
+<tr class="odd">
+<td>566</td>
+<td align="left">Landibarre</td>
+<td align="left">ílea</td>
+</tr>
+</tbody>
+</table>
+<p>Oraingo data frameak 2 aldagai eta 173 lerro ditu</p>
+<p>Azentu eta karaktere konfigurazio batzuk aldatu behar dira, abisurik ez emateko.</p>
+<p><strong>Oharra</strong>:
+Puntu honetan berrikus daitezke euskarazko konfigurazio batzuk sinplifikatzea, <strong>alineR</strong>-ek lana hobeto egiteko, esate baterako, bilho/bilo erakoak batu, <em>lh</em> guztiak <em>l</em> hutsera pasatuaz. Berdin egin behar litzateke, hala egitera, <em>kh</em> eta antzerako kasuekin.</p>
+<p><code>ipa.garbi</code>funtzioa eraiki behar da</p>
+<pre class="r"><code># Irteerako datuak garbitzeko, arazodun azentuak-eta ezabatu
+# Funtzio egin behar da
+# Aldagaiak batu bakarrean.
+
+# ipa.garbi(df.hair)
+
+df.hair[,2] &lt;- gsub(&quot;r̄&quot;,
+                 &quot;r&quot;,
+                 df.hair[, 2])
+
+df.hair[, 2] &lt;- gsub(&quot;i̯&quot;,
+                  &quot;i&quot;,
+                  df.hair[, 2])
+
+df.hair[, 2] &lt;- gsub(&quot;ɛ́&quot;,
+                  &quot;ɛ&quot;,
+                  df.hair[, 2])
+
+df.hair[, 2] &lt;- gsub(&quot;͜ó&quot;,
+                    &quot;o&quot;,
+                     df.hair[, 2])
+
+df.hair[, 2] &lt;- gsub(&quot;\\*&quot;, &quot;&quot;, df.hair[, 2])
+df.hair[, 2] &lt;- gsub(&quot;\\)&quot;, &quot;&quot;, df.hair[, 2])
+df.hair[, 2] &lt;- gsub(&quot;\\(&quot;, &quot;&quot;, df.hair[, 2])
+df.hair[, 2] &lt;- gsub(&quot;\\?&quot;, &quot;&quot;, df.hair[, 2])</code></pre>
+</div>
+<div id="aline-distantzien-gainetiko-azterketa-bat" class="section level2">
+<h2>ALINE distantzien gainetiko azterketa bat</h2>
+<p>Darabiltzagun datuekin aldaera batzuen arteko ALINE distantzi linguistikoa aztertuko dugu. Oinarritzat Azkoitiako íʎe aldaera erabili da beste modu batzuekin alderatzeko.</p>
+<ul>
+<li><span class="math inline">\(d_{ALINE( íʎe - íʎe)}\)</span> Azkoitia-Bergara</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - iʎé)}\)</span> Azkoitia-Azpeitia</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - úle)}\)</span> Azkoitia-Arrasate</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - úʎe)}\)</span> Azkoitia-Orozko</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - ílɛ)}\)</span>Azkoitia-Lekaroz</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - íle)}\)</span>Azkoitia-Urdiain</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - βurúkoiʎé)}\)</span> Azkoitia-Ataun</li>
+<li><span class="math inline">\(d_{ALINE( íʎe - bílho)}\)</span> Azkoitia-SantaEngrazi</li>
+</ul>
+<pre class="r"><code>library(alineR)
+
+# - d~(Azkoitia-Bergara)~
+# Balio berberak
+df.hair[46,2]; df.hair[50, 2]; aline(df.hair[46,2], df.hair[50, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code># - d~(Azkoitia-Azpeitia)~
+# Azentu desberdina
+df.hair[46,2]; df.hair[47, 2]; aline(df.hair[46,2], df.hair[47, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; iʎé&quot;</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code># - d~(Azkoitia-Arrasate)~
+# Grafema desberdin bi
+df.hair[46,2]; df.hair[42, 2]; aline(df.hair[46,2], df.hair[42, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; úle&quot;</code></pre>
+<pre><code>## [1] 0.2461538</code></pre>
+<pre class="r"><code># - d~(Azkoitia-Orozko)~
+# Bokal bat aldatzen da 
+df.hair[46,2]; df.hair[29, 2]; aline(df.hair[46,2], df.hair[29, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; úʎe&quot;</code></pre>
+<pre><code>## [1] 0.1538462</code></pre>
+<pre class="r"><code># - d~(Azkoitia-Urdiain)~
+# Kontsonante bat aldatzen da
+df.hair[46,2]; df.hair[98, 2]; aline(df.hair[46,2], df.hair[98, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; íle&quot;</code></pre>
+<pre><code>## [1] 0.09230769</code></pre>
+<pre class="r"><code># - d~(Azkoitia-Lekaroz)~
+# Hurreko bokal bat aldatzen da
+df.hair[46,2]; df.hair[92, 2]; aline(df.hair[46,2], df.hair[92, 2])</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; ílɛ&quot;</code></pre>
+<pre><code>## [1] 0.09230769</code></pre>
+<pre class="r"><code># Azkoitia-Ataun
+df.hair[46,2]; df.hair[45,2]</code></pre>
+<pre><code>## [1] &quot; íʎe&quot;</code></pre>
+<pre><code>## [1] &quot; βurúkoiʎé&quot;</code></pre>
+<pre class="r"><code>aline(df.hair[46,2], df.hair[45,2], 
+      mark = TRUE, 
+      m1 = &quot;β&quot;,
+      m2 = &quot;b&quot;)</code></pre>
+<pre><code>## [1] 0.5357143</code></pre>
+<pre class="r"><code># Azkoitia-Santa engrazi
+knitr::kable(
+    aline(df.hair[46,2], df.hair[143,2], mark = T, alignment = T),
+    caption = paste(df.hair[46,2], df.hair[143,2])
+)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 3: </span> íʎe bílho</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">pair1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>w1</td>
+<td align="left">íʎe</td>
+</tr>
+<tr class="even">
+<td>w2</td>
+<td align="left">bílho</td>
+</tr>
+<tr class="odd">
+<td>scores</td>
+<td align="left">0.51</td>
+</tr>
+<tr class="even">
+<td>a1</td>
+<td align="left">| - í - ʎ |</td>
+</tr>
+<tr class="odd">
+<td>a2</td>
+<td align="left">| b í l h |</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="distantzien-matrizea-konputatu" class="section level1">
+<h1>Distantzien matrizea konputatu</h1>
+<p>Horretarako Marcelino de la Cruzek pasatutako irtenbidea erabili dut: <code>aline.dist</code> funtzioa begizta batez eraikita.</p>
+<pre class="r"><code># Marcelino de la Cruz Rotek r-es-HELP zerrendan emandako irtenbidetik
+# Funtzio bat ALINE distantzia-matrizea konputatzeko
+
+aline.dist &lt;- function(x0, namesx0) {
+    require(alineR)
+    ok &lt;- !is.na(x0)
+    
+    x0.ok &lt;- x0[ok]
+    namesx0.ok &lt;- namesx0[ok]
+    x &lt;- rep(x0.ok, length(x0.ok))
+    y &lt;- rep(x0.ok, each = length(x0.ok))
+    
+    gauza &lt;- aline(w1 = x, w2 = y, m1 = &quot;β&quot;, m2 = &quot;b&quot;)
+    
+    gauza.m &lt;- matrix(gauza, nr = length(x0.ok), nc = length(x0.ok))
+    dimnames(gauza.m) &lt;- list(namesx0.ok, namesx0.ok)
+    return(as.dist(gauza.m))
+    
+}</code></pre>
+<pre class="r"><code># Distantzien konputazioa bera
+d.aline.hair &lt;- aline.dist(df.hair[,2], df.hair[,1])
+
+# Datuen baztertxu bat erakutsi
+knitr::kable(as.matrix(d.aline.hair)[2:25,2:9], 
+             digits = 3, 
+             caption = &quot;Distantzien matrizearen ertz bat&quot;)</code></pre>
+<table>
+<caption><span id="tab:distantzia">Table 4: </span>Distantzien matrizearen ertz bat</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Arrieta</th>
+<th align="right">Bakio</th>
+<th align="right">Bermeo</th>
+<th align="right">Berriz</th>
+<th align="right">Bolibar</th>
+<th align="right">Busturia</th>
+<th align="right">Dima</th>
+<th align="right">Elantxobe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Arrieta</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Bakio</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Bermeo</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Berriz</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Bolibar</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Busturia</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Dima</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Elantxobe</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Elorrio</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Errigoiti</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Etxebarri</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+<td align="right">0.169</td>
+</tr>
+<tr class="even">
+<td>Etxebarria</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Gamiz-Fika</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Getxo</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Gizaburuaga</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Ibarruri (Muxika)</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Kortezubi</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Larrabetzu</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Laukiz</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Leioa</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Lekeitio</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Lemoa</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>Lemoiz</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td>Mañaria</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="multzoak-sortzeko-modu-batzuk" class="section level1">
+<h1>Multzoak sortzeko modu batzuk</h1>
+<p>Azterketa hau R-k bere <strong>base</strong> paketean eskaintzen dituen zortzi multzokatze moduak erabilita dago eginda. Hurrengo tartean zortzi era horiek batera erakusten dira. Hori egitea proposatzen da zein multzokatze era komeni litzatekeen era grafikoan aztertzeko.</p>
+<p>Aztergai darabiltzagun datuetan zazpi lema identifikatu behar dituela ematen du:</p>
+<ul>
+<li>ILE</li>
+<li>ULE</li>
+<li>BILO</li>
+<li>KALPAR</li>
+<li>TXIMA</li>
+<li>BURUKOILE (Ataunen soilik)</li>
+<li>ILEONDO (Senperen soilik)</li>
+</ul>
+<p>Dendogrametan 7 multzokatze aukeratzeko eskatzen da, ea bilatzen den multzokatze hori zein erak ematen duen, batek ematen badu, behintzat.</p>
+<pre class="r"><code># MULTZOKATZEAK
+erak &lt;-c(&quot;ward.D&quot;, &quot;ward.D2&quot;, &quot;single&quot;, &quot;complete&quot;, 
+         &quot;average&quot;, &quot;mcquitty&quot;, &quot;median&quot;,&quot;centroid&quot;)
+
+# IRUDI BAT MULTZOKO
+for(i in erak) {
+    clus.x &lt;- hclust(d.aline.hair, method = i)
+    plot(clus.x, 
+                    cex = 0.5,
+                    labels = paste(df.hair[,1],df.hair[,2], sep = &quot;-&quot;),
+                    main = &quot;Lemen bila&quot;
+                    )
+    rect.hclust(clus.x,
+            k=7,
+            border=&quot;red&quot;)
+}</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-1.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-2.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-3.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-4.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-5.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-6.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-7.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-8.png" width="1152" /></p>
+<p>Irudien gainetiko azterketa bat:</p>
+<ul>
+<li>ward.D multzokatze era
+<ul>
+<li>Banatzen ditu <em>ile</em> eta <em>iʎe</em></li>
+<li>Batzen ditu <em>bilwak</em>, <em>burukoilea</em> eta <em>biroa</em></li>
+</ul></li>
+<li>ward.D2
+<ul>
+<li>Aurrekoaren antzera.</li>
+<li>ILEONDO eta ILE batera ematen ditu</li>
+</ul></li>
+<li>single
+<ul>
+<li>Batzen ditu ULE eta ILE</li>
+<li>Aurrekotik bereiz ematen du ILHE</li>
+<li>Kima eta Txima banaturik ematen ditu</li>
+</ul></li>
+<li>complete<br />
+Aurrekoaren moduan, ILHE eta ILE banatzen ditu. Baina batzen ditu ULE eta ILE.</li>
+<li>average
+<ul>
+<li>Aurrekoaren antzera</li>
+</ul></li>
+<li>mcquitty
+<ul>
+<li>Batera ILE eta ULE</li>
+<li>Bereiz ILHE</li>
+</ul></li>
+<li>median
+<ul>
+<li>Berdintsu</li>
+</ul></li>
+<li>centroid
+<ul>
+<li>Berdintsu</li>
+</ul></li>
+</ul>
+<p>Lema bat etiketa-zenbaki bik adierazi behar dutela jakin arren, ez du ematen oraingo pausuan berebizikoa izango denik.</p>
+<p><strong>Oharra</strong>:
+Erabaki behar da ea erabilgarria den ala ez.</p>
+<div id="bigarren-ahalegina" class="section level2">
+<h2>Bigarren ahalegina</h2>
+<p>Zortziko taldekatzeak ezin erantzun diezaioke gure planteamenduari, datu hauek erabilita.
+Bide posibleak bi dira, beraz:</p>
+<ol style="list-style-type: decimal">
+<li>Datuak egokitu. Multzokatze prozesuan idazkera/kodetze moduak hurrundutako batzuk hurreratu.<br />
+EB: <em>lh</em> -&gt; <em>l</em>, edo antzerakoak, aurretik adierazi den moduan</li>
+<li>Multzokatze prozesua multzo gehiagotan aztertu.</li>
+</ol>
+<pre class="r"><code># MULTZOKATZEAK
+erak &lt;-c(&quot;ward.D&quot;, &quot;ward.D2&quot;, &quot;single&quot;, &quot;complete&quot;, 
+         &quot;average&quot;, &quot;mcquitty&quot;, &quot;median&quot;,&quot;centroid&quot;)
+
+# IRUDI BAT MULTZOKO
+for(i in erak) {
+    clus.x &lt;- hclust(d.aline.hair, method = i)
+    plot(clus.x, 
+                    cex = 0.5,
+                    labels = paste(df.hair[,1],df.hair[,2], sep = &quot;-&quot;),
+                    main = &quot;Lemen bila&quot;
+                    )
+    rect.hclust(clus.x,
+            k=8,
+            border=&quot;blue&quot;)
+}</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-1.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-2.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-3.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-4.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-5.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-6.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-7.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-8.png" width="1152" /></p>
+<p>Aurreko irudiak aztertuta (eskuineko botoiarekin pantaila osoan ikus daitezke), ematen du gure helburuetatik hurbilen dagoen multzokatze era <code>ward.D2</code> dela. Baina, datuak dauden moduan Senpereko <em>ileondo</em> forma ILE lemaren barruan kokatzen du eta banaketa bat markatzen du BILO eta BILHO artean.</p>
+<p>Datuak zuzendu ezik, etiketa bik batu behar lukete ordezkatze prozesuan.</p>
+</div>
+<div id="hirugarren-ahalegina" class="section level2">
+<h2>Hirugarren ahalegina</h2>
+<p>Honetan soilik aztertuko da <code>ward.D2</code> multzokatze era, baina aurretik datuen <em>lh</em> formak <em>l</em>-ra igaro eta distantzi matrizea berreraikita.</p>
+<pre class="r"><code># df barria
+df.hair1 &lt;- df.hair
+df.hair1[, 2] &lt;- gsub(&quot;lh&quot;, &quot;l&quot;, df.hair1[, 2])
+
+# distantzi matrize berria
+d.aline.hair1 &lt;- aline.dist(df.hair1[,2], df.hair1[,1])
+
+clus.hair1 &lt;- hclust(d.aline.hair1, method = &quot;ward.D2&quot;)
+plot(
+    clus.hair1,
+    cex = 0.5,
+    labels = paste(df.hair[, 1], df.hair[, 2], sep = &quot;-&quot;),
+    main = &quot;Lemen bila v3&quot;
+    )
+rect.hclust(clus.hair1,
+            k = 7,
+            border = &quot;green&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/hirugarrena-1.png" width="1152" /></p>
+<p>Azken multzoek ere ez diote ondo erantzuten, Landibarreko <em>biruak</em> forma eta Ataungo <em>burukoile</em> elkarrekin ematen baititu. Hala ere, ematen du bidea hortik pasa daitekeela.</p>
+</div>
+</div>
+<div id="zenbat-multzo-cluster-egin" class="section level1">
+<h1>Zenbat multzo (<em>cluster</em>) egin ?</h1>
+<p><strong>GARATZEKO</strong></p>
+<p>Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat <em>k</em> egitea komeni den. Multzokatzeen Analisirako gidan <span class="citation">(Kassambara <a href="#ref-kassambara_practical_2017">2017</a>)</span> zehazten da zelan egin<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<pre><code>Aztertu ia alderik dagoan multzokatzeko aldaeren artean. 
+
+Funtzioa egin behar da.
+</code></pre>
+</div>
+<div id="multzoak-zatitu" class="section level1">
+<h1>Multzoak zatitu</h1>
+<p>Multzo era egokia <strong>aukeratutakoan</strong>, multzoak zehaztu eta mugatu behar dira. Hemen agertzen den multzokatze erak ez du beste helbururik bat aukeratuta programazioa garatzea baino.</p>
+<p>Oinarrizko galdera: Esperotako multzoak bat datoz ekuz egindako lematizazio lanarekin?</p>
+<div id="zerrendak-herrienak" class="section level2">
+<h2>Zerrendak (herrienak)</h2>
+<p>Erantzun <a href="https://stackoverflow.com/questions/6518133/clustering-list-for-hclust-function">honetan</a> oinarritua.</p>
+<pre class="r"><code># Prozesu osoa HAMAR multzotan banatu
+kutri &lt;- cutree(clus.hair1, k = 7)</code></pre>
+<p>Cluster arazoduna:</p>
+<pre class="r"><code>names(kutri)[kutri==3]</code></pre>
+<pre><code>## [1] &quot;Ataun&quot;      &quot;Landibarre&quot;</code></pre>
+</div>
+<div id="datu-antolatuekin-data.frame-bat-sortu" class="section level2">
+<h2>Datu antolatuekin <code>data.frame</code> bat sortu</h2>
+<p>Datuok berrantolatu daitezke eta <em>.csv</em> artxibo batera zuzenean atera.</p>
+<pre class="r"><code>df.kutri &lt;- data.frame(HERRIAK = names(kutri),
+                       FORMAK = df.hair[,2], 
+                       MULTZOA = kutri)
+# df.kutri</code></pre>
+<div id="datuen-aurkezpen-ordenatua" class="section level3">
+<h3>Datuen aurkezpen ordenatua</h3>
+<p>Lehenengo zutabean herriak zerrendatzen dira, bigarrenean hizkuntz formak, eta azkenik, hirugarrenak diosku zein multzotakoa den elementua.</p>
+<pre class="r"><code>knitr::kable(dplyr::arrange(df.kutri, kutri), row.names = F)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">HERRIAK</th>
+<th align="left">FORMAK</th>
+<th align="right">MULTZOA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Arrazola (Atxondo)</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Arrieta</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Bakio</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Bermeo</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Berriz</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Bolibar</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Busturia</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Dima</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Elantxobe</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Elorrio</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Errigoiti</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Etxebarri</td>
+<td align="left">úʎa</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Etxebarria</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Gamiz-Fika</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Getxo</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Gizaburuaga</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Ibarruri (Muxika)</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Kortezubi</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Larrabetzu</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Laukiz</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Leioa</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Lekeitio</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Lemoa</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Lemoiz</td>
+<td align="left">ulé</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Mañaria</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Mendata</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Mungia</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Ondarroa</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Orozko</td>
+<td align="left">úʎe</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Otxandio</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Sondika</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Zaratamo</td>
+<td align="left">úʎe</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Zeanuri</td>
+<td align="left">úʎe</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Zeberio</td>
+<td align="left">úʎe</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Zollo (Arrankudiaga)</td>
+<td align="left">úʎa</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Zornotza</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Aramaio</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Araotz (Oñati)</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Arrasate</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Eibar</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Leintz Gatzaga</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Oñati</td>
+<td align="left">úle</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Aia</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Amezketa</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Andoain</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Arroa (Zestoa)</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Asteasu</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Azkoitia</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Azpeitia</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Beasain</td>
+<td align="left">iʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Beizama</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Bergara</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Deba</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Donostia</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Elduain</td>
+<td align="left">iʎɛ</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Elgoibar</td>
+<td align="left">iʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Errezil</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Ezkio-Itsaso</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Getaria</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Hernani</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Hondarribia</td>
+<td align="left">iʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Ikaztegieta</td>
+<td align="left">iʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Lasarte-Oria</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Legazpi</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Mendaro</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Oiartzun</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Orexa</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Orio</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Pasaia</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Tolosa</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Urretxu</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Zegama</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Alkotz</td>
+<td align="left">iʎá</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Aniz</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Arbizu</td>
+<td align="left">iʎá</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Donamaria</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Dorrao / Torrano</td>
+<td align="left">íʎa</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Erratzu</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Etxalar</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Ezkurra</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Gaintza</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Goizueta</td>
+<td align="left">iʎɛ</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Leitza</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Lekaroz</td>
+<td align="left">ílɛ</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Sunbilla</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Urdiain</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Zugarramurdi</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Ahetze</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Arrangoitze</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Azkaine</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Donibane Lohizune</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Hazparne</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Hendaia</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Itsasu</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Mugerre</td>
+<td align="left">ile</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Sara</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Senpere</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Uztaritze</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Aldude</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Armendaritze</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Baigorri</td>
+<td align="left">ile</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Bastida</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Beruete</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Etxaleku</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Etxarri (Larraun)</td>
+<td align="left">iʎí</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Igoa</td>
+<td align="left">iʎé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Suarbe</td>
+<td align="left">íʎe</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Azkaine</td>
+<td align="left">ileá</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Makea</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Arnegi</td>
+<td align="left">ilé</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Bidarrai</td>
+<td align="left">íle</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Izturitze</td>
+<td align="left">ilhe</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Suarbe</td>
+<td align="left">íʎa</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Landibarre</td>
+<td align="left">ílea</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Ataun</td>
+<td align="left">βurúkoiʎé</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Landibarre</td>
+<td align="left">bírua</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Abaurregaina / Abaurrea Alta</td>
+<td align="left">βílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Eugi</td>
+<td align="left">βílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Jaurrieta</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Luzaide / Valcarlos</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Mezkiritz</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Zilbeti</td>
+<td align="left">βílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Bardoze</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Beskoitze</td>
+<td align="left">βílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Makea</td>
+<td align="left">βiló</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Urketa</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Arboti</td>
+<td align="left">bílwak</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Arnegi</td>
+<td align="left">βiló</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Arrueta</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Behorlegi</td>
+<td align="left">biló</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Bidarrai</td>
+<td align="left">βiló</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Ezterenzubi</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Gamarte</td>
+<td align="left">biló</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Garrüze</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Irisarri</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Izturitze</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Jutsi</td>
+<td align="left">bilho</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Landibarre</td>
+<td align="left">biluá</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Larzabale</td>
+<td align="left">bilho</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Uharte Garazi</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Altzai</td>
+<td align="left">bilhó</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Altzürükü</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Barkoxe</td>
+<td align="left">bilho</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Domintxaine</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Eskiula</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Larraine</td>
+<td align="left">bilho</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Montori</td>
+<td align="left">bilhó</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Pagola</td>
+<td align="left">bilhó</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Santa Grazi</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Sohüta</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Urdiñarbe</td>
+<td align="left">bilhó</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Ürrüstoi</td>
+<td align="left">bílho</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Hazparne</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Itsasu</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Uztaritze</td>
+<td align="left">βiló</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Aldude</td>
+<td align="left">biló</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Armendaritze</td>
+<td align="left">biló</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Bastida</td>
+<td align="left">bíle</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Domintxaine</td>
+<td align="left">bilhó</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Eskiula</td>
+<td align="left">bilhúk</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Landibarre</td>
+<td align="left">bílo</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Beruete</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Etxaleku</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Etxarri (Larraun)</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Igoa</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Oderitz</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Suarbe</td>
+<td align="left">kálpar</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Alkotz</td>
+<td align="left">kalpár a</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Gaintza</td>
+<td align="left">kalpár</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Asteasu</td>
+<td align="left">tʃimá</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Oiartzun</td>
+<td align="left">kíma</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Pasaia</td>
+<td align="left">símá</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Senpere</td>
+<td align="left">ileondo</td>
+<td align="right">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="bonus-trak-dendograma-eleganteak-aztertuaz" class="section level1">
+<h1><em>Bonus Trak</em>: Dendograma eleganteak aztertuaz</h1>
+<pre class="r"><code>library(factoextra)
+dendograma.osoa &lt;- fviz_dend(clus.hair1,
+                             k = 7,
+                             cex = 0.5,
+                             rect = FALSE,
+                             k_colors = &quot;jco&quot;)
+dendograma.osoa+
+  geom_hline(yintercept = 0.6, linetype = &quot;dashed&quot;) +
+  labs(title = &quot;Hair in Basque&quot;,
+       subtitle = &quot;ALINE distantzia, Ward.D2, k=?&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma%20pantastiku-1.png" width="1152" /></p>
+<pre class="r"><code>dend_data &lt;- attr(dendograma.osoa, &quot;dendrogram&quot;) # Extract dendrogram data
+
+# Cut the dendrogram at height h = 10
+dend_cuts &lt;- cut(dend_data, h = 0.6)
+
+# Visualize the truncated version containing
+# two branches
+fviz_dend(dend_cuts$upper, main = &quot;dendogramaren mozketa: 1.5 distantzian&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma.zatitzen-1.png" width="672" /></p>
+<pre class="r"><code># Plot subtree 1
+fviz_dend(dend_cuts$lower[[1]], main = &quot;ULE&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code># Plot subtree 2
+fviz_dend(dend_cuts$lower[[3]], main = &quot;ILE&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<pre class="r"><code>fviz_dend(dend_cuts$lower[[4]], main = &quot;ARAZOA!!&quot;)</code></pre>
+<pre><code>## Warning in min(-diff(our_dend_heights)): no non-missing arguments to min;
+## returning Inf</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<pre class="r"><code># Plot subtree 2
+fviz_dend(dend_cuts$lower[[5]], main = &quot;BILO&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
+<pre class="r"><code>fviz_dend(dend_cuts$lower[[6]], main = &quot;KALPAR&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
+<pre class="r"><code>fviz_dend(dend_cuts$lower[[7]], main = &quot;TXIMA&quot;)</code></pre>
+<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-6.png" width="672" /></p>
+</div>
+<div id="egitekoak" class="section level1">
+<h1>Egitekoak</h1>
+<p>Multzokatzeko beste eraren batek, agian, eman lezake emaitza hoberik. Emaitzak zorrozteko beste bide bat izan liteke karaktere/karaktere-kateak ordezteko unean.</p>
+<hr />
+</div>
+<div id="erreferentziak" class="section level1 unnumbered">
+<h1>Erreferentziak</h1>
+<div id="refs" class="references">
+<div id="ref-dialektologia_batzordea_euskararen_2018">
+<p>Dialektologia batzordea. 2018. <em>Euskararen Herri Hizkeren Atlasa IX Lexikoa</em>. Vol. 9. Bilbo: Euskaltzaindia. <a href="http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/9lib/ehha_09.zip" class="uri">http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/9lib/ehha_09.zip</a>.</p>
+</div>
+<div id="ref-downey_computational_2008">
+<p>Downey, Sean S., Brian Hallmark, Murray P. Cox, Peter Norquest, and J. Stephen Lansing. 2008. “Computational Feature-Sensitive Reconstruction of Language Relationships: Developing the ALINE Distance for Comparative Historical Linguistic Reconstruction.” <em>Journal of Quantitative Linguistics</em> 15 (4): 340–69. <a href="https://doi.org/10.1080/09296170802326681" class="uri">https://doi.org/10.1080/09296170802326681</a>.</p>
+</div>
+<div id="ref-downey_aliner:_2017">
+<p>Downey, Sean S., Guowei Sun, and Peter Norquest. 2017. “alineR: An R Package for Optimizing Feature-Weighted Alignments and Linguistic Distances.” <em>The R Journal</em> 9 (1): 138–52. <a href="https://journal.r-project.org/archive/2017/RJ-2017-005/index.html" class="uri">https://journal.r-project.org/archive/2017/RJ-2017-005/index.html</a>.</p>
+</div>
+<div id="ref-kassambara_practical_2017">
+<p>Kassambara, Mr Alboukadel. 2017. <em>Practical Guide to Cluster Analysis in R: Unsupervised Machine Learning</em>. 1st ed. Multivariate Analysis 1. Erscheinungsort nicht ermittelbar: STHDA.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="./HAIR.csv">Hemen</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Aztertu daiteke balioak eurak ere kentzea<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/">Sarrera zuzena</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
