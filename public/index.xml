@@ -40,7 +40,7 @@ This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown pac
       <description>Hurrengo bideotik hartutako ideiak-eta.
 vembedr::embed_youtube(&amp;quot;rFr1OmS7V9Y&amp;quot;)  Hobeto RStudio erabilita, addinsak erabiltzea.
 Academic eredua darabile.
- Hasieran content/home carpetan ezabatzen dau hero.md fitxategia. config.toml oso-oso garrantzitsua.  </description>
+ Hasieran content/home carpetan ezabatzen dau hero.md fitxategia. config.toml oso-oso garrantzitsua. Igo GitHub-era  git init git add . git commit -m &amp;quot;Poriektua gordinik altza&amp;quot; git remote add origin https://github.com/JuanAbasolo/pertsonala.git git push -u origin master Zabaldu web orrija Netlify.com-en minutuaren inguruan   GitHub-egaz sinatu Aukeratu “new site from Git” Joan siteko biltegira “Basic buil settings”</description>
     </item>
     
     <item>

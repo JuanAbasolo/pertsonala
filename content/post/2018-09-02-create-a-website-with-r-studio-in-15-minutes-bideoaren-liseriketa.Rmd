@@ -20,3 +20,27 @@ Hobeto **RStudio** erabilita, addinsak erabiltzea.
 
 * Hasieran `content/home` carpetan ezabatzen dau `hero.md` fitxategia.
 * `config.toml` oso-oso garrantzitsua.
+* Igo GitHub-era  
+
+```R
+git init
+git add .
+git commit -m "Poriektua gordinik altza"
+git remote add origin https://github.com/JuanAbasolo/pertsonala.git
+git push -u origin master
+```
+
+## Zabaldu web orrija Netlify.com-en
+
+11. minutuaren inguruan
+
+* GitHub-egaz sinatu
+* Aukeratu "new site from Git"
+* Joan siteko biltegira
+* "Basic buil settings"  
+  Basic command: `hugo`
+  Publish directory: `public`
+  Advanced build settings
+  New variable>Key `HUGO_VERSION`
+  
+
