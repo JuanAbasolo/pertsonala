@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "eu"
-title = "Web pertsonala"
+title = "Juan Abasolo"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
@@ -12,18 +12,22 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[menu.main]]
     name = "Niri buruz"
     url = "/about/"
+    weight = 1
 [[menu.main]]
     name = "Telegram"
     url = "https://t.me/JuanAbasolo"
+    weight = 2
 [[menu.main]]
     name = "GitHub"
     url = "https://github.com/JuanAbasolo"
+    weight = 3
 [[menu.main]]
     name = "Twitter"
     url = "https://twitter.com/juanbasolo1"
+    weight = 4
 
 [params]
-    description = "Hugo eta blogdown erabiliaz eraikita."
+    description = "Juan Abasoloren webgune pertsonala"
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.11.0"
@@ -38,5 +42,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "logo.jpg"
     width = 50
     height = 50
-    alt = "Logo"
+    alt = ""
+
 

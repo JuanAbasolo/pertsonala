@@ -1,0 +1,322 @@
+---
+title: Idazketa prozesua masiboki aztertzeko tresna
+author: Urlia Lopez de Artaburu
+date: '2018-08-28'
+slug: idazketa-prozesua-masiboki-aztertzeko-tresna
+categories:
+  - proiektua
+tags:
+  - ikerketa
+  - idazketa
+  - r
+  - python
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Laburpena** [![](https://juanabasolo.github.io/Ikerketan/irudiak/slideshow.svg)](https://juanabasolo.github.io/Ikerketan/180830_reveal-aurkezpena.html)
+
+Hurrengo lerroetan azaltzen dut egin daitekeen proiektu ustez emonkorra.Datu
+  batze prozesua erraztuko luke lagin handiak erabiltzea ahalbidetuta. Zenbait ikerketa eremu eta lerro zabal ditzake gure taldeak egin dezan, zein, komunikazio lana egin ondoren, beste batzuek beste hizkuntza batzuetan egokitzeko.Idazketa on-line aztertzeko tresna.
+
+# Proposamena
+
+Azterketa zientifikorako erreminta bat eraikitzea proposatzen dut, zehazki, ordenagailuko idazketa prozesua aztertzeko prozedura eta erreminta. 
+Honelakoak azter litezke kodea garatutakoan:
+
+* **Gaitasun linguistikoan**: hautuen erabilera zuzena, zuzendua eta hausnartua.
+* **Gaitasun pragmatikoan**: Testuaren (edo esaldiaren) osaketa eta antolaketa prozesua. Hautu zuzenak eta zuzenduak
+* Gaitasun soziolinguistikoa:...
+
+Bestelako ikerketa aukerak:
+
+* Testuen zuzenketa: aukera 
+* Idazkuntza kolaboratiboaren egituraketa
+* ...
+
+# Neur litezkeen aldagaiak {#neurgarriak}
+
+* Tipeatutakoa hurrenez hurren
+    * Idatzitakoa
+    * Ezabatutakoa
+    * Lekuz aldatutakoa
+* Denbora (segunduka-edo)
+* Egilea
+
+# Bitartekoa
+
+Aipatu ikerketa aukera horiek aurrera eramateko, dagoeneko baden software libre eta irekia dekodeketa berezi bat eraikitzea proposatzen da. Eta, akaso, software horren egokitzapenaren bat egitea ere bai, helburuen arabera.
+
+Aipatzen den softwarea [Etherpad](http://etherpad.org/)^[https://eu.wikipedia.org/wiki/Etherpad]da. Etherpad  2008an argitaratu zen eta Googlek 2009an erosi zuen, Google Docs-en oinarrian dago eta egin daitezkeen erabilera standarrak ezagunak dira irakurlearentzat. Idazketa kolaboratiborako garatu zen; toki askotatik idatz dezakete hainbat egilek. Egun ere hainbat instantzia daude Interneten erabilgarri: [euren web orrian eskaintzen dutena](https://demo.sandstorm.io/appdemo/h37dm17aa89yrd8zuqpdn36p6zntumtv08fjpu8a8zrte7q1cn60), [Mozillaren instantzia](https://public.etherpad-mozilla.org/), eta [RiseUp](https://pad.riseup.net/)ekoa.
+
+Software libre eta irekia izateak ahalbidetzen du erabiltzea eta aldatzea norberaren beharretara egokituta. Ikerkuntza helburuetara ere bai. Instantzia batetik bestera aldea dagoen arren, oro har, formatu desberdinetan jaits daiteke idatzitako testua: aberastutako testuan (`.rtf` edo `.html` formatuetan), testu soilean, `.txt` formatuan eta Etherpadeko berezko formatuan, `.etherpad`.
+
+Aipatu den azken formatu horretan idatzitako dokumentuak, **Etherpad** programak berak darabilena, testu lauko datuak ditu eta edizio historia osoa gordetzen du. Hain zuzen ere, goiko [atalean](#neurgarriak) aipatutako aldagaietakoa da `.etherpad` formatuko fitxategiak duen informazioa.
+
+Informazio hori, berriz, helburu informatikoekin dago kodetuta eta ez da erraz interpretatzen ez kudeatzen bere horretan.
+
+![.etherpad formatuko artxiboa gordinik](/post/2018-08-28-idazketa-prozesua-masiboki-aztertzeko-tresna_files/Screenshot_20180827_013155.png){width=80%}
+
+Aurreko irudian ikus daiteke testu lau ikuspegia, oraindik dekodetu beharrekoa.
+
+Etherpadek bere erabilera _standard_-ean erakuts ditzake idazketa prozesua urratsez urrats, testu prozesatzaile batek prozesua gordetzen duen antzera. Software libre eta irekiaren filosofiarekin bat etorrita, prozesu guzti horiek erabiltzailearen esku daude. Googleko eta beste testu prozesatzaile batzuek ere uzten dute erabiltzen, baina ez dute informazio hori gordetzen duen artxiborik eta dokumentaziorik ematen, ikerlariaren beharretara egokitzea *de facto* galerazita.
+
+# Garatzekoak
+
+Etherpadeko berezko artxiboen kodea ulertu eta erabiltzea izan behar litzateke ikerlariaren xedea.
+
+Lehenengo helburu bat izan behar da artxiboaren kodeketa banatzea; denbora identifikatzea, egilea identifikatzea eta pausurik pasu berreraikitzea idazketa prozesua. Horretarako, beharrezkoa da Etherpadek erabiltzen duen kodeketa ulertzea eta dekodifikatzailea eraikitzea, ikerketa helburuen arabera.
+
+Helburua zein den, berreraiki behar litzateke idazkuntza prozesua, aldakuntzak nabarmenduta, denbora lerroan kokatuta edo dena delakoa eginda.
+
+Beste helburu era batek ere eska dezake norberaren zerbitzarietan Etherpad egokitua instalatzea, zuzentzeko testuak-edo hasieratik eskainita.
+
+Jarraian, adibide baten bitartez, Etherpad erakutsi eta dituen aukerak iradokitzen dira.
+
+# Adibide bat: </br><small>_Zelan erabili behar litzatekeen informazioa batzeko_</small>{#adibidea}
+
+Hurrengo testuan azaltzen da zein litzatekeen ikergaia lortzeko prozesua. Deskripzio horren lehenengo bertsio bat Etherpad-en idatzita [hemen](https://public.etherpad-mozilla.org/p/Etherpad-idazketa-aztertzeko-tresna) azter  daiteke.
+
+> Prozesua honela laburbil daiteke:
+>    
+> 1. Etherpad izeneko web aplikazioa zabaldu 
+> 2. Dokumentu bat sortu **web orretan** ^[ez baitu balio prozesua beste aplikazioren batean egiteak].
+> 3. Helbide hori gorde (?)
+> 4. Idatzi dokumentua
+> 5. Web helbidea ikerlariari pasatu
+>    
+> Ikerlariak, web helbide hori duela, idatzitakoa zein idazketa prozesu osoa gordetzen duen dokumentua jaits ditzake eta, baliabidea sortuz gero, analizatu.
+>
+> Jaisteko:
+>    
+>  1. Joan informatzaileak emandako web helbidera eta goian agertzen diren ikonoetariko batean dokumentua hainbat formatutan deskargatzeko aukera ematen du.  
+>    [Mozillak eskaintzen duenak](https://public.etherpad-mozilla.org), esate baterako, `.txt`, `.html` eta `.etherpad` formatuetan jaisteko aukera ematen du.
+>  2. `.etherpad` formatuduna jaitsi.
+>  3. Aztertzeko tresnarekin erabili.
+>  
+> *Aztertzeko tresna* hori da oraindik garatzeko dagoena.
+
+## Aurreko testuaren bideoa:
+
+Aurreko testuaren lehenengo bertsioaren idazketa ikus daiteke segidako bideoan. Gainean klik eginda pantaila osoan ikusteko aukera ere ematen du.
+
+![](bideoak/2018-08-27 00-13-09.mp4)
+
+Prozesu horretako bideoan hainbat norabide aldaketa ikusten dira: 
+
+* Hurrenkera bat eraikitzen ari denean, 72. pausuan, enter bat gehitu zerrendatutako elementu biren artean.
+* Markatu gabeko letrak sartzea, bat edo beste ordezkatzea edo soberako bat edo beste kentzea
+* Aurrez idatzitako testuari azalpenezko nabardurak idaztea (202. pausuaren inguruan).
+* Testuaren birformulazioa (211. pausuan hasten da ezabatzen)
+* Ortografia zuzenketa, 289. pausuan hasita.
+* Gramatika autozuzenketa, 348. pausuan hasita.
+* Egokitasun zuzenketa, 372. pausuan hasita.
+* Informazio osagarria gehitzea, 469. pausuan hasita.
+
+Elementu guzti horiek aztergarri uzten ditu `.etherpad` formatuko dokumentuak, ikerketa eremuaren arabera, ikertzaile bakoitzak egokitzeko.
+
+### Irakurgarri egiteko scripta
+
+[Librezale](http://t.me/librezale) foroko informatikari baten ekarpenei esker, goiko irudiko testu lau eta trinkoa irakurgarriago egitea lortu da, pasatutako script baten bitartez:
+
+```python
+#!/usr/bin/python
+import json
+import sys
+
+json.dump(json.load(sys.stdin), sys.stdout, indent=4)
+```
+
+Honako agindua erabili behar da segidako irteera lortzeko:
+`cat aztertzeko-artxiboaren-izena.etherpad | ./scriptaren-izena`
+
+![Kodean aztertzeko scripta pasatuta](/post/2018-08-28-idazketa-prozesua-masiboki-aztertzeko-tresna_files/Screenshot_20180827_014404.png){width=80%}
+
+Aurreko irudian ikus daitekeenez, testuaren garapena askoz handiagoa da goian irakurritako [adibideko](#adibidea) testua baino. 
+
+Script horrek testuaren kodea zabaldu egiten du eta barruko elementuak aztertzeko aukera eskuragai ipini ere bai. Dokumentu hori osorik [hemen](adibide-eleanti) ikus daiteke.
+
+Ikuspegi orokorragoa eta erabilgarriagoa lor daiteke hurrengo scriptarekin, datuen sailkapena ematen duen scriptarekin.
+
+### Datuak antolatuta aztertzeko scriptaren bila
+
+Aurrez azaldutako foroan [Maider](http://t.me/pisoni) erabiltzaileak idatzitako scriptak informazioa antolatzen du eta kalkulu orri formatuan itzultzen, intereseko aldagaiak banatuta: pausua (Revision), unea (Timestamp), egilea (Author), aldaketa (Changeset).
+
+Scripta:
+
+```python
+import json
+import argparse
+import csv
+
+parser = argparse.ArgumentParser(description="Etherpad bateko aldaketak CSV batera pasa.")
+parser.add_argument('etherpad_fitxategia', help="Exportatu nahi den etherpad fitxategia")
+parser.add_argument('izena', help="pad-aren izena")
+parser.add_argument('csv_fitxategia', help="CSV fitxategiaren izena")
+
+
+def extract_changesets(name, data):
+    pad_name = "pad:{0}".format(name)
+    metadata = data[pad_name]
+    changesets = [(
+        "Revision",
+        "Timestamp",
+        "Author",
+        "Changeset",
+#        "atext",
+    )]
+    for revision in range(metadata["head"] + 1):
+        revision_name = "{0}:revs:{1}".format(pad_name, revision)
+        revision_data = data[revision_name]
+        changesets.append((
+            revision,
+            revision_data["meta"]["timestamp"],
+            revision_data["meta"]["author"],
+            revision_data["changeset"],
+ #           revision_data["atext"],
+        ))
+
+    return changesets
+
+
+def main(etherpad_filename, name, csv_filename):
+    with open(etherpad_filename, 'r') as etherpad_filename:
+        data = json.load(etherpad_filename)
+
+    changesets = extract_changesets(name, data)
+
+
+    with open(csv_filename, 'w') as csvfile:
+        csvwriter = csv.writer(csvfile, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL)
+        for line in changesets:
+            csvwriter.writerow(line)
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    main(args.etherpad_fitxategia, args.izena, args.csv_fitxategia)
+```
+
+Script horren izena **extract_etherpad_changesets.py** dela, honelako aginduaz lortzen da irteera antolatuko artxiboa, *begiratzeko.csv* izenarekin
+
+```bash
+python extract_etherpad_changesets.py Etherpad-idazketa-aztertzeko-tresna.etherpad Etherpad-idazketa-aztertzeko-tresna begiratzeko.csv
+```
+
+```{r echo=FALSE}
+
+begiratzeko <- read.csv("./begiratzeko.csv")
+```
+
+Horren erabilera erakusteko, segidan erakusten dira [*begiratzeko.csv*](begiratzeko.csv) fitxategiaren lehenengo 20 lerroak. Kontuan izan behar da fitxategi horrek denera `r nrow(begiratzeko)` lerro dituela.
+
+```{r begiratzeko, results='asis', echo=FALSE}
+bg2 <- begiratzeko
+bg2[,2] <- bg2[,2]/100
+
+knitr::kable(bg2[c(2:21),],
+             row.names = F, 
+             caption = "Prozesua honela laburbil daiteke",
+             align = "c")
+```
+
+Taulako lehenengo zutabean adierazten da zenbatgarren pausua den, bigarrenean noiz egin den, hirugarrenak nork eta azken zutabean zein izan den aldaketa. Azken zutabearen *$* karakterearen ondoren irakurtzen dena da edizioaren informazioa.
+
+# Dekodetzea prozesua
+
+Aurreko scriptaren emaitzarekin oinarrituta jatorrizko testua berreskura daiteke, baldintza batzuk betetzen badira. 
+Lehen, kodearen irakurgarritasuna hobetutakoan erakutsi denez, karaktere eta elementuen kokapena erraz antzematen dira. Edizioa gehitzera mugatzen den kasuetarako dekodetze prozesua erakusten da jarraian:
+
+```{r echo=F}
+begiratzeko$Changeset <- as.character(begiratzeko$Changeset)
+# Zenbatgarren agertzen dan nahi dan karakterea, $
+# $ karakterea berezia danez aurretik bi \ behar ditu libratzeko
+# regexpr()-k lista bat bueltaten dau, 
+# interesekoa da lehenengo listako lehenengo elementua (kokapena)
+# Funtzinoiak bakarrik emoten dau topautako lehenengoko elementua
+```
+
+
+```{r echo=TRUE}
+
+# Dekodetuko diren pausuak aukeratu
+zer <- begiratzeko$Changeset[3:21]
+
+zer
+
+# Pasarte horietako kodean non hasten den editatutakoaren informazioa
+nun <- regexpr(pattern = "\\$", zer)
+
+nun # "$" karakterearen kokapena "changeset" aldagaiko balioan
+
+# Kodearen luzera aberiguatu
+luze <- nchar(zer)
+
+luze # Aldagaiko balioaren karakteree luzeera
+
+#Identifikatu aldaketa izan direan elementuak
+substr(zer, nun+1, luze)
+
+# Komatxuak kenduta
+cat(substr(zer, nun+1, luze))
+
+# Pertsonentzat irakurgarri:
+# Kodeetan topatutako edizio informazio guztia batu espazio barik
+cat(substr(zer, nun+1, luze), sep = "")
+
+```
+
+## Huts egitea ^[Azterketan jarraitzeko atala ere bada huts egitearen gainekoa]
+
+Sistema bera segituaz, baina, emaitzak ez dira hain onargarriak ezabaketak eta kokapen aldaketak daudenean.  Hau gertatzen da 3.etik 297. lerrorako tartean aurreko sistema hutsa erabilita:
+
+```{r}
+zer <- begiratzeko$Changeset[3:297]
+
+zer
+
+nun <- regexpr(pattern = "\\$", zer)
+
+luze <- nchar(zer)
+
+#Identifikatu aldaketa izan direan elementuak
+substr(zer, nun+1, luze)
+
+# Pertsonentzat irakurgarri
+cat(substr(zer, nun+1, luze), sep = "")
+
+```
+
+Berez, testuak itxura hau du, ordea:
+
+```
+## Prozesua honela laburbil daiteke:
+##     
+##     1. Etherpad izeneko web aplikazioa zabaldu 
+##     2. Dokumentu bat sortu **web orretan** ^[ez baitu balio prozesua beste aplikazioren batean egiteak].
+##     3. Helbide hori gorde (?)
+##     4. Idatzi dokumentua
+##     5. Web helbidea ikerlariari pasatu
+##     
+## Ikerlariak, orduan, web helbide hori duela idatzitakoa zein idazketa prozesu osoa gordetzen duen dokumentua jaits dezake, eta baliabidea sortuz gero, analizatu.
+```
+
+
+# Lortzekoa
+
+Aurreko sriptarekin eta taulako adibidearekin erakutsi nahi izan da badagoela informazioa aztertzeko bidea; baina idazketa linearrak aldaketak identifikatzen dituen moduan, kodearen azterketa osoak datu gehiago ere erakusten utzi behar lukete:
+
+* Ezabatutakoa
+* Karakteren kokapena testu osoan (eman dezagun testuaren zati bat toki batetik bestera mugitzen duela informatzaileak)
+* Formatu aldaketak. Orain ez dute ematen garrantzitsuak izango direnik, baina identifikatzen jakin behar da, informazio horrek ez distraitzeko ^[Beste aukera bat izan daiteke Etherpadaren beste bertsio bat egitea testu formatu aldaketarik uzten ez duena].
+* ...
+
+Jakina, berreskuratutako testuak ez du lotu behar, soilik, behinik behin, idazlearen helburu testura, prozesua erakusteko multzoak ere bistaratu behar lituzke.
+
+Lorpenok eskuratuz gero, erreminta honek lagundu lezake informatzaile askoren datuak eskuratzen. Era bateko edo besteko portaeretan fokua jarrita,  portaerak identifikatzen eta sailkatzen ere lagunduko luke: berridazketak, $x$ neurriko zuzenketak identifikatzen, esaldi barruko zalantza uneak identifikatzea eta abar luzea.
+
+Idazketa jarduna aztertzeko tresnak ikerketa elementu askotarako bidea zabalduko luke, ikuspegi kuantitatibotik.
+

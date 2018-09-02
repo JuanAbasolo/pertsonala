@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Juan Abasolo</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on Juan Abasolo</description>
+    <title>Proiektua on Juan Abasolo</title>
+    <link>/categories/proiektua/</link>
+    <description>Recent content in Proiektua on Juan Abasolo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Sun, 02 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Aug 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/proiektua/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Webgunea RStudio-n eregi eta argitaratu</title>
-      <link>/2018/09/02/webgunea-rstudio-n-eregi/</link>
-      <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/09/02/webgunea-rstudio-n-eregi/</guid>
-      <description>Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
- Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
-
-installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
- Segitu pausuak
- Aukeratu HUGO gai bat Kopiatu GitHub-eko helbidea eta hori ipini sortzeko orduan Itxoin dena jaisteko Zelan doan ikusteko Server Site.  Tuneatu norberaren datuekin
-Niri gai batzuk arazoak eman dizkidate config.</description>
-    </item>
     
     <item>
       <title>Idazketa prozesua masiboki aztertzeko tresna</title>

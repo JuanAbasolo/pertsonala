@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aproba on Web pertsonala</title>
+    <title>Aproba on Juan Abasolo</title>
     <link>/categories/aproba/</link>
-    <description>Recent content in Aproba on Web pertsonala</description>
+    <description>Recent content in Aproba on Juan Abasolo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
     <lastBuildDate>Sun, 02 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/aproba/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Create a Website with R Studio in 15 Minutes! Bideoaren liseriketa</title>
-      <link>/2018/09/02/create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa/</link>
-      <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/09/02/create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa/</guid>
-      <description>Hurrengo bideotik hartutako ideiak-eta.
-vembedr::embed_youtube(&amp;quot;rFr1OmS7V9Y&amp;quot;)  Hobeto RStudio erabilita, addinsak erabiltzea.
-Academic eredua darabile.
- Hasieran content/home carpetan ezabatzen dau hero.md fitxategia. config.toml oso-oso garrantzitsua. Igo GitHub-era  git init git add . git commit -m &amp;quot;Poriektua gordinik altza&amp;quot; git remote add origin https://github.com/JuanAbasolo/pertsonala.git git push -u origin master Zabaldu web orrija Netlify.com-en minutuaren inguruan   GitHub-egaz sinatu Aukeratu “new site from Git” Joan siteko biltegira “Basic buil settings”</description>
-    </item>
     
     <item>
       <title>addin-a erabilita sortutako mezua</title>

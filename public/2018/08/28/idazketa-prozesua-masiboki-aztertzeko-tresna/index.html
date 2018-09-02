@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="eu">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.47.1" />
+
+
+<title>Idazketa prozesua masiboki aztertzeko tresna - Juan Abasolo</title>
+<meta property="og:title" content="Idazketa prozesua masiboki aztertzeko tresna - Juan Abasolo">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.jpg"
+         width="50"
+         height="50"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">Niri buruz</a></li>
+    
+    <li><a href="https://t.me/JuanAbasolo">Telegram</a></li>
+    
+    <li><a href="https://github.com/JuanAbasolo">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/juanbasolo1">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">14 min read</span>
+    
+
+    <h1 class="article-title">Idazketa prozesua masiboki aztertzeko tresna</h1>
+
+    
+    <span class="article-date">2018/08/28</span>
+    
+
+    <div class="article-content">
+      <p><strong>Laburpena</strong> <a href="https://juanabasolo.github.io/Ikerketan/180830_reveal-aurkezpena.html"><img src="https://juanabasolo.github.io/Ikerketan/irudiak/slideshow.svg" /></a></p>
+<p>Hurrengo lerroetan azaltzen dut egin daitekeen proiektu ustez emonkorra.Datu batze prozesua erraztuko luke lagin handiak erabiltzea ahalbidetuta. Zenbait ikerketa eremu eta lerro zabal ditzake gure taldeak egin dezan, zein, komunikazio lana egin ondoren, beste batzuek beste hizkuntza batzuetan egokitzeko.Idazketa on-line aztertzeko tresna.</p>
+<div id="proposamena" class="section level1">
+<h1>Proposamena</h1>
+<p>Azterketa zientifikorako erreminta bat eraikitzea proposatzen dut, zehazki, ordenagailuko idazketa prozesua aztertzeko prozedura eta erreminta. Honelakoak azter litezke kodea garatutakoan:</p>
+<ul>
+<li><strong>Gaitasun linguistikoan</strong>: hautuen erabilera zuzena, zuzendua eta hausnartua.</li>
+<li><strong>Gaitasun pragmatikoan</strong>: Testuaren (edo esaldiaren) osaketa eta antolaketa prozesua. Hautu zuzenak eta zuzenduak</li>
+<li>Gaitasun soziolinguistikoa:…</li>
+</ul>
+<p>Bestelako ikerketa aukerak:</p>
+<ul>
+<li>Testuen zuzenketa: aukera</li>
+<li>Idazkuntza kolaboratiboaren egituraketa</li>
+<li>…</li>
+</ul>
+</div>
+<div id="neurgarriak" class="section level1">
+<h1>Neur litezkeen aldagaiak</h1>
+<ul>
+<li>Tipeatutakoa hurrenez hurren
+<ul>
+<li>Idatzitakoa</li>
+<li>Ezabatutakoa</li>
+<li>Lekuz aldatutakoa</li>
+</ul></li>
+<li>Denbora (segunduka-edo)</li>
+<li>Egilea</li>
+</ul>
+</div>
+<div id="bitartekoa" class="section level1">
+<h1>Bitartekoa</h1>
+<p>Aipatu ikerketa aukera horiek aurrera eramateko, dagoeneko baden software libre eta irekia dekodeketa berezi bat eraikitzea proposatzen da. Eta, akaso, software horren egokitzapenaren bat egitea ere bai, helburuen arabera.</p>
+<p>Aipatzen den softwarea <a href="http://etherpad.org/">Etherpad</a><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>da. Etherpad 2008an argitaratu zen eta Googlek 2009an erosi zuen, Google Docs-en oinarrian dago eta egin daitezkeen erabilera standarrak ezagunak dira irakurlearentzat. Idazketa kolaboratiborako garatu zen; toki askotatik idatz dezakete hainbat egilek. Egun ere hainbat instantzia daude Interneten erabilgarri: <a href="https://demo.sandstorm.io/appdemo/h37dm17aa89yrd8zuqpdn36p6zntumtv08fjpu8a8zrte7q1cn60">euren web orrian eskaintzen dutena</a>, <a href="https://public.etherpad-mozilla.org/">Mozillaren instantzia</a>, eta <a href="https://pad.riseup.net/">RiseUp</a>ekoa.</p>
+<p>Software libre eta irekia izateak ahalbidetzen du erabiltzea eta aldatzea norberaren beharretara egokituta. Ikerkuntza helburuetara ere bai. Instantzia batetik bestera aldea dagoen arren, oro har, formatu desberdinetan jaits daiteke idatzitako testua: aberastutako testuan (<code>.rtf</code> edo <code>.html</code> formatuetan), testu soilean, <code>.txt</code> formatuan eta Etherpadeko berezko formatuan, <code>.etherpad</code>.</p>
+<p>Aipatu den azken formatu horretan idatzitako dokumentuak, <strong>Etherpad</strong> programak berak darabilena, testu lauko datuak ditu eta edizio historia osoa gordetzen du. Hain zuzen ere, goiko <a href="#neurgarriak">atalean</a> aipatutako aldagaietakoa da <code>.etherpad</code> formatuko fitxategiak duen informazioa.</p>
+<p>Informazio hori, berriz, helburu informatikoekin dago kodetuta eta ez da erraz interpretatzen ez kudeatzen bere horretan.</p>
+<div class="figure">
+<img src="/post/2018-08-28-idazketa-prozesua-masiboki-aztertzeko-tresna_files/Screenshot_20180827_013155.png" alt=".etherpad formatuko artxiboa gordinik" style="width:80.0%" />
+<p class="caption">.etherpad formatuko artxiboa gordinik</p>
+</div>
+<p>Aurreko irudian ikus daiteke testu lau ikuspegia, oraindik dekodetu beharrekoa.</p>
+<p>Etherpadek bere erabilera <em>standard</em>-ean erakuts ditzake idazketa prozesua urratsez urrats, testu prozesatzaile batek prozesua gordetzen duen antzera. Software libre eta irekiaren filosofiarekin bat etorrita, prozesu guzti horiek erabiltzailearen esku daude. Googleko eta beste testu prozesatzaile batzuek ere uzten dute erabiltzen, baina ez dute informazio hori gordetzen duen artxiborik eta dokumentaziorik ematen, ikerlariaren beharretara egokitzea <em>de facto</em> galerazita.</p>
+</div>
+<div id="garatzekoak" class="section level1">
+<h1>Garatzekoak</h1>
+<p>Etherpadeko berezko artxiboen kodea ulertu eta erabiltzea izan behar litzateke ikerlariaren xedea.</p>
+<p>Lehenengo helburu bat izan behar da artxiboaren kodeketa banatzea; denbora identifikatzea, egilea identifikatzea eta pausurik pasu berreraikitzea idazketa prozesua. Horretarako, beharrezkoa da Etherpadek erabiltzen duen kodeketa ulertzea eta dekodifikatzailea eraikitzea, ikerketa helburuen arabera.</p>
+<p>Helburua zein den, berreraiki behar litzateke idazkuntza prozesua, aldakuntzak nabarmenduta, denbora lerroan kokatuta edo dena delakoa eginda.</p>
+<p>Beste helburu era batek ere eska dezake norberaren zerbitzarietan Etherpad egokitua instalatzea, zuzentzeko testuak-edo hasieratik eskainita.</p>
+<p>Jarraian, adibide baten bitartez, Etherpad erakutsi eta dituen aukerak iradokitzen dira.</p>
+</div>
+<div id="adibidea" class="section level1">
+<h1>Adibide bat: </br><small><em>Zelan erabili behar litzatekeen informazioa batzeko</em></small></h1>
+<p>Hurrengo testuan azaltzen da zein litzatekeen ikergaia lortzeko prozesua. Deskripzio horren lehenengo bertsio bat Etherpad-en idatzita <a href="https://public.etherpad-mozilla.org/p/Etherpad-idazketa-aztertzeko-tresna">hemen</a> azter daiteke.</p>
+<blockquote>
+<p>Prozesua honela laburbil daiteke:</p>
+<ol style="list-style-type: decimal">
+<li>Etherpad izeneko web aplikazioa zabaldu</li>
+<li>Dokumentu bat sortu <strong>web orretan</strong> <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</li>
+<li>Helbide hori gorde (?)</li>
+<li>Idatzi dokumentua</li>
+<li>Web helbidea ikerlariari pasatu</li>
+</ol>
+<p>Ikerlariak, web helbide hori duela, idatzitakoa zein idazketa prozesu osoa gordetzen duen dokumentua jaits ditzake eta, baliabidea sortuz gero, analizatu.</p>
+<p>Jaisteko:</p>
+<ol style="list-style-type: decimal">
+<li>Joan informatzaileak emandako web helbidera eta goian agertzen diren ikonoetariko batean dokumentua hainbat formatutan deskargatzeko aukera ematen du.<br />
+<a href="https://public.etherpad-mozilla.org">Mozillak eskaintzen duenak</a>, esate baterako, <code>.txt</code>, <code>.html</code> eta <code>.etherpad</code> formatuetan jaisteko aukera ematen du.</li>
+<li><code>.etherpad</code> formatuduna jaitsi.</li>
+<li>Aztertzeko tresnarekin erabili.</li>
+</ol>
+<p><em>Aztertzeko tresna</em> hori da oraindik garatzeko dagoena.</p>
+</blockquote>
+<div id="aurreko-testuaren-bideoa" class="section level2">
+<h2>Aurreko testuaren bideoa:</h2>
+<p>Aurreko testuaren lehenengo bertsioaren idazketa ikus daiteke segidako bideoan. Gainean klik eginda pantaila osoan ikusteko aukera ere ematen du.</p>
+<div class="figure">
+<embed src="bideoak/2018-08-27%2000-13-09.mp4" />
+
+</div>
+<p>Prozesu horretako bideoan hainbat norabide aldaketa ikusten dira:</p>
+<ul>
+<li>Hurrenkera bat eraikitzen ari denean, 72. pausuan, enter bat gehitu zerrendatutako elementu biren artean.</li>
+<li>Markatu gabeko letrak sartzea, bat edo beste ordezkatzea edo soberako bat edo beste kentzea</li>
+<li>Aurrez idatzitako testuari azalpenezko nabardurak idaztea (202. pausuaren inguruan).</li>
+<li>Testuaren birformulazioa (211. pausuan hasten da ezabatzen)</li>
+<li>Ortografia zuzenketa, 289. pausuan hasita.</li>
+<li>Gramatika autozuzenketa, 348. pausuan hasita.</li>
+<li>Egokitasun zuzenketa, 372. pausuan hasita.</li>
+<li>Informazio osagarria gehitzea, 469. pausuan hasita.</li>
+</ul>
+<p>Elementu guzti horiek aztergarri uzten ditu <code>.etherpad</code> formatuko dokumentuak, ikerketa eremuaren arabera, ikertzaile bakoitzak egokitzeko.</p>
+<div id="irakurgarri-egiteko-scripta" class="section level3">
+<h3>Irakurgarri egiteko scripta</h3>
+<p><a href="http://t.me/librezale">Librezale</a> foroko informatikari baten ekarpenei esker, goiko irudiko testu lau eta trinkoa irakurgarriago egitea lortu da, pasatutako script baten bitartez:</p>
+<pre class="python"><code>#!/usr/bin/python
+import json
+import sys
+
+json.dump(json.load(sys.stdin), sys.stdout, indent=4)</code></pre>
+<p>Honako agindua erabili behar da segidako irteera lortzeko: <code>cat aztertzeko-artxiboaren-izena.etherpad | ./scriptaren-izena</code></p>
+<div class="figure">
+<img src="/post/2018-08-28-idazketa-prozesua-masiboki-aztertzeko-tresna_files/Screenshot_20180827_014404.png" alt="Kodean aztertzeko scripta pasatuta" style="width:80.0%" />
+<p class="caption">Kodean aztertzeko scripta pasatuta</p>
+</div>
+<p>Aurreko irudian ikus daitekeenez, testuaren garapena askoz handiagoa da goian irakurritako <a href="#adibidea">adibideko</a> testua baino.</p>
+<p>Script horrek testuaren kodea zabaldu egiten du eta barruko elementuak aztertzeko aukera eskuragai ipini ere bai. Dokumentu hori osorik <a href="adibide-eleanti">hemen</a> ikus daiteke.</p>
+<p>Ikuspegi orokorragoa eta erabilgarriagoa lor daiteke hurrengo scriptarekin, datuen sailkapena ematen duen scriptarekin.</p>
+</div>
+<div id="datuak-antolatuta-aztertzeko-scriptaren-bila" class="section level3">
+<h3>Datuak antolatuta aztertzeko scriptaren bila</h3>
+<p>Aurrez azaldutako foroan <a href="http://t.me/pisoni">Maider</a> erabiltzaileak idatzitako scriptak informazioa antolatzen du eta kalkulu orri formatuan itzultzen, intereseko aldagaiak banatuta: pausua (Revision), unea (Timestamp), egilea (Author), aldaketa (Changeset).</p>
+<p>Scripta:</p>
+<pre class="python"><code>import json
+import argparse
+import csv
+
+parser = argparse.ArgumentParser(description=&quot;Etherpad bateko aldaketak CSV batera pasa.&quot;)
+parser.add_argument(&#39;etherpad_fitxategia&#39;, help=&quot;Exportatu nahi den etherpad fitxategia&quot;)
+parser.add_argument(&#39;izena&#39;, help=&quot;pad-aren izena&quot;)
+parser.add_argument(&#39;csv_fitxategia&#39;, help=&quot;CSV fitxategiaren izena&quot;)
+
+
+def extract_changesets(name, data):
+    pad_name = &quot;pad:{0}&quot;.format(name)
+    metadata = data[pad_name]
+    changesets = [(
+        &quot;Revision&quot;,
+        &quot;Timestamp&quot;,
+        &quot;Author&quot;,
+        &quot;Changeset&quot;,
+#        &quot;atext&quot;,
+    )]
+    for revision in range(metadata[&quot;head&quot;] + 1):
+        revision_name = &quot;{0}:revs:{1}&quot;.format(pad_name, revision)
+        revision_data = data[revision_name]
+        changesets.append((
+            revision,
+            revision_data[&quot;meta&quot;][&quot;timestamp&quot;],
+            revision_data[&quot;meta&quot;][&quot;author&quot;],
+            revision_data[&quot;changeset&quot;],
+ #           revision_data[&quot;atext&quot;],
+        ))
+
+    return changesets
+
+
+def main(etherpad_filename, name, csv_filename):
+    with open(etherpad_filename, &#39;r&#39;) as etherpad_filename:
+        data = json.load(etherpad_filename)
+
+    changesets = extract_changesets(name, data)
+
+
+    with open(csv_filename, &#39;w&#39;) as csvfile:
+        csvwriter = csv.writer(csvfile, delimiter=&quot;,&quot;, quotechar=&#39;&quot;&#39;, quoting=csv.QUOTE_ALL)
+        for line in changesets:
+            csvwriter.writerow(line)
+
+
+if __name__ == &#39;__main__&#39;:
+    args = parser.parse_args()
+    main(args.etherpad_fitxategia, args.izena, args.csv_fitxategia)</code></pre>
+<p>Script horren izena <strong>extract_etherpad_changesets.py</strong> dela, honelako aginduaz lortzen da irteera antolatuko artxiboa, <em>begiratzeko.csv</em> izenarekin</p>
+<pre class="bash"><code>python extract_etherpad_changesets.py Etherpad-idazketa-aztertzeko-tresna.etherpad Etherpad-idazketa-aztertzeko-tresna begiratzeko.csv</code></pre>
+<p>Horren erabilera erakusteko, segidan erakusten dira <a href="begiratzeko.csv"><em>begiratzeko.csv</em></a> fitxategiaren lehenengo 20 lerroak. Kontuan izan behar da fitxategi horrek denera 574 lerro dituela.</p>
+<table>
+<caption><span id="tab:begiratzeko">Table 1: </span>Prozesua honela laburbil daiteke</caption>
+<thead>
+<tr class="header">
+<th align="center">Revision</th>
+<th align="center">Timestamp</th>
+<th align="center">Author</th>
+<th align="center">Changeset</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">15350938546</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:6c&lt;6b|5-6b$</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">15350938827</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:1&gt;1*0+1$P</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">15350938833</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:2&gt;2=1*0+2$ro</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">15350938837</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:4&gt;1=3*0+1$z</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">15350938843</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:5&gt;2=4*0+2$es</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">15350938847</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:7&gt;2=6*0+2$ua</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">15350938900</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:9&gt;1=8*0+1$</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">15350938914</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:a&gt;2=9*0+2$ho</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">15350938919</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:c&gt;2=b*0+2$ne</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">15350938925</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:e&gt;1=d*0+1$l</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">15350938930</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:f&gt;2=e*0+2$a</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">15350938935</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:h&gt;2=g*0+2$la</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">15350938940</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:j&gt;2=i*0+2$bu</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">15350938945</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:l&gt;1=k*0+1$r</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">15350938950</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:m&gt;2=l*0+2$bi</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">15350938955</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:o&gt;1=n*0+1$l</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">15350938961</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:p&gt;1=o*0+1$</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">15350938966</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:q&gt;3=p*0+3$dai</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">15350938971</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:t&gt;3=s*0+3$tek</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">15350938976</td>
+<td align="center">a.ao3KA1J3ReC4HCmy</td>
+<td align="center">Z:w&gt;1=v*0+1$e</td>
+</tr>
+</tbody>
+</table>
+<p>Taulako lehenengo zutabean adierazten da zenbatgarren pausua den, bigarrenean noiz egin den, hirugarrenak nork eta azken zutabean zein izan den aldaketa. Azken zutabearen <em>$</em> karakterearen ondoren irakurtzen dena da edizioaren informazioa.</p>
+</div>
+</div>
+</div>
+<div id="dekodetzea-prozesua" class="section level1">
+<h1>Dekodetzea prozesua</h1>
+<p>Aurreko scriptaren emaitzarekin oinarrituta jatorrizko testua berreskura daiteke, baldintza batzuk betetzen badira. Lehen, kodearen irakurgarritasuna hobetutakoan erakutsi denez, karaktere eta elementuen kokapena erraz antzematen dira. Edizioa gehitzera mugatzen den kasuetarako dekodetze prozesua erakusten da jarraian:</p>
+<pre class="r"><code># Dekodetuko diren pausuak aukeratu
+zer &lt;- begiratzeko$Changeset[3:21]
+
+zer</code></pre>
+<pre><code>##  [1] &quot;Z:1&gt;1*0+1$P&quot;     &quot;Z:2&gt;2=1*0+2$ro&quot;  &quot;Z:4&gt;1=3*0+1$z&quot;  
+##  [4] &quot;Z:5&gt;2=4*0+2$es&quot;  &quot;Z:7&gt;2=6*0+2$ua&quot;  &quot;Z:9&gt;1=8*0+1$ &quot;  
+##  [7] &quot;Z:a&gt;2=9*0+2$ho&quot;  &quot;Z:c&gt;2=b*0+2$ne&quot;  &quot;Z:e&gt;1=d*0+1$l&quot;  
+## [10] &quot;Z:f&gt;2=e*0+2$a &quot;  &quot;Z:h&gt;2=g*0+2$la&quot;  &quot;Z:j&gt;2=i*0+2$bu&quot; 
+## [13] &quot;Z:l&gt;1=k*0+1$r&quot;   &quot;Z:m&gt;2=l*0+2$bi&quot;  &quot;Z:o&gt;1=n*0+1$l&quot;  
+## [16] &quot;Z:p&gt;1=o*0+1$ &quot;   &quot;Z:q&gt;3=p*0+3$dai&quot; &quot;Z:t&gt;3=s*0+3$tek&quot;
+## [19] &quot;Z:w&gt;1=v*0+1$e&quot;</code></pre>
+<pre class="r"><code># Pasarte horietako kodean non hasten den editatutakoaren informazioa
+nun &lt;- regexpr(pattern = &quot;\\$&quot;, zer)
+
+nun # &quot;$&quot; karakterearen kokapena &quot;changeset&quot; aldagaiko balioan</code></pre>
+<pre><code>##  [1] 10 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12 12
+## attr(,&quot;match.length&quot;)
+##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+## attr(,&quot;index.type&quot;)
+## [1] &quot;chars&quot;
+## attr(,&quot;useBytes&quot;)
+## [1] TRUE</code></pre>
+<pre class="r"><code># Kodearen luzera aberiguatu
+luze &lt;- nchar(zer)
+
+luze # Aldagaiko balioaren karakteree luzeera</code></pre>
+<pre><code>##  [1] 11 14 13 14 14 13 14 14 13 14 14 14 13 14 13 13 15 15 13</code></pre>
+<pre class="r"><code>#Identifikatu aldaketa izan direan elementuak
+substr(zer, nun+1, luze)</code></pre>
+<pre><code>##  [1] &quot;P&quot;   &quot;ro&quot;  &quot;z&quot;   &quot;es&quot;  &quot;ua&quot;  &quot; &quot;   &quot;ho&quot;  &quot;ne&quot;  &quot;l&quot;   &quot;a &quot;  &quot;la&quot; 
+## [12] &quot;bu&quot;  &quot;r&quot;   &quot;bi&quot;  &quot;l&quot;   &quot; &quot;   &quot;dai&quot; &quot;tek&quot; &quot;e&quot;</code></pre>
+<pre class="r"><code># Komatxuak kenduta
+cat(substr(zer, nun+1, luze))</code></pre>
+<pre><code>## P ro z es ua   ho ne l a  la bu r bi l   dai tek e</code></pre>
+<pre class="r"><code># Pertsonentzat irakurgarri:
+# Kodeetan topatutako edizio informazio guztia batu espazio barik
+cat(substr(zer, nun+1, luze), sep = &quot;&quot;)</code></pre>
+<pre><code>## Prozesua honela laburbil daiteke</code></pre>
+<div id="huts-egitea" class="section level2">
+<h2>Huts egitea <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></h2>
+<p>Sistema bera segituaz, baina, emaitzak ez dira hain onargarriak ezabaketak eta kokapen aldaketak daudenean. Hau gertatzen da 3.etik 297. lerrorako tartean aurreko sistema hutsa erabilita:</p>
+<pre class="r"><code>zer &lt;- begiratzeko$Changeset[3:297]
+
+zer</code></pre>
+<pre><code>##   [1] &quot;Z:1&gt;1*0+1$P&quot;                     &quot;Z:2&gt;2=1*0+2$ro&quot;                 
+##   [3] &quot;Z:4&gt;1=3*0+1$z&quot;                   &quot;Z:5&gt;2=4*0+2$es&quot;                 
+##   [5] &quot;Z:7&gt;2=6*0+2$ua&quot;                  &quot;Z:9&gt;1=8*0+1$ &quot;                  
+##   [7] &quot;Z:a&gt;2=9*0+2$ho&quot;                  &quot;Z:c&gt;2=b*0+2$ne&quot;                 
+##   [9] &quot;Z:e&gt;1=d*0+1$l&quot;                   &quot;Z:f&gt;2=e*0+2$a &quot;                 
+##  [11] &quot;Z:h&gt;2=g*0+2$la&quot;                  &quot;Z:j&gt;2=i*0+2$bu&quot;                 
+##  [13] &quot;Z:l&gt;1=k*0+1$r&quot;                   &quot;Z:m&gt;2=l*0+2$bi&quot;                 
+##  [15] &quot;Z:o&gt;1=n*0+1$l&quot;                   &quot;Z:p&gt;1=o*0+1$ &quot;                  
+##  [17] &quot;Z:q&gt;3=p*0+3$dai&quot;                 &quot;Z:t&gt;3=s*0+3$tek&quot;                
+##  [19] &quot;Z:w&gt;1=v*0+1$e&quot;                   &quot;Z:x&gt;1=w*0+1$:&quot;                  
+##  [21] &quot;Z:y&gt;5=x*0|1+1*0+4$\n    &quot;        &quot;Z:13&gt;5|1=y=4*0|1+1*0+4$\n    &quot;  
+##  [23] &quot;Z:18&gt;1|2=13=4*0+1$1&quot;             &quot;Z:19&gt;1|2=13=5*0+1$.&quot;            
+##  [25] &quot;Z:1a&gt;1|2=13=6*0+1$ &quot;             &quot;Z:1b&gt;1|2=13=7*0+1$E&quot;            
+##  [27] &quot;Z:1c&gt;3|2=13=8*0+3$the&quot;           &quot;Z:1f&gt;2|2=13=b*0+2$rp&quot;           
+##  [29] &quot;Z:1h&gt;2|2=13=d*0+2$ad&quot;            &quot;Z:1j&gt;1|2=13=f*0+1$ &quot;            
+##  [31] &quot;Z:1k&gt;2|2=13=g*0+2$iz&quot;            &quot;Z:1m&gt;3|2=13=i*0+3$ene&quot;          
+##  [33] &quot;Z:1p&gt;2|2=13=l*0+2$ko&quot;            &quot;Z:1r&gt;1|2=13=n*0+1$ &quot;            
+##  [35] &quot;Z:1s&gt;1|2=13=o*0+1$a&quot;             &quot;Z:1t&gt;1|2=13=p*0+1$p&quot;            
+##  [37] &quot;Z:1u&lt;2|2=13=o-2$&quot;                &quot;Z:1s&gt;1|2=13=o*0+1$w&quot;            
+##  [39] &quot;Z:1t&gt;1|2=13=p*0+1$e&quot;             &quot;Z:1u&gt;1|2=13=q*0+1$b&quot;            
+##  [41] &quot;Z:1v&gt;3|2=13=r*0+3$ ap&quot;           &quot;Z:1y&gt;2|2=13=u*0+2$li&quot;           
+##  [43] &quot;Z:20&gt;2|2=13=w*0+2$ka&quot;            &quot;Z:22&gt;3|2=13=y*0+3$zio&quot;          
+##  [45] &quot;Z:25&gt;1|2=13=11*0+1$a&quot;            &quot;Z:26&gt;1|2=13=12*0+1$ &quot;           
+##  [47] &quot;Z:27&gt;1|2=13=13*0+1$z&quot;            &quot;Z:28&gt;2|2=13=14*0+2$ab&quot;          
+##  [49] &quot;Z:2a&gt;2|2=13=16*0+2$al&quot;           &quot;Z:2c&gt;1|2=13=18*0+1$d&quot;           
+##  [51] &quot;Z:2d&gt;1|2=13=19*0+1$u&quot;            &quot;Z:2e&gt;1|2=13=1a*0+1$ &quot;           
+##  [53] &quot;Z:2f&gt;5|2=13=1b*0|1+1*0+4$\n    &quot; &quot;Z:2k&gt;1|3=2f=4*0+1$2&quot;            
+##  [55] &quot;Z:2l&gt;2|3=2f=5*0+2$. &quot;            &quot;Z:2n&gt;1|3=2f=7*0+1$H&quot;            
+##  [57] &quot;Z:2o&gt;2|3=2f=8*0+2$el&quot;            &quot;Z:2q&gt;1|3=2f=a*0+1$b&quot;            
+##  [59] &quot;Z:2r&gt;3|3=2f=b*0+3$ide&quot;           &quot;Z:2u&gt;3|3=2f=e*0+3$ ho&quot;          
+##  [61] &quot;Z:2x&gt;3|3=2f=h*0+3$ri &quot;           &quot;Z:30&gt;1|3=2f=k*0+1$g&quot;            
+##  [63] &quot;Z:31&gt;2|3=2f=l*0+2$or&quot;            &quot;Z:33&gt;2|3=2f=n*0+2$de&quot;           
+##  [65] &quot;Z:35&gt;1|3=2f=p*0+1$ &quot;             &quot;Z:36&gt;1|3=2f=q*0+1$(&quot;            
+##  [67] &quot;Z:37&gt;1|3=2f=r*0+1$?&quot;             &quot;Z:38&gt;1|3=2f=s*0+1$)&quot;            
+##  [69] &quot;Z:39&gt;5|3=2f=t*0|1+1*0+4$\n    &quot;  &quot;Z:3e&gt;1|4=39=4*0+1$3&quot;            
+##  [71] &quot;Z:3f&gt;1|4=39=5*0+1$.&quot;             &quot;Z:3g&gt;1|4=39=6*0+1$ &quot;            
+##  [73] &quot;Z:3h&gt;5|2=13=1b*0|1+1*0+4$\n    &quot; &quot;Z:3m&gt;1|3=2f=4*0+1$2&quot;            
+##  [75] &quot;Z:3n&gt;1|3=2f=5*0+1$.&quot;             &quot;Z:3o&gt;1|3=2f=6*0+1$ &quot;            
+##  [77] &quot;Z:3p&gt;1|3=2f=7*0+1$D&quot;             &quot;Z:3q&gt;2|3=2f=8*0+2$ok&quot;           
+##  [79] &quot;Z:3s&gt;3|3=2f=a*0+3$ume&quot;           &quot;Z:3v&gt;4|3=2f=d*0+4$ntu &quot;         
+##  [81] &quot;Z:3z&gt;2|3=2f=h*0+2$ba&quot;            &quot;Z:41&gt;2|3=2f=j*0+2$t &quot;           
+##  [83] &quot;Z:43&gt;4|3=2f=l*0+4$sort&quot;          &quot;Z:47&gt;1|3=2f=p*0+1$u&quot;            
+##  [85] &quot;Z:48&gt;1|3=2f=q*0+1$.&quot;             &quot;Z:49&lt;1|4=37=4-1$&quot;               
+##  [87] &quot;Z:48&gt;1|4=37=4*0+1$3&quot;             &quot;Z:49&lt;1|5=41=4-1$&quot;               
+##  [89] &quot;Z:48&gt;1|5=41=4*0+1$4&quot;             &quot;Z:49&gt;1|5=41=6*0+1$ &quot;            
+##  [91] &quot;Z:4a&gt;1|5=41=7*0+1$I&quot;             &quot;Z:4b&gt;3|5=41=8*0+3$dat&quot;          
+##  [93] &quot;Z:4e&gt;2|5=41=b*0+2$zi&quot;            &quot;Z:4g&gt;1|5=41=d*0+1$ &quot;            
+##  [95] &quot;Z:4h&gt;1|5=41=e*0+1$d&quot;             &quot;Z:4i&gt;3|5=41=f*0+3$oku&quot;          
+##  [97] &quot;Z:4l&gt;3|5=41=i*0+3$men&quot;           &quot;Z:4o&gt;1|5=41=l*0+1$t&quot;            
+##  [99] &quot;Z:4p&gt;2|5=41=m*0+2$ua&quot;            &quot;Z:4r&gt;5|5=41=o*0|1+1*0+4$\n    &quot; 
+## [101] &quot;Z:4w&gt;1|6=4q=4*0+1$5&quot;             &quot;Z:4x&gt;1|6=4q=5*0+1$.&quot;            
+## [103] &quot;Z:4y&gt;1|6=4q=6*0+1$ &quot;             &quot;Z:4z&gt;1|6=4q=7*0+1$W&quot;            
+## [105] &quot;Z:50&gt;1|6=4q=8*0+1$e&quot;             &quot;Z:51&gt;1|6=4q=9*0+1$b&quot;            
+## [107] &quot;Z:52&gt;1|6=4q=a*0+1$ &quot;             &quot;Z:53&gt;1|6=4q=b*0+1$h&quot;            
+## [109] &quot;Z:54&gt;2|6=4q=c*0+2$el&quot;            &quot;Z:56&gt;2|6=4q=e*0+2$bi&quot;           
+## [111] &quot;Z:58&gt;1|6=4q=g*0+1$d&quot;             &quot;Z:59&gt;2|6=4q=h*0+2$ea&quot;           
+## [113] &quot;Z:5b&gt;1|6=4q=j*0+1$ &quot;             &quot;Z:5c&gt;1|6=4q=k*0+1$i&quot;            
+## [115] &quot;Z:5d&gt;2|6=4q=l*0+2$ke&quot;            &quot;Z:5f&gt;3|6=4q=n*0+3$rla&quot;          
+## [117] &quot;Z:5i&gt;3|6=4q=q*0+3$ria&quot;           &quot;Z:5l&gt;3|6=4q=t*0+3$ri &quot;          
+## [119] &quot;Z:5o&gt;1|6=4q=w*0+1$p&quot;             &quot;Z:5p&gt;3|6=4q=x*0+3$asa&quot;          
+## [121] &quot;Z:5s&gt;2|6=4q=10*0+2$tu&quot;           &quot;Z:5u&gt;5|6=4q=12*0|1+1*0+4$\n    &quot;
+## [123] &quot;Z:5z&gt;5|7=5t=4*0|1+1*0+4$\n    &quot;  &quot;Z:64&lt;4|8=5y-4$&quot;                 
+## [125] &quot;Z:60&gt;1|8=5y*0+1$I&quot;               &quot;Z:61&gt;3|8=5y=1*0+3$ker&quot;          
+## [127] &quot;Z:64&gt;2|8=5y=4*0+2$la&quot;            &quot;Z:66&gt;3|8=5y=6*0+3$ria&quot;          
+## [129] &quot;Z:69&gt;1|8=5y=9*0+1$k&quot;             &quot;Z:6a&gt;2|8=5y=a*0+2$, &quot;           
+## [131] &quot;Z:6c&gt;3|8=5y=c*0+3$ord&quot;           &quot;Z:6f&gt;3|8=5y=f*0+3$uan&quot;          
+## [133] &quot;Z:6i&gt;1|8=5y=i*0+1$,&quot;             &quot;Z:6j&gt;1|8=5y=j*0+1$ &quot;            
+## [135] &quot;Z:6k&gt;1|8=5y=k*0+1$w&quot;             &quot;Z:6l&gt;2|8=5y=l*0+2$eb&quot;           
+## [137] &quot;Z:6n&gt;1|8=5y=n*0+1$ &quot;             &quot;Z:6o&gt;1|8=5y=o*0+1$h&quot;            
+## [139] &quot;Z:6p&gt;2|8=5y=p*0+2$el&quot;            &quot;Z:6r&gt;2|8=5y=r*0+2$bi&quot;           
+## [141] &quot;Z:6t&gt;3|8=5y=t*0+3$de &quot;           &quot;Z:6w&gt;3|8=5y=w*0+3$hor&quot;          
+## [143] &quot;Z:6z&gt;2|8=5y=z*0+2$i &quot;            &quot;Z:71&gt;4|8=5y=11*0+4$duel&quot;        
+## [145] &quot;Z:75&gt;1|8=5y=15*0+1$a&quot;            &quot;Z:76&gt;1|8=5y=16*0+1$ &quot;           
+## [147] &quot;Z:77&gt;1|8=5y=17*0+1$i&quot;            &quot;Z:78&gt;2|8=5y=18*0+2$da&quot;          
+## [149] &quot;Z:7a&gt;1|8=5y=1a*0+1$t&quot;            &quot;Z:7b&gt;2|8=5y=1b*0+2$zi&quot;          
+## [151] &quot;Z:7d&gt;1|8=5y=1d*0+1$t&quot;            &quot;Z:7e&gt;3|8=5y=1e*0+3$ako&quot;         
+## [153] &quot;Z:7h&gt;2|8=5y=1h*0+2$a &quot;           &quot;Z:7j&gt;2|8=5y=1j*0+2$ze&quot;          
+## [155] &quot;Z:7l&gt;3|8=5y=1l*0+3$in &quot;          &quot;Z:7o&gt;4|8=5y=1o*0+4$idat&quot;        
+## [157] &quot;Z:7s&lt;1|8=5y=1r-1$&quot;               &quot;Z:7r&gt;1|8=5y=1r*0+1$z&quot;           
+## [159] &quot;Z:7s&gt;1|8=5y=1s*0+1$k&quot;            &quot;Z:7t&gt;3|8=5y=1t*0+3$eta&quot;         
+## [161] &quot;Z:7w&gt;1|8=5y=1w*0+1$ &quot;            &quot;Z:7x&gt;2|8=5y=1x*0+2$pr&quot;          
+## [163] &quot;Z:7z&gt;1|8=5y=1z*0+1$o&quot;            &quot;Z:80&gt;2|8=5y=20*0+2$ze&quot;          
+## [165] &quot;Z:82&gt;3|8=5y=22*0+3$su &quot;          &quot;Z:85&gt;2|8=5y=25*0+2$os&quot;          
+## [167] &quot;Z:87&gt;1|8=5y=27*0+1$o&quot;            &quot;Z:88&gt;1|8=5y=28*0+1$a&quot;           
+## [169] &quot;Z:89&gt;1|8=5y=29*0+1$ &quot;            &quot;Z:8a&gt;3|8=5y=2a*0+3$gor&quot;         
+## [171] &quot;Z:8d&gt;3|8=5y=2d*0+3$det&quot;          &quot;Z:8g&gt;4|8=5y=2g*0+4$zen &quot;        
+## [173] &quot;Z:8k&gt;3|8=5y=2k*0+3$due&quot;          &quot;Z:8n&gt;2|8=5y=2n*0+2$n &quot;          
+## [175] &quot;Z:8p&gt;1|8=5y=2p*0+1$d&quot;            &quot;Z:8q&gt;2|8=5y=2q*0+2$ok&quot;          
+## [177] &quot;Z:8s&gt;3|8=5y=2s*0+3$ume&quot;          &quot;Z:8v&gt;1|8=5y=2v*0+1$n&quot;           
+## [179] &quot;Z:8w&gt;2|8=5y=2w*0+2$tu&quot;           &quot;Z:8y&gt;2|8=5y=2y*0+2$a &quot;          
+## [181] &quot;Z:90&gt;1|8=5y=30*0+1$j&quot;            &quot;Z:91&gt;2|8=5y=31*0+2$ai&quot;          
+## [183] &quot;Z:93&gt;3|8=5y=33*0+3$ts &quot;          &quot;Z:96&gt;2|8=5y=36*0+2$de&quot;          
+## [185] &quot;Z:98&gt;2|8=5y=38*0+2$za&quot;           &quot;Z:9a&gt;2|8=5y=3a*0+2$ke&quot;          
+## [187] &quot;Z:9c&gt;1|3=2f=q*0+1$ &quot;             &quot;Z:9d&gt;1|3=2f=r*0+1$w&quot;            
+## [189] &quot;Z:9e&gt;2|3=2f=s*0+2$eb&quot;            &quot;Z:9g&gt;1|3=2f=u*0+1$ &quot;            
+## [191] &quot;Z:9h&gt;1|3=2f=v*0+1$o&quot;             &quot;Z:9i&gt;1|3=2f=w*0+1$r&quot;            
+## [193] &quot;Z:9j&gt;2|3=2f=x*0+2$re&quot;            &quot;Z:9l&gt;3|3=2f=z*0+3$tan&quot;          
+## [195] &quot;Z:9o&gt;1|3=2f=12*0+1$*&quot;            &quot;Z:9p&gt;1|3=2f=13*0+1$*&quot;           
+## [197] &quot;Z:9q&gt;1|3=2f=r*0+1$*&quot;             &quot;Z:9r&gt;1|3=2f=s*0+1$*&quot;            
+## [199] &quot;Z:9s&gt;1|3=2f=16*0+1$ &quot;            &quot;Z:9t&gt;1|3=2f=17*0+1$^&quot;           
+## [201] &quot;Z:9u&gt;1|3=2f=18*0+1$[&quot;            &quot;Z:9v&gt;1|3=2f=19*0+1$e&quot;           
+## [203] &quot;Z:9w&gt;2|3=2f=1a*0+2$z &quot;           &quot;Z:9y&gt;1|3=2f=1c*0+1$b&quot;           
+## [205] &quot;Z:9z&gt;3|3=2f=1d*0+3$ait&quot;          &quot;Z:a2&gt;1|3=2f=1g*0+1$a&quot;           
+## [207] &quot;Z:a3&gt;1|3=2f=1h*0+1$ &quot;            &quot;Z:a4&gt;7|3=2f=1i*0+7$balioga&quot;     
+## [209] &quot;Z:ab&gt;3|3=2f=1p*0+3$rri&quot;          &quot;Z:ae&gt;1|3=2f=1s*0+1$a&quot;           
+## [211] &quot;Z:af&lt;1|3=2f=1s-1$&quot;               &quot;Z:ae&lt;1|3=2f=1r-1$&quot;              
+## [213] &quot;Z:ad&lt;8|3=2f=1j-8$&quot;               &quot;Z:a5&lt;2|3=2f=1h-2$&quot;              
+## [215] &quot;Z:a3&lt;1|3=2f=1g-1$&quot;               &quot;Z:a2&gt;1|3=2f=1g*0+1$u&quot;           
+## [217] &quot;Z:a3&gt;1|3=2f=1h*0+1$ &quot;            &quot;Z:a4&gt;1|3=2f=1i*0+1$b&quot;           
+## [219] &quot;Z:a5&gt;4|3=2f=1j*0+4$alio&quot;         &quot;Z:a9&gt;1|3=2f=1n*0+1$ &quot;           
+## [221] &quot;Z:aa&gt;1|3=2f=1o*0+1$p&quot;            &quot;Z:ab&gt;2|3=2f=1p*0+2$ro&quot;          
+## [223] &quot;Z:ad&gt;3|3=2f=1r*0+3$zes&quot;          &quot;Z:ag&gt;4|3=2f=1u*0+4$ua b&quot;        
+## [225] &quot;Z:ak&gt;3|3=2f=1y*0+3$est&quot;          &quot;Z:an&gt;2|3=2f=21*0+2$e &quot;          
+## [227] &quot;Z:ap&gt;1|3=2f=23*0+1$a&quot;            &quot;Z:aq&gt;3|3=2f=24*0+3$pli&quot;         
+## [229] &quot;Z:at&gt;2|3=2f=27*0+2$ka&quot;           &quot;Z:av&gt;3|3=2f=29*0+3$zio&quot;         
+## [231] &quot;Z:ay&gt;2|3=2f=2c*0+2$rn&quot;           &quot;Z:b0&lt;1|3=2f=2d-1$&quot;              
+## [233] &quot;Z:az&gt;2|3=2f=2d*0+2$en&quot;           &quot;Z:b1&gt;2|3=2f=2f*0+2$ b&quot;          
+## [235] &quot;Z:b3&gt;2|3=2f=2h*0+2$ae&quot;           &quot;Z:b5&gt;1|3=2f=2j*0+1$a&quot;           
+## [237] &quot;Z:b6&lt;2|3=2f=2i-2$&quot;               &quot;Z:b4&gt;2|3=2f=2i*0+2$te&quot;          
+## [239] &quot;Z:b6&gt;1|3=2f=2k*0+1$a&quot;            &quot;Z:b7&gt;2|3=2f=2l*0+2$n &quot;          
+## [241] &quot;Z:b9&gt;1|3=2f=2n*0+1$e&quot;            &quot;Z:ba&gt;3|3=2f=2o*0+3$git&quot;         
+## [243] &quot;Z:bd&gt;2|3=2f=2r*0+2$ea&quot;           &quot;Z:bf&gt;1|3=2f=2t*0+1$k&quot;           
+## [245] &quot;Z:bg&gt;1|3=2f=2u*0+1$]&quot;            &quot;Z:bh&lt;1|8=83=3c-1$&quot;              
+## [247] &quot;Z:bg&gt;1|8=83=3c*0+1$.&quot;            &quot;Z:bh&gt;1|8=83=3d*0+1$ &quot;           
+## [249] &quot;Z:bi&gt;1|8=83=3e*0+1$D&quot;            &quot;Z:bj&gt;1|8=83=3f*0+1$o&quot;           
+## [251] &quot;Z:bk&gt;1|8=83=3g*0+1$k&quot;            &quot;Z:bl&gt;1|8=83=3h*0+1$u&quot;           
+## [253] &quot;Z:bm&gt;1|8=83=3i*0+1$m&quot;            &quot;Z:bn&gt;3|8=83=3j*0+3$ent&quot;         
+## [255] &quot;Z:bq&gt;4|8=83=3m*0+4$u ho&quot;         &quot;Z:bu&gt;1|8=83=3q*0+1$r&quot;           
+## [257] &quot;Z:bv&gt;1|8=83=3r*0+1$i&quot;            &quot;Z:bw&gt;1|8=83=3s*0+1$ &quot;           
+## [259] &quot;Z:bx&lt;1|8=83=3s-1$&quot;               &quot;Z:bw&lt;2|8=83=3q-2$&quot;              
+## [261] &quot;Z:bu&lt;5|8=83=3l-5$&quot;               &quot;Z:bp&lt;7|8=83=3e-7$&quot;              
+## [263] &quot;Z:bi&lt;1|8=83=3d-1$&quot;               &quot;Z:bh&lt;1|8=83=3c-1$&quot;              
+## [265] &quot;Z:bg&gt;1|8=83=3c*0+1$,&quot;            &quot;Z:bh&gt;1|8=83=3d*0+1$ &quot;           
+## [267] &quot;Z:bi&gt;1|8=83=3e*0+1$e&quot;            &quot;Z:bj&gt;2|8=83=3f*0+2$ta&quot;          
+## [269] &quot;Z:bl&gt;1|8=83=3h*0+1$ &quot;            &quot;Z:bm&gt;1|8=83=3i*0+1$b&quot;           
+## [271] &quot;Z:bn&gt;3|8=83=3j*0+3$ali&quot;          &quot;Z:bq&gt;2|8=83=3m*0+2$ab&quot;          
+## [273] &quot;Z:bs&gt;3|8=83=3o*0+3$ide&quot;          &quot;Z:bv&gt;2|8=83=3r*0+2$a &quot;          
+## [275] &quot;Z:bx&gt;4|8=83=3t*0+4$sort&quot;         &quot;Z:c1&gt;1|8=83=3x*0+1$u&quot;           
+## [277] &quot;Z:c2&gt;1|8=83=3y*0+1$z&quot;            &quot;Z:c3&gt;1|8=83=3z*0+1$ &quot;           
+## [279] &quot;Z:c4&gt;2|8=83=40*0+2$ge&quot;           &quot;Z:c6&gt;1|8=83=42*0+1$r&quot;           
+## [281] &quot;Z:c7&gt;1|8=83=43*0+1$o&quot;            &quot;Z:c8&gt;1|8=83=44*0+1$,&quot;           
+## [283] &quot;Z:c9&gt;1|8=83=45*0+1$ &quot;            &quot;Z:ca&gt;3|8=83=46*0+3$ana&quot;         
+## [285] &quot;Z:cd&gt;2|8=83=49*0+2$li&quot;           &quot;Z:cf&gt;1|8=83=4b*0+1$s&quot;           
+## [287] &quot;Z:cg&gt;2|8=83=4c*0+2$at&quot;           &quot;Z:ci&gt;1|8=83=4e*0+1$u&quot;           
+## [289] &quot;Z:cj&lt;2|8=83=4d-2$&quot;               &quot;Z:ch&lt;2|8=83=4b-2$&quot;              
+## [291] &quot;Z:cf&gt;2|8=83=4b*0+2$za&quot;           &quot;Z:ch&gt;2|8=83=4d*0+2$tu&quot;          
+## [293] &quot;Z:cj&gt;1|8=83=4f*0+1$.&quot;            &quot;Z:ck&gt;1|8=83=4g*0|1+1$\n&quot;        
+## [295] &quot;Z:cl&gt;1|9=ck*0|1+1$\n&quot;</code></pre>
+<pre class="r"><code>nun &lt;- regexpr(pattern = &quot;\\$&quot;, zer)
+
+luze &lt;- nchar(zer)
+
+#Identifikatu aldaketa izan direan elementuak
+substr(zer, nun+1, luze)</code></pre>
+<pre><code>##   [1] &quot;P&quot;       &quot;ro&quot;      &quot;z&quot;       &quot;es&quot;      &quot;ua&quot;      &quot; &quot;       &quot;ho&quot;     
+##   [8] &quot;ne&quot;      &quot;l&quot;       &quot;a &quot;      &quot;la&quot;      &quot;bu&quot;      &quot;r&quot;       &quot;bi&quot;     
+##  [15] &quot;l&quot;       &quot; &quot;       &quot;dai&quot;     &quot;tek&quot;     &quot;e&quot;       &quot;:&quot;       &quot;\n    &quot; 
+##  [22] &quot;\n    &quot;  &quot;1&quot;       &quot;.&quot;       &quot; &quot;       &quot;E&quot;       &quot;the&quot;     &quot;rp&quot;     
+##  [29] &quot;ad&quot;      &quot; &quot;       &quot;iz&quot;      &quot;ene&quot;     &quot;ko&quot;      &quot; &quot;       &quot;a&quot;      
+##  [36] &quot;p&quot;       &quot;&quot;        &quot;w&quot;       &quot;e&quot;       &quot;b&quot;       &quot; ap&quot;     &quot;li&quot;     
+##  [43] &quot;ka&quot;      &quot;zio&quot;     &quot;a&quot;       &quot; &quot;       &quot;z&quot;       &quot;ab&quot;      &quot;al&quot;     
+##  [50] &quot;d&quot;       &quot;u&quot;       &quot; &quot;       &quot;\n    &quot;  &quot;2&quot;       &quot;. &quot;      &quot;H&quot;      
+##  [57] &quot;el&quot;      &quot;b&quot;       &quot;ide&quot;     &quot; ho&quot;     &quot;ri &quot;     &quot;g&quot;       &quot;or&quot;     
+##  [64] &quot;de&quot;      &quot; &quot;       &quot;(&quot;       &quot;?&quot;       &quot;)&quot;       &quot;\n    &quot;  &quot;3&quot;      
+##  [71] &quot;.&quot;       &quot; &quot;       &quot;\n    &quot;  &quot;2&quot;       &quot;.&quot;       &quot; &quot;       &quot;D&quot;      
+##  [78] &quot;ok&quot;      &quot;ume&quot;     &quot;ntu &quot;    &quot;ba&quot;      &quot;t &quot;      &quot;sort&quot;    &quot;u&quot;      
+##  [85] &quot;.&quot;       &quot;&quot;        &quot;3&quot;       &quot;&quot;        &quot;4&quot;       &quot; &quot;       &quot;I&quot;      
+##  [92] &quot;dat&quot;     &quot;zi&quot;      &quot; &quot;       &quot;d&quot;       &quot;oku&quot;     &quot;men&quot;     &quot;t&quot;      
+##  [99] &quot;ua&quot;      &quot;\n    &quot;  &quot;5&quot;       &quot;.&quot;       &quot; &quot;       &quot;W&quot;       &quot;e&quot;      
+## [106] &quot;b&quot;       &quot; &quot;       &quot;h&quot;       &quot;el&quot;      &quot;bi&quot;      &quot;d&quot;       &quot;ea&quot;     
+## [113] &quot; &quot;       &quot;i&quot;       &quot;ke&quot;      &quot;rla&quot;     &quot;ria&quot;     &quot;ri &quot;     &quot;p&quot;      
+## [120] &quot;asa&quot;     &quot;tu&quot;      &quot;\n    &quot;  &quot;\n    &quot;  &quot;&quot;        &quot;I&quot;       &quot;ker&quot;    
+## [127] &quot;la&quot;      &quot;ria&quot;     &quot;k&quot;       &quot;, &quot;      &quot;ord&quot;     &quot;uan&quot;     &quot;,&quot;      
+## [134] &quot; &quot;       &quot;w&quot;       &quot;eb&quot;      &quot; &quot;       &quot;h&quot;       &quot;el&quot;      &quot;bi&quot;     
+## [141] &quot;de &quot;     &quot;hor&quot;     &quot;i &quot;      &quot;duel&quot;    &quot;a&quot;       &quot; &quot;       &quot;i&quot;      
+## [148] &quot;da&quot;      &quot;t&quot;       &quot;zi&quot;      &quot;t&quot;       &quot;ako&quot;     &quot;a &quot;      &quot;ze&quot;     
+## [155] &quot;in &quot;     &quot;idat&quot;    &quot;&quot;        &quot;z&quot;       &quot;k&quot;       &quot;eta&quot;     &quot; &quot;      
+## [162] &quot;pr&quot;      &quot;o&quot;       &quot;ze&quot;      &quot;su &quot;     &quot;os&quot;      &quot;o&quot;       &quot;a&quot;      
+## [169] &quot; &quot;       &quot;gor&quot;     &quot;det&quot;     &quot;zen &quot;    &quot;due&quot;     &quot;n &quot;      &quot;d&quot;      
+## [176] &quot;ok&quot;      &quot;ume&quot;     &quot;n&quot;       &quot;tu&quot;      &quot;a &quot;      &quot;j&quot;       &quot;ai&quot;     
+## [183] &quot;ts &quot;     &quot;de&quot;      &quot;za&quot;      &quot;ke&quot;      &quot; &quot;       &quot;w&quot;       &quot;eb&quot;     
+## [190] &quot; &quot;       &quot;o&quot;       &quot;r&quot;       &quot;re&quot;      &quot;tan&quot;     &quot;*&quot;       &quot;*&quot;      
+## [197] &quot;*&quot;       &quot;*&quot;       &quot; &quot;       &quot;^&quot;       &quot;[&quot;       &quot;e&quot;       &quot;z &quot;     
+## [204] &quot;b&quot;       &quot;ait&quot;     &quot;a&quot;       &quot; &quot;       &quot;balioga&quot; &quot;rri&quot;     &quot;a&quot;      
+## [211] &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;u&quot;       &quot; &quot;      
+## [218] &quot;b&quot;       &quot;alio&quot;    &quot; &quot;       &quot;p&quot;       &quot;ro&quot;      &quot;zes&quot;     &quot;ua b&quot;   
+## [225] &quot;est&quot;     &quot;e &quot;      &quot;a&quot;       &quot;pli&quot;     &quot;ka&quot;      &quot;zio&quot;     &quot;rn&quot;     
+## [232] &quot;&quot;        &quot;en&quot;      &quot; b&quot;      &quot;ae&quot;      &quot;a&quot;       &quot;&quot;        &quot;te&quot;     
+## [239] &quot;a&quot;       &quot;n &quot;      &quot;e&quot;       &quot;git&quot;     &quot;ea&quot;      &quot;k&quot;       &quot;]&quot;      
+## [246] &quot;&quot;        &quot;.&quot;       &quot; &quot;       &quot;D&quot;       &quot;o&quot;       &quot;k&quot;       &quot;u&quot;      
+## [253] &quot;m&quot;       &quot;ent&quot;     &quot;u ho&quot;    &quot;r&quot;       &quot;i&quot;       &quot; &quot;       &quot;&quot;       
+## [260] &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;&quot;        &quot;,&quot;       &quot; &quot;      
+## [267] &quot;e&quot;       &quot;ta&quot;      &quot; &quot;       &quot;b&quot;       &quot;ali&quot;     &quot;ab&quot;      &quot;ide&quot;    
+## [274] &quot;a &quot;      &quot;sort&quot;    &quot;u&quot;       &quot;z&quot;       &quot; &quot;       &quot;ge&quot;      &quot;r&quot;      
+## [281] &quot;o&quot;       &quot;,&quot;       &quot; &quot;       &quot;ana&quot;     &quot;li&quot;      &quot;s&quot;       &quot;at&quot;     
+## [288] &quot;u&quot;       &quot;&quot;        &quot;&quot;        &quot;za&quot;      &quot;tu&quot;      &quot;.&quot;       &quot;\n&quot;     
+## [295] &quot;\n&quot;</code></pre>
+<pre class="r"><code># Pertsonentzat irakurgarri
+cat(substr(zer, nun+1, luze), sep = &quot;&quot;)</code></pre>
+<pre><code>## Prozesua honela laburbil daiteke:
+##     
+##     1. Etherpad izeneko apweb aplikazioa zabaldu 
+##     2. Helbide hori gorde (?)
+##     3. 
+##     2. Dokumentu bat sortu.34 Idatzi dokumentua
+##     5. Web helbidea ikerlariari pasatu
+##     
+##     Ikerlariak, orduan, web helbide hori duela idatzitakoa zein idatzketa prozesu osoa gordetzen duen dokumentua jaits dezake web orretan**** ^[ez baita baliogarriau balio prozesua beste aplikaziornen baeatean egiteak]. Dokumentu hori , eta baliabidea sortuz gero, analisatuzatu.</code></pre>
+<p>Berez, testuak itxura hau du, ordea:</p>
+<pre><code>## Prozesua honela laburbil daiteke:
+##     
+##     1. Etherpad izeneko web aplikazioa zabaldu 
+##     2. Dokumentu bat sortu **web orretan** ^[ez baitu balio prozesua beste aplikazioren batean egiteak].
+##     3. Helbide hori gorde (?)
+##     4. Idatzi dokumentua
+##     5. Web helbidea ikerlariari pasatu
+##     
+## Ikerlariak, orduan, web helbide hori duela idatzitakoa zein idazketa prozesu osoa gordetzen duen dokumentua jaits dezake, eta baliabidea sortuz gero, analizatu.</code></pre>
+</div>
+</div>
+<div id="lortzekoa" class="section level1">
+<h1>Lortzekoa</h1>
+<p>Aurreko sriptarekin eta taulako adibidearekin erakutsi nahi izan da badagoela informazioa aztertzeko bidea; baina idazketa linearrak aldaketak identifikatzen dituen moduan, kodearen azterketa osoak datu gehiago ere erakusten utzi behar lukete:</p>
+<ul>
+<li>Ezabatutakoa</li>
+<li>Karakteren kokapena testu osoan (eman dezagun testuaren zati bat toki batetik bestera mugitzen duela informatzaileak)</li>
+<li>Formatu aldaketak. Orain ez dute ematen garrantzitsuak izango direnik, baina identifikatzen jakin behar da, informazio horrek ez distraitzeko <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>.</li>
+<li>…</li>
+</ul>
+<p>Jakina, berreskuratutako testuak ez du lotu behar, soilik, behinik behin, idazlearen helburu testura, prozesua erakusteko multzoak ere bistaratu behar lituzke.</p>
+<p>Lorpenok eskuratuz gero, erreminta honek lagundu lezake informatzaile askoren datuak eskuratzen. Era bateko edo besteko portaeretan fokua jarrita, portaerak identifikatzen eta sailkatzen ere lagunduko luke: berridazketak, <span class="math inline">\(x\)</span> neurriko zuzenketak identifikatzen, esaldi barruko zalantza uneak identifikatzea eta abar luzea.</p>
+<p>Idazketa jarduna aztertzeko tresnak ikerketa elementu askotarako bidea zabalduko luke, ikuspegi kuantitatibotik.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://eu.wikipedia.org/wiki/Etherpad" class="uri">https://eu.wikipedia.org/wiki/Etherpad</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>ez baitu balio prozesua beste aplikazioren batean egiteak<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Azterketan jarraitzeko atala ere bada huts egitearen gainekoa<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Beste aukera bat izan daiteke Etherpadaren beste bertsio bat egitea testu formatu aldaketarik uzten ez duena<a href="#fnref4">↩</a></p></li>
+</ol>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

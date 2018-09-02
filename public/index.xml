@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Web pertsonala</title>
+    <title>Juan Abasolo</title>
     <link>/</link>
-    <description>Recent content on Web pertsonala</description>
+    <description>Recent content on Juan Abasolo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
     <lastBuildDate>Sun, 02 Sep 2018 21:48:51 -0700</lastBuildDate>
@@ -18,74 +18,34 @@
       
       <guid>/about/</guid>
       <description>Holakoren batean hemen informazioa idatzi behar dut ganoraz. Bitartean, fitxategiaren kokapena:
-content/about.md
-This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+content/about.md</description>
     </item>
     
     <item>
-      <title>Kaxio Mr Markdown!</title>
-      <link>/2018/09/01/kaxio-mr-markdown/</link>
-      <pubDate>Sat, 01 Sep 2018 21:49:57 -0700</pubDate>
-      
-      <guid>/2018/09/01/kaxio-mr-markdown/</guid>
-      <description>Ez dot luzatu nahi. Ibilten bada, nahiku dot.</description>
-    </item>
-    
-    <item>
-      <title>Create a Website with R Studio in 15 Minutes! Bideoaren liseriketa</title>
-      <link>/2018/09/02/create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa/</link>
+      <title>Webgunea RStudio-n eregi eta argitaratu</title>
+      <link>/2018/09/02/webgunea-rstudio-n-eregi/</link>
       <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/09/02/create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa/</guid>
-      <description>Hurrengo bideotik hartutako ideiak-eta.
-vembedr::embed_youtube(&amp;quot;rFr1OmS7V9Y&amp;quot;)  Hobeto RStudio erabilita, addinsak erabiltzea.
-Academic eredua darabile.
- Hasieran content/home carpetan ezabatzen dau hero.md fitxategia. config.toml oso-oso garrantzitsua. Igo GitHub-era  git init git add . git commit -m &amp;quot;Poriektua gordinik altza&amp;quot; git remote add origin https://github.com/JuanAbasolo/pertsonala.git git push -u origin master Zabaldu web orrija Netlify.com-en minutuaren inguruan   GitHub-egaz sinatu Aukeratu “new site from Git” Joan siteko biltegira “Basic buil settings”</description>
+      <guid>/2018/09/02/webgunea-rstudio-n-eregi/</guid>
+      <description>Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
+ Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
+
+installed.packages(&amp;quot;blogdown&amp;quot;) Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
+ Segitu pausuak
+ Aukeratu HUGO gai bat Kopiatu GitHub-eko helbidea eta hori ipini sortzeko orduan Itxoin dena jaisteko Zelan doan ikusteko Server Site.  Tuneatu norberaren datuekin
+Niri gai batzuk arazoak eman dizkidate config.</description>
     </item>
     
     <item>
-      <title>addin-a erabilita sortutako mezua</title>
-      <link>/2018/09/02/addin-a-erabilita-sortutako-mezua/</link>
-      <pubDate>Sun, 02 Sep 2018 00:00:00 +0000</pubDate>
+      <title>Idazketa prozesua masiboki aztertzeko tresna</title>
+      <link>/2018/08/28/idazketa-prozesua-masiboki-aztertzeko-tresna/</link>
+      <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/2018/09/02/addin-a-erabilita-sortutako-mezua/</guid>
-      <description>Lar ez dot idatzi nahi. Baina apur-apurtxu bat bai, badabilela ikusteko ez bada be:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.:19.0 3rd Qu.: 56.00 ## Max. :25.0 Max. :120.00 Eta nahikoa… ez. Iruditxun bat be bai
-plot(cars) Oin bai. Bapo.</description>
-    </item>
-    
-    <item>
-      <title>Markdown mezu laua</title>
-      <link>/2018/08/31/markdown-mezu-laua/</link>
-      <pubDate>Fri, 31 Aug 2018 21:49:57 -0700</pubDate>
-      
-      <guid>/2018/08/31/markdown-mezu-laua/</guid>
-      <description>Honek holako YAML header bat dauka:
-title: &amp;quot;Markdown mezu laua&amp;quot; date: &amp;quot;2018-08-31T21:49:57-07:00&amp;quot;  Eta kokapena hau da: content/post/2016-hello-markdown.md
-Segidan mezu originala.
-This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/2017/12/23/hello-r-markdown/</link>
-      <pubDate>Sat, 23 Dec 2017 21:13:14 -0500</pubDate>
-      
-      <guid>/2017/12/23/hello-r-markdown/</guid>
-      <description>Zuzenean mezu originala
-R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
-    </item>
-    
-    <item>
-      <title>Lorem Ipsum</title>
-      <link>/2015/01/01/lorem-ipsum/</link>
-      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
-      
-      <guid>/2015/01/01/lorem-ipsum/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+      <guid>/2018/08/28/idazketa-prozesua-masiboki-aztertzeko-tresna/</guid>
+      <description>Laburpena 
+Hurrengo lerroetan azaltzen dut egin daitekeen proiektu ustez emonkorra.Datu batze prozesua erraztuko luke lagin handiak erabiltzea ahalbidetuta. Zenbait ikerketa eremu eta lerro zabal ditzake gure taldeak egin dezan, zein, komunikazio lana egin ondoren, beste batzuek beste hizkuntza batzuetan egokitzeko.Idazketa on-line aztertzeko tresna.
+Proposamena Azterketa zientifikorako erreminta bat eraikitzea proposatzen dut, zehazki, ordenagailuko idazketa prozesua aztertzeko prozedura eta erreminta. Honelakoak azter litezke kodea garatutakoan:
+ Gaitasun linguistikoan: hautuen erabilera zuzena, zuzendua eta hausnartua.</description>
     </item>
     
   </channel>

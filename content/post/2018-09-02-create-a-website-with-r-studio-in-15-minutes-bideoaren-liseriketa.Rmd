@@ -1,26 +1,41 @@
 ---
-title: Create a Website with R Studio in 15 Minutes! Bideoaren liseriketa
-author: Urlia Lopez de Artaburu
+title: Webgunea RStudio-n eregi eta argitaratu
+author: 
 date: '2018-09-02'
-slug: create-a-website-with-r-studio-in-15-minutes-bideoaren-liseriketa
+slug: webgunea-rstudio-n-eregi
 categories:
-  - aproba
-tags: []
+tags: [blogdown]
 ---
 
-Hurrengo bideotik hartutako ideiak-eta.
+Hainbat tokitan azaltzen duten arren, errazen egin zaidana hurrengo bideoa da:
 
-```{r echo=TRUE}
+```{r echo=FALSE}
 vembedr::embed_youtube("rFr1OmS7V9Y")
 ```
 
-Hobeto **RStudio** erabilita, addinsak erabiltzea.
+Aurretik, baina, katxarreatuta egon naiz eta nire ordenagailuan aprobak eginda ere bai. Gomendagarriena:
 
-*Academic* eredua darabile. 
+[![](https://bookdown.org/yihui/blogdown/images/cover.png)](https://bookdown.org/yihui/blogdown/)
 
-* Hasieran `content/home` carpetan ezabatzen dau `hero.md` fitxategia.
-* `config.toml` oso-oso garrantzitsua.
-* Igo GitHub-era  
+```{r eval=FALSE}
+installed.packages("blogdown")
+
+```
+
+Sortu proiektu berria, azken(etari)ko aukera: blogdown erabilita web gunea.
+
+* Segitu pausuak  
+  * Aukeratu [HUGO gai bat](https://themes.gohugo.io/)
+  * Kopiatu GitHub-eko helbidea eta hori ipini sortzeko orduan
+  * Itxoin dena jaisteko
+* Zelan doan ikusteko *Server Site*.
+    * Tuneatu norberaren datuekin  
+      Niri gai batzuk arazoak eman dizkidate
+    * `config.toml` oso-oso garrantzitsua.
+    * Hobeto **RStudio** erabilita, *addins*ak erabiltzea.
+        * Post/barria idazteko: *New Post*
+        * Irudiak txertatzeko: *Insert image*
+    * Igo GitHub-era  
 
 ```R
 git init
@@ -30,9 +45,14 @@ git remote add origin https://github.com/JuanAbasolo/pertsonala.git
 git push -u origin master
 ```
 
-## Zabaldu web orrija Netlify.com-en
 
-11. minutuaren inguruan
+## Zabaldu web orria Netlify.com-en
+
+Web orria era eta toki askotara igo daiteke, baina egileek Netlify gomendatzen dute, besteak beste, bertan zuzenean konpilatzen duelako. Beste aukera batzuk ere badaude, bat [GitHub](http://amber.rbind.io/blog/2016/12/19/creatingsite/)-en bertan
+
+GitHub erabilitzen du informazio biltegitzat, Git erabilita, igo eta jaisten dira artxiboak. Erraza editatzen, erraza argitaratzen...
+
+Behin lehenengo bertsioa egindakoan, edukiak-eta gehitzea oso erraza da, RStudion Markdown edo RMarkdown artxibo bat egitea baino ez.
 
 * GitHub-egaz sinatu
 * Aukeratu "new site from Git"
@@ -42,5 +62,6 @@ git push -u origin master
   Publish directory: `public`
   Advanced build settings
   New variable>Key `HUGO_VERSION`
+  Value `0.40`.
   
-
+Kasu honetan, [hemen](https://github.com/JuanAbasolo/pertsonala/) dago GitHub-eko biltegia eta hementxe web orria bera.
