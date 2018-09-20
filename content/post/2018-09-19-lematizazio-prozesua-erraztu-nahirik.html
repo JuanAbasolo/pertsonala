@@ -8,7 +8,6 @@ categories:
 tags:
   - IPA
 bibliography: Dialektometria.bib
-link-citations: yes
 ---
 
 
@@ -21,12 +20,12 @@ link-citations: yes
 <div id="nondik-norakoa" class="section level1">
 <h1>Nondik norakoa</h1>
 <p>Lan-jario bat aurkitu nahi dut, EHHAko datuetatik hasita lemen identifikaziora ahalik eta erarik automatizatuenean iristeko.</p>
-<p>Helburu hori lortzeko ahaleginak EHHAko <span class="citation">(Dialektologia batzordea <a href="#ref-dialektologia_batzordea_euskararen_2018">2018</a>)</span> datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako <em>HAIR.csv</em> datuekin, ilea izendatzeko moduei buruzkoak<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>Helburu hori lortzeko ahaleginak EHHAko <span class="citation">(Dialektologia batzordea 2018)</span> datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako <em>HAIR.csv</em> datuekin, ilea izendatzeko moduei buruzkoak<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>Pausuak, osorik zein zorrozteke daudenak, honela diseinatu ditut:</p>
 <ol style="list-style-type: decimal">
 <li>Datuak kopiatu EHHAko <a href="http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/2062.pdf">PDF</a>tik, itsatsi eta prestatu R-n kudeatzeko.</li>
 <li>R-ra sartu eta zutabe biko <em>data frame</em>a egin (aldagai batean herriak, beste batean herrian jasotako hizkuntz formak).</li>
-<li>Formen arteko ALINE distantziak atera <span class="citation">(Downey et al. <a href="#ref-downey_computational_2008">2008</a>)</span>, <strong>alineR</strong> paketea erabilita <span class="citation">(Downey, Sun, and Norquest <a href="#ref-downey_aliner:_2017">2017</a>)</span>.</li>
+<li>Formen arteko ALINE distantziak atera <span class="citation">(Downey et al. 2008)</span>, <strong>alineR</strong> paketea erabilita <span class="citation">(Downey, Sun, and Norquest 2017)</span>.</li>
 <li>Formen multzokatzeak <em>Cluster Analysis</em> teknikak erabilita.<br />
 Datu ezagun eta aztertuak direnez, multzo (cluster) kopuru aurrez jakina lortu nahi da, aurreikusitako lemekin bat letorkeena.</li>
 <li>Egokitasunaren azterketa egiteko elementuak sortu:
@@ -773,7 +772,7 @@ for(i in erak) {
             k=7,
             border=&quot;red&quot;)
 }</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-1.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-2.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-3.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-4.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-5.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-6.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-7.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-8.png" width="1152" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-1.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-2.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-3.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-4.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-5.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-6.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-7.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortu-8.png" width="1152" /></p>
 <p>Irudien gainetiko azterketa bat:</p>
 <ul>
 <li>ward.D multzokatze era
@@ -840,7 +839,7 @@ for(i in erak) {
             k=8,
             border=&quot;blue&quot;)
 }</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-1.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-2.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-3.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-4.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-5.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-6.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-7.png" width="1152" /><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-8.png" width="1152" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-1.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-2.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-3.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-4.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-5.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-6.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-7.png" width="1152" /><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/clusterrakSortuBis-8.png" width="1152" /></p>
 <p>Aurreko irudiak aztertuta (eskuineko botoiarekin pantaila osoan ikus daitezke), ematen du gure helburuetatik hurbilen dagoen multzokatze era <code>ward.D2</code> dela. Baina, datuak dauden moduan Senpereko <em>ileondo</em> forma ILE lemaren barruan kokatzen du eta banaketa bat markatzen du BILO eta BILHO artean.</p>
 <p>Datuak zuzendu ezik, etiketa bik batu behar lukete ordezkatze prozesuan.</p>
 </div>
@@ -864,14 +863,14 @@ plot(
 rect.hclust(clus.hair1,
             k = 7,
             border = &quot;green&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/hirugarrena-1.png" width="1152" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/hirugarrena-1.png" width="1152" /></p>
 <p>Azken multzoek ere ez diote ondo erantzuten, Landibarreko <em>biruak</em> forma eta Ataungo <em>burukoile</em> elkarrekin ematen baititu. Hala ere, ematen du bidea hortik pasa daitekeela.</p>
 </div>
 </div>
 <div id="zenbat-multzo-cluster-egin" class="section level1">
 <h1>Zenbat multzo (<em>cluster</em>) egin ?</h1>
 <p><strong>GARATZEKO</strong></p>
-<p>Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat <em>k</em> egitea komeni den. Multzokatzeen Analisirako gidan <span class="citation">(Kassambara <a href="#ref-kassambara_practical_2017">2017</a>)</span> zehazten da zelan egin<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<p>Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat <em>k</em> egitea komeni den. Multzokatzeen Analisirako gidan <span class="citation">(Kassambara 2017)</span> zehazten da zelan egin<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <pre><code>Aztertu ia alderik dagoan multzokatzeko aldaeren artean. 
 
 Funtzioa egin behar da.
@@ -1792,7 +1791,7 @@ dendograma.osoa+
   geom_hline(yintercept = 0.6, linetype = &quot;dashed&quot;) +
   labs(title = &quot;Hair in Basque&quot;,
        subtitle = &quot;ALINE distantzia, Ward.D2, k=?&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma%20pantastiku-1.png" width="1152" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma%20pantastiku-1.png" width="1152" /></p>
 <pre class="r"><code>dend_data &lt;- attr(dendograma.osoa, &quot;dendrogram&quot;) # Extract dendrogram data
 
 # Cut the dendrogram at height h = 10
@@ -1801,24 +1800,24 @@ dend_cuts &lt;- cut(dend_data, h = 0.6)
 # Visualize the truncated version containing
 # two branches
 fviz_dend(dend_cuts$upper, main = &quot;dendogramaren mozketa: 1.5 distantzian&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma.zatitzen-1.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/dendograma.zatitzen-1.png" width="672" /></p>
 <pre class="r"><code># Plot subtree 1
 fviz_dend(dend_cuts$lower[[1]], main = &quot;ULE&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre class="r"><code># Plot subtree 2
 fviz_dend(dend_cuts$lower[[3]], main = &quot;ILE&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
 <pre class="r"><code>fviz_dend(dend_cuts$lower[[4]], main = &quot;ARAZOA!!&quot;)</code></pre>
 <pre><code>## Warning in min(-diff(our_dend_heights)): no non-missing arguments to min;
 ## returning Inf</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
 <pre class="r"><code># Plot subtree 2
 fviz_dend(dend_cuts$lower[[5]], main = &quot;BILO&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
 <pre class="r"><code>fviz_dend(dend_cuts$lower[[6]], main = &quot;KALPAR&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-5.png" width="672" /></p>
 <pre class="r"><code>fviz_dend(dend_cuts$lower[[7]], main = &quot;TXIMA&quot;)</code></pre>
-<p><img src="2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-6.png" width="672" /></p>
+<p><img src="/post/2018-09-19-lematizazio-prozesua-erraztu-nahirik_files/figure-html/unnamed-chunk-10-6.png" width="672" /></p>
 </div>
 <div id="egitekoak" class="section level1">
 <h1>Egitekoak</h1>

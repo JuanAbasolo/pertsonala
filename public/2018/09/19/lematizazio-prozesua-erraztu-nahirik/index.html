@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Hugo 0.47.1" />
+<meta name="generator" content="Hugo 0.48" />
 
 
 <title>Lematizazio prozesua erraztu nahi - Juan Abasolo</title>
@@ -79,12 +79,12 @@
 <div id="nondik-norakoa" class="section level1">
 <h1>Nondik norakoa</h1>
 <p>Lan-jario bat aurkitu nahi dut, EHHAko datuetatik hasita lemen identifikaziora ahalik eta erarik automatizatuenean iristeko.</p>
-<p>Helburu hori lortzeko ahaleginak EHHAko <span class="citation">(Dialektologia batzordea <a href="#ref-dialektologia_batzordea_euskararen_2018">2018</a>)</span> datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako <em>HAIR.csv</em> datuekin, ilea izendatzeko moduei buruzkoak<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<p>Helburu hori lortzeko ahaleginak EHHAko <span class="citation">(Dialektologia batzordea 2018)</span> datuekin egin ditut. Hain zuzen ere, 2062. mapako datuekin eraikitako <em>HAIR.csv</em> datuekin, ilea izendatzeko moduei buruzkoak<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <p>Pausuak, osorik zein zorrozteke daudenak, honela diseinatu ditut:</p>
 <ol style="list-style-type: decimal">
 <li>Datuak kopiatu EHHAko <a href="http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/2062.pdf">PDF</a>tik, itsatsi eta prestatu R-n kudeatzeko.</li>
 <li>R-ra sartu eta zutabe biko <em>data frame</em>a egin (aldagai batean herriak, beste batean herrian jasotako hizkuntz formak).</li>
-<li>Formen arteko ALINE distantziak atera <span class="citation">(Downey et al. <a href="#ref-downey_computational_2008">2008</a>)</span>, <strong>alineR</strong> paketea erabilita <span class="citation">(Downey, Sun, and Norquest <a href="#ref-downey_aliner:_2017">2017</a>)</span>.</li>
+<li>Formen arteko ALINE distantziak atera <span class="citation">(Downey et al. 2008)</span>, <strong>alineR</strong> paketea erabilita <span class="citation">(Downey, Sun, and Norquest 2017)</span>.</li>
 <li>Formen multzokatzeak <em>Cluster Analysis</em> teknikak erabilita.<br />
 Datu ezagun eta aztertuak direnez, multzo (cluster) kopuru aurrez jakina lortu nahi da, aurreikusitako lemekin bat letorkeena.</li>
 <li>Egokitasunaren azterketa egiteko elementuak sortu:
@@ -112,7 +112,7 @@ Multzo kode bakoitza lema bati egokitzea espero da, erraz ordezkatzeko modukoa.<
 <li>Bertan lehenengo garbiketa bat<br />
 Esate baterako:
 <ul>
-<li><em>(mark.)</em> dioten testuak eta <em>(?)</em> oharrak ezabatu.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
+<li><em>(mark.)</em> dioten testuak eta <em>(?)</em> oharrak ezabatu.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
 <li>Herrialdeen izenak ezabatu.</li>
 <li>Lerro bakarrean utzi herri bakoitza.</li>
 </ul></li>
@@ -361,7 +361,8 @@ knitr::kable(tail(df.hair, 15), caption = &quot;data framearen azken balioak&quo
 </table>
 <p>Oraingo data frameak 2 aldagai eta 173 lerro ditu</p>
 <p>Azentu eta karaktere konfigurazio batzuk aldatu behar dira, abisurik ez emateko.</p>
-<p><strong>Oharra</strong>: Puntu honetan berrikus daitezke euskarazko konfigurazio batzuk sinplifikatzea, <strong>alineR</strong>-ek lana hobeto egiteko, esate baterako, bilho/bilo erakoak batu, <em>lh</em> guztiak <em>l</em> hutsera pasatuaz. Berdin egin behar litzateke, hala egitera, <em>kh</em> eta antzerako kasuekin.</p>
+<p><strong>Oharra</strong>:
+Puntu honetan berrikus daitezke euskarazko konfigurazio batzuk sinplifikatzea, <strong>alineR</strong>-ek lana hobeto egiteko, esate baterako, bilho/bilo erakoak batu, <em>lh</em> guztiak <em>l</em> hutsera pasatuaz. Berdin egin behar litzateke, hala egitera, <em>kh</em> eta antzerako kasuekin.</p>
 <p><code>ipa.garbi</code>funtzioa eraiki behar da</p>
 <pre class="r"><code># Irteerako datuak garbitzeko, arazodun azentuak-eta ezabatu
 # Funtzio egin behar da
@@ -870,10 +871,12 @@ Aurrekoaren moduan, ILHE eta ILE banatzen ditu. Baina batzen ditu ULE eta ILE.</
 </ul></li>
 </ul>
 <p>Lema bat etiketa-zenbaki bik adierazi behar dutela jakin arren, ez du ematen oraingo pausuan berebizikoa izango denik.</p>
-<p><strong>Oharra</strong>: Erabaki behar da ea erabilgarria den ala ez.</p>
+<p><strong>Oharra</strong>:
+Erabaki behar da ea erabilgarria den ala ez.</p>
 <div id="bigarren-ahalegina" class="section level2">
 <h2>Bigarren ahalegina</h2>
-<p>Zortziko taldekatzeak ezin erantzun diezaioke gure planteamenduari, datu hauek erabilita. Bide posibleak bi dira, beraz:</p>
+<p>Zortziko taldekatzeak ezin erantzun diezaioke gure planteamenduari, datu hauek erabilita.
+Bide posibleak bi dira, beraz:</p>
 <ol style="list-style-type: decimal">
 <li>Datuak egokitu. Multzokatze prozesuan idazkera/kodetze moduak hurrundutako batzuk hurreratu.<br />
 EB: <em>lh</em> -&gt; <em>l</em>, edo antzerakoak, aurretik adierazi den moduan</li>
@@ -926,7 +929,7 @@ rect.hclust(clus.hair1,
 <div id="zenbat-multzo-cluster-egin" class="section level1">
 <h1>Zenbat multzo (<em>cluster</em>) egin ?</h1>
 <p><strong>GARATZEKO</strong></p>
-<p>Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat <em>k</em> egitea komeni den. Multzokatzeen Analisirako gidan <span class="citation">(Kassambara <a href="#ref-kassambara_practical_2017">2017</a>)</span> zehazten da zelan egin<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>Ideia hutsa da. k-mean teknikak erabilita, badago era bat grafikoki aztertzeko ea zenbat <em>k</em> egitea komeni den. Multzokatzeen Analisirako gidan <span class="citation">(Kassambara 2017)</span> zehazten da zelan egin<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <pre><code>Aztertu ia alderik dagoan multzokatzeko aldaeren artean. 
 
 Funtzioa egin behar da.
@@ -1887,7 +1890,7 @@ fviz_dend(dend_cuts$lower[[5]], main = &quot;BILO&quot;)</code></pre>
 <p>Dialektologia batzordea. 2018. <em>Euskararen Herri Hizkeren Atlasa IX Lexikoa</em>. Vol. 9. Bilbo: Euskaltzaindia. <a href="http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/9lib/ehha_09.zip" class="uri">http://www.euskaltzaindia.eus/dok/iker_jagon_tegiak/ehha/9lib/ehha_09.zip</a>.</p>
 </div>
 <div id="ref-downey_computational_2008">
-<p>Downey, Sean S., Brian Hallmark, Murray P. Cox, Peter Norquest, and J. Stephen Lansing. 2008. “Computational Feature-Sensitive Reconstruction of Language Relationships: Developing the ALINE Distance for Comparative Historical Linguistic Reconstruction.” <em>Journal of Quantitative Linguistics</em> 15 (4): 340–69. doi:<a href="https://doi.org/10.1080/09296170802326681">10.1080/09296170802326681</a>.</p>
+<p>Downey, Sean S., Brian Hallmark, Murray P. Cox, Peter Norquest, and J. Stephen Lansing. 2008. “Computational Feature-Sensitive Reconstruction of Language Relationships: Developing the ALINE Distance for Comparative Historical Linguistic Reconstruction.” <em>Journal of Quantitative Linguistics</em> 15 (4): 340–69. <a href="https://doi.org/10.1080/09296170802326681" class="uri">https://doi.org/10.1080/09296170802326681</a>.</p>
 </div>
 <div id="ref-downey_aliner:_2017">
 <p>Downey, Sean S., Guowei Sun, and Peter Norquest. 2017. “alineR: An R Package for Optimizing Feature-Weighted Alignments and Linguistic Distances.” <em>The R Journal</em> 9 (1): 138–52. <a href="https://journal.r-project.org/archive/2017/RJ-2017-005/index.html" class="uri">https://journal.r-project.org/archive/2017/RJ-2017-005/index.html</a>.</p>
@@ -1900,9 +1903,9 @@ fviz_dend(dend_cuts$lower[[5]], main = &quot;BILO&quot;)</code></pre>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p><a href="./HAIR.csv">Hemen</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Aztertu daiteke balioak eurak ere kentzea<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p><a href="http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/">Sarrera zuzena</a><a href="#fnref3">↩</a></p></li>
+<li id="fn1"><p><a href="./HAIR.csv">Hemen</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Aztertu daiteke balioak eurak ere kentzea<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="http://www.sthda.com/english/articles/29-cluster-validation-essentials/96-determining-the-optimal-number-of-clusters-3-must-know-methods/">Sarrera zuzena</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
