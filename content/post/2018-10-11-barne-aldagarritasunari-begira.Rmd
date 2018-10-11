@@ -1,0 +1,337 @@
+---
+title: Barne aldagarritasunari begira
+author: Juan
+date: '2018-10-11'
+bibliography: Dialektometria.bib
+slug: barne-aldagarritasunari-begira
+categories:
+  - dialektometriaz
+tags:
+  - ikerketa
+---
+
+**Labur**: Lerrootakoa ariketa da: erantzun gehien eragin dituzten galderak identifikatzea izan da helburua. Bilaketa horretan *gehien* kontzeptuaren inguruko analisi ariketa egiten da. Ikuskera matematikoan ardaztu nahi izan dut ariketa zati honetan, horregatik interesaren fokoa eta azalpenak galderetan kokatu dira.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rm(list = ls())
+source('./f.bariazioa.R')
+```
+
+```{r}
+# Gardentasun mailak grafikoetan
+library(scales)
+
+# Laburpenak egiteko
+# library(psych) # Ez da hasieran kargatu behar
+```
+
+# Datuak
+
+```{r datuak.sartu, warning=FALSE}
+# Datuak sartu:
+dtk <- read.table("./EHHA I-II/answer.csv", 
+                sep = ";", 
+                header = F, 
+                stringsAsFactors = F)[,2:7]
+
+## Datuen azterketa eta garbiketa
+
+dtk$V3 <- as.integer(dtk$V3)
+
+dtk[9721,'V3'] <- 6
+
+# Herrien izenak eman
+herriena <- read.table('./EHHA I-II/location.csv', header = F, sep = ';')
+dtk$V3 <- factor(dtk$V3, levels = herriena$V1, labels = herriena$V2)
+
+## Identifikatu baliorik gabeko lerroak *V4* eta *V6* aldagaietan.
+erantzunik.gabekoak <- row.names(dtk[which(dtk$V4==''),])
+
+# length(erantzunik.gabekoak)
+# length(dtk$V4)-length(erantzunik.gabekoak)
+
+#### Lemei dagokien azterketa
+
+lema.bakuk <- as.integer(row.names(dtk[which(dtk$V6==''),]))
+
+## Erantzun kopuruaren kontaketak
+
+# ALDAGAI BARRIAK SORTU
+
+library(stringr)
+herriXforma <- sum(str_count(string = dtk[-lema.bakuk, 3],
+                            pattern = ","))
+
+herriXlema <- sum(str_count(string = dtk[-lema.bakuk, 5],
+                            pattern = ","))
+
+                 
+dtk$V8 <- ifelse(dtk[, 3] == "",
+                 0,
+                 str_count(string = dtk[, 3], 
+                           pattern = ',') + 1)
+
+dtk$V9 <- ifelse(dtk[, 5] == "",
+                 0,
+                 str_count(string = dtk[, 5],
+                           pattern = ',') + 1)
+
+```
+
+Lan hau egiteko oinarritzat Euskal Herri Hizkeren Atlaseko (EHHA hemendik aurrera) [@dialektologia_batzordea_euskararen_2008] lehenengo 44 galderen erantzunak erabili dira informatzaileek emandako formen edo lemen araberako alderaketa egin ahal izateko. EHHA I eta IIko datuak erabili dira formaren araberako alderaketarako soilik, ez baitigu denak izan lematizatuta eskura.
+
+Denera `r nrow(herriena)` herritako datuak batu eta analizatu dira. Hori zati bitan banatuta egin da. Lehenengo azterketan alderatu nahi izan dira erantzunak ikuspegi bitatik: Erantzun lematizatuak eta lematizatu gabeko erantzun *gordinetan*, batutako formen araberakoa, alegia. Hori egin ahal izateko azpitalde bat egin da zeinetan batutako erantzun guztiak lematizatuta ere baitauden.Horretan denera `r sum(dtk[-lema.bakuk, 'V8'])` forma batu dira, lematizazio prozesuaren ondoren `r sum(dtk$V9)` unitate zenbatzen dira. Aurkezten den lehenengo alderaketa horretan helburu nagusi bi dira; bata bestearen menpekoa: elementuaren (galderaren edo herriaren) barne bariazioa aztertzea eta barne bariazio hori zehazteko adierazleak identifikatzea.
+
+Beste ikuspegi posible batean, datu base osoa har liteke aztertzeko, eta ez soilik lematizatuta ditugun erantzunak. Horixe da hemen agertzen den bigarren azterketa; horretan datuen portaera aztertzen da, baina ezin konparatu litezke lematizatutako datuak lematizatu gabekoekin; beraz, deskribapen zabal eta herrena izango da bigarrena. Ikuskera horretan, datuek denera `r nrow(dtk)` neurraldi dituzte eta batutako formen kopurua `r as.integer(sum(dtk$V8),0)`koa da, `r  length(levels(as.factor(dtk$V2)))` galderaren erantzunak aipatutako `r nrow(herriena)` herritan batuta.
+
+# Hurbilpena: datuen banaketara hurrerapena.
+
+Hasierako azterketarako soilik hartu dira lematizatutako erantzunak dituzten kasuak; hau da, 44 galderaren erantzunak dira aztergai.
+
+## Bariaziorik handiena?
+
+Bariazioaren handitasuna definitzeko orduan ikuskera egokiaren bila zenbait ikuskera ebaluatu behar dira. 
+
+* Gehieneko balioa zein elementutan hartzen da? 
+* Bataz beste, zein elementutan eman dira erantzun gehien?
+* Muturreko balioak kenduta, zein elementutan eman dira erantzun gehien bataz beste?
+* Zein da gehienetan emandako erantzun kopurua elementuan?
+* Bataz besteko altuetatik, zeinek dauka desbiderapenik baxua?
+* Banaketan alborapen negatiborik handiena duena?
+
+Eta, *elementu* idazten dut, ikuskera matematikotik eragiketa bertsuak behar dituelako galderen araberako azterketak eta herrien araberakoak. Horrexegatik, lehenengo azterketa galderen arabera egiten da, maila gutxiagoko aldagaiak errealitatearen azterketa erraztu dezakeelakoan.
+
+## Azterketara hurbilpena
+
+Datuen ulerkuntzarako grafikoak aztertuko dira. Lehenengokoa grafikoa datuen banaketa aztertzea da.
+
+### Galderen araberako azterketa
+
+```{r subseta}
+# Datuak (soilik lemadunak)
+sdtk <-  subset(dtk, V9!=0)
+```
+
+Hasierako ahalegina irudi sinple bat egitea da, galderak eta forma kopurua alderatuaz:
+
+```{r plot-bar-galdera-forma, fig.height=5, fig.width=12}
+sdtk$color <- 'black'
+sdtk$color[sdtk$V8>2] <- "firebrick4"
+sdtk$color[sdtk$V8>4] <- "firebrick3"
+sdtk$color[sdtk$V8>6] <- "firebrick2"
+sdtk$color[sdtk$V8>8] <- "firebrick1"
+
+plot(sdtk$V8~sdtk$V2, 
+     xlim = c(1, max(sdtk$V2)), 
+     pch = 20, 
+     cex = 1.5,
+     xaxt = "n",
+     col = scales::alpha(sdtk$color, 0.3),
+     cex.axis = .7,
+     las = 2,
+     main = "Bariazioa galderetan",
+     ylab = "Forma kopurua",
+     xlab = 'Galdera zenbakia')
+
+axis(1, at=1:44, labels=1:44,
+     cex.axis =.8,
+     las = 2)
+```
+
+Irudian galdera bakoitzean batutako gehiengo erantzun kopurua argi ikusten da. Ikuskera horretatik argi dago 37. galderan batu direla erantzun gehien, 23.ean bigarren gehien eta hurrengoetan ez da argi ikusten zein alde dagoen, baldin eta badago, 6., 10., 11, 12,18, 21., 22, 23 eta 32. 
+
+Informazioa argitzeko ahaleginean, kutxa grafikoa erabili da bigarren pausuan. Kutxa grafikoak informazio asko eskaintzen du:
+
+* Bitartearen tamaina
+* Batez bestekoa
+* Koartilak
+* Outlierrak
+
+Lehenengo galderaren erantzunen analisia 37. galderakoa da, irudiaren arbera horixe baita deigarriena.
+
+```{r fig.height=5, fig.width=3.5, fig.align='center'}
+x <- subset(dtk, V2==37)
+
+library(scales)
+
+boxplot(V8~V2, data = x, 
+        #ylim = c(1,6),
+        col = "white",
+        outpch = 20,
+        outcex = 2,
+        outcol = scales::alpha("darkred", alpha = 0.2),
+        # xlab = 'galdera zenbakia',
+        ylab = 'erantzun kopurua',
+        main = '37. galdera',
+        #las = 2,
+        axes = FALSE
+        )
+
+axis(2, at=1:12, labels=1:12, las = 2)
+```
+
+37\. galderak, lehenengo grafikoan ikusi den moduan, erakusten du bariaziorik handiena. Batetik eta hamabi erantzun arte batu dira herri desberdinetan. Hamabi soilik kasu solteren batean (hamaika erantzunik ere ez da jaso-eta). Erantzun gehienak 1 eta 9 elementukoak izan dira. Aztertutako herrien aretean %25ean erantzun dira hiu eta bat elementuen artean, beste %25ek bi eta lau erantzun artean batu ditu, hurrengo %25 herritan hiru eta bost erantzunen arteko kopuruko erantzunak eman dituzte eta azken %25 5 eta 9 erantzunen artekoa da.
+
+Bigarren pausotzat aztertzen dira antzerakoak ematen duten datuen portaerak, hobeto ulertze aldera. Helburu horretarako gorago aipatutako 8 galderen erantzun kopuruen portaera batera irudikatuko dugu.
+
+```{r boxplot-galdera-forma-8, fig.height=5, fig.width=12}
+x <- subset(dtk, V2==6|
+                V2==10|
+                V2==11|
+                V2==18|
+                V2==21|
+                V2==22|
+                V2==23|
+                V2==32)
+
+boxplot(V8~V2, data = x, 
+        ylim = c(1,7),
+        col = "white",
+        outpch = 20,
+        outcex = 2,
+        outcol = alpha("darkred", 0.2),
+        xlab = 'galdera zenbakia',
+        ylab = 'erantzun kopurua',
+        main = '1-7 bitarteko erantzun kopurua hartutako galderen portaera')
+```
+
+
+Irudiaren azterketan antzematen dira ezaugarri batzuk, bestean ezkutuan gelditzen izan direnak. Zortzi galdera horiek alderatu nahi baditugu barne-aldagarritasunari dagokionean, nahiz eta bitarte ia bera izan, ikus dezakegu portaera desberdina dutela:
+
+* 10., 11., 21, eta 23. kasuetan 4 erantzun baino gehiago herri batzuetan batu badira ere, une puntualak direla ikusten da. Beraz, besteek bariazio handiagoa dutela esan genezake.  
+* Zehazki 11. galderan, gainera, batez besteko erantzun kopurua adierazten duen marra 1ean dago, beraz ondoriozta daiteke 10. 21. eta 23. galderek erantzun anitz gehiago eragin dituztela 11.ak baino.  
+* Bestalde, 23. galderak erakusten du bitarterik handiena, aztergai hartu ditugun artean. Baina, hala ere, bigarren koartila 2tik hurreago dauka 3tik baino; laugarren koartilaren muga 3an dago. Beraz, uler dezakegu puntualtasunen baten gora beheran, hori ere bariazio gutxiago duten galderen artekoa dela, nahiz eta besteek baino kopuru handiagoa hartu neurraldiren batean.
+
+Ondoriotzat har dezakegu 6., 18., 22. eta 32. galderetan bariazio handiagoa ikusi dela besteetan baino.
+
+```{r boxplot-galdera-forma-44, fig.height=5, fig.width=12}
+boxplot(V8~V2, data = sdtk, 
+        main = "Erantzun kopurua, galderen arabera [formak]",
+        las = 2,
+        outpch = 20,
+        outcex = 1.5,
+        outcol = alpha("darkred", 0.2)
+        )
+```
+
+Kutxa diagramen azterketa eginda, ematen du aztertu diren galderen artean 37.ak duela bariaziorik handiena eta bigarren maila batean ematen du 6.a, 18.a, 22.a eta 32.a daudela; goragoko azterketan nabarmendutako horietxek. Bariaziorik baxuena, berriz, 39. galderak duela ematen du.
+
+Azterketa sakonagoa egin genezake aldagaien deskriptore estatistikoak aztertuta. Segidan eskaintzen da lehenengo berrogeita lau galderetan hartutako erantzun kopuruen zenbakizko deskribapena.
+
+```{r laburpena44}
+mx44forma <- psych::describeBy(sdtk$V8, sdtk$V2,
+                  mat = T, # Matrix formatuan irteteko
+                  digits = 2)[,c(2,5:8,12:13)] # Aukeratu: Herria, mean, sd, median, trimmed, range, skew.
+
+laburpenenizenak <- c('Taldea', '$\\bar{x}$', '$\\sigma$',
+                      '$Me$', 'Moztutako $\\bar{x}$', 'heina', 'skew')
+
+# x <- mx44forma[order(mx44forma$mean),]
+names(mx44forma) <- laburpenenizenak
+names(mx44forma)[1] <- "Galdera"
+knitr::kable(mx44forma,
+             row.names = F, 
+             digits = 2)
+```
+
+#### Irudi-analisia, bataz bestekoaren arabera
+
+Bataz bestekoaren araberako hurrenkeran aurkezten dira goiko taulako datuak. Lehenengo irudiak batezbestekoaren hurrenkera eta bataz besteko balioen irudikapena ikusten da; bigarrenean desbiderapen tipikoa, eta hirugarrenean balio zentrala. Bigarren taldean, lehenengo irudiakmoztutako batez bestekoa irudikatzen da, bigarrenean baliorik baxuena eta altuenaren arteko heina, eta hirugarrenean, banaketaren alborapena.
+
+```{r fig.height=7, fig.width=6, fig.align='center'}
+
+par(mfrow = c(1, 3))
+x <- mx44forma[order(mx44forma[,2], decreasing = T),]
+dotchart(x[,2],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = expression(bar(x)))
+
+dotchart(x[,3],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = expression(sigma))
+
+dotchart(x[,4],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = expression('Me'))
+par(mfrow = c(1,1))
+```
+
+```{r fig.height=7, fig.width=6, fig.align='center'}
+par(mfrow = c(1, 3))
+dotchart(x[,5],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = expression(paste('Moztutako ', bar(x))))
+
+dotchart(x[,6],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = "heina")
+
+dotchart(x[,7],
+         labels = x[,1],
+         cex.axis = 0.6,
+         pch = 19,
+         color = 'darkred',
+         main = 'skew')
+par(mfrow = c(1,1))
+
+```
+
+Azterketarako hurrerapeneko azken grafikoen analisiak datuen banaketa koherentea erakusten du, ñabardurarik ñabardura.
+
+Argi dago grafikoetan gorengo irudikatutako galderek dutela bariaziorik handiena. horietan ikusten da bataz besteko baliorik altuenak, moztua izan zein ez. Horietan ere ikusten dira balio zentralik altuenak, desbiderapen neurri handienak edo handienetarikoak hor kokatzen dira; heinik handienak ere hor ere badaude, zein ezkerrerako alborapenik baxuena datu horietan aurkitu dira.
+
+Beraz, aztertutako 44 galderen erantzunaren aniztasunari begiratuta, ematen du bariaziorik altuena goiko elementuek dutela esan dezakegula, erratzeko beldurrik gabe.
+
+Hurrengo baterako, interesgarria litzateke ezaugarrien muga antzemateko irizpideak ere ematea.Oraingoan lehenengo laurdenari begiratuko diogu. Hauek dira, honen arbera, bariaziorik handiena duten galderak: `r x[1:(nrow(x)/4),1]`.
+
+##### Bariazio handiena, elementu guztiak kontuan izanda:
+
+Bariazioa aztertzeko erabili ditugun teknikak izan dira: batez bestekoa (zuzena eta moztua), desbiderapen standarra, gutxieneko eta gehieneko balioen arteko balioa, erdiko balioa (mediana) eta alborapena. Azken kasu hori, alborapenarena, hartu da kontuan, baina aldrabesezko ordenan, hau da, zenbat eta balio baxuagoa izan, orduan eta ezkerrerako alborapen gutxiago izango duenez, balioen baxutasunaren arabera aztertu da
+
+Deskribatzaile bakoitzaren arabera egindako sailkapeneko lehenengo laurdenen batura: `r bariazioa.handia.batura(sdtk$V8, sdtk$V2)`.
+
+Deskribatzaile guztietan lehenengo laurdenean agertzen diren galderak: `r bariazioa.handia.batera(sdtk$V8, sdtk$V2)`.
+
+Esan bezala, honetan aurkezten diren bariazio handiko neurriak batzuk baino ez dira eta adizio zein intersekzio ikuspegian aurkezten dira. Erabakitzeko dago, ordea, zein balio mota komeni den erabiltzea eta zergatik.
+
+# Bariazio handia beste konfigurazio batzuetatik
+
+Betiere, ariketa honetan lematizatuta ageri diren erantzunetan baino ez gara ari (lehenengo 44 galderetan). 
+
+## Lemen bariazioa galderetan
+
+Deskribatzaile bakoitzaren arabera egindako sailkapeneko lehenengo laurdenen batura: `r bariazioa.handia.batura(sdtk$V9, sdtk$V2)`.
+
+Deskribatzaile guztietan lehenengo laurdenean agertzen diren galderak: `r bariazioa.handia.batera(sdtk$V9, sdtk$V2)`.
+
+## Lemen bariazio handia herrietan
+
+
+Deskribatzaile bakoitzaren arabera egindako sailkapeneko lehenengo laurdenen batura: `r ifelse(length(bariazioa.handia.batura(sdtk$V9, sdtk$V3))==145, "denak", bariazioa.handia.batura(sdtk$V9, sdtk$V3))`.
+
+Deskribatzaile guztietan lehenengo laurdenean agertzen diren galderak: `r bariazioa.handia.batera(sdtk$V9, sdtk$V3)`.
+
+## Formen bariazio handia herrietan
+
+Deskribatzaile bakoitzaren arabera egindako sailkapeneko lehenengo laurdenen batura: `r ifelse(length(bariazioa.handia.batura(sdtk$V8, sdtk$V3))==145, "denak", ariazioa.handia.batura(sdtk$V8, sdtk$V3))`.
+
+Deskribatzaile guztietan lehenengo laurdenean agertzen diren galderak: `r bariazioa.handia.batera(sdtk$V8, sdtk$V3)`.
+
+# Erreferentziak
