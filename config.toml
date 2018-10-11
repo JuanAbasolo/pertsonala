@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "eu"
-title = "Juan Abasolo"
+title = "Ikerketa hondarrak"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
@@ -14,17 +14,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     url = "/about/"
     weight = 1
 [[menu.main]]
-    name = "Telegram"
-    url = "https://t.me/JuanAbasolo"
+    name = "EUDIA"
+    url = "https://www.ehu.eus/eudia"
     weight = 2
-[[menu.main]]
-    name = "GitHub"
-    url = "https://github.com/JuanAbasolo"
-    weight = 3
-[[menu.main]]
-    name = "Twitter"
-    url = "https://twitter.com/juanbasolo1"
-    weight = 4
 
 [params]
     description = "Juan Abasoloren webgune pertsonala"
