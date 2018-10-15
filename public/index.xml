@@ -6,10 +6,20 @@
     <description>Recent content on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Thu, 11 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kateen arteko distantziak R-n</title>
+      <link>/2018/10/15/kateen-arteko-distantziak-r-n-stringdist-paketeaz/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/10/15/kateen-arteko-distantziak-r-n-stringdist-paketeaz/</guid>
+      <description>stringdist paketearen erabilerarako nire oharrak publiko egiten ditut hemen, bat edo bati ondo etorriko ote zaizkion, erabaki bat edo beste hartzeko. Hala ere, kontuan izan hemengo hau ohar tekniko multzoa baino ez dela, ordena gutxiduna.
+Karaktere kateen arteko distantziak kalkulatzeko zenbait pakete eta funtizo daude, hemen stringdist baino ez da azaltzen. Lehengo beste post batean alineR paketea erabili zen. IPA kodeketa erabiliaz egiten du lan aipatu paketeak, baina ez du matrizik sortzeko berezko inplementaziorik.</description>
+    </item>
     
     <item>
       <title>Barne aldagarritasunari begira</title>

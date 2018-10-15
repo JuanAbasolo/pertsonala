@@ -1,0 +1,192 @@
+---
+title: 'Kateen arteko distantziak R-n'
+author: Juan
+date: '2018-10-15'
+slug: kateen-arteko-distantziak-r-n-stringdist-paketeaz
+categories:
+  - dialektometriaz
+tags:
+  - r
+  - distantziak
+  - ikerketa
+---
+
+`stringdist` paketearen erabilerarako nire oharrak publiko egiten ditut hemen, bat edo bati ondo etorriko ote zaizkion, erabaki bat edo beste hartzeko. Hala ere, kontuan izan hemengo hau ohar tekniko multzoa baino ez dela, ordena gutxiduna.
+
+Karaktere kateen arteko distantziak kalkulatzeko zenbait pakete eta funtizo daude, hemen `stringdist` baino ez da azaltzen. Lehengo beste post batean `alineR` paketea erabili zen. *IPA* kodeketa erabiliaz egiten du lan aipatu paketeak, baina ez du matrizik sortzeko berezko inplementaziorik.
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Oinarrizko informazioa jakiteko:
+
+```{r include=TRUE}
+# ??stringdist # Informazioa hartzeko
+library(stringdist)
+```
+
+Paketeak hiru eratako distantziak kalkula ditzake:
+
+* Edizioan oinarritutako distantziak  
+Horietan kontatzen da zenbat oinarrizko operazio[^oin] behar diren kate batetik beste batera igarotzeko.
+* *q-gram*etan oinarritutako distantziak  
+Karaktereen sekuentziak alderatzen ditu kateen artean
+* Distantzia heuristikoak  
+Teklatuetan gertatzen diren gertaerak analizatzeko, oinarri matematiko makala ei dauka.
+
+[^oin]: Oinarrizko operazioak dira (1) gehitzea, (2) kentzea, (3) ordezkatzea eta (4) tokiz aldatzea.
+
+## Edizioan oinarritutako distantziak
+
+- Hamming  $d_{hamming}$  
+`method = "hamming"`
+- generalized Levenshtein $d_{lv}$  
+`method = "lv"`  
+Beste inplementazio bat dago r-core paketean: `adist()`
+- Longest Common Substring  $d_{lcs}$  
+`method = "lcs"`
+- optimal string alignment  $d_{osa}$ *by default*  
+`method = "osa"`
+- generalized Damerau-Levenshtein $d_{dl}$  
+`method = "dl"`  
+Damerauk birplanteatu zuen Levenshteinen algoritmoa, baina kokapen trukaketa ikuskera zabalagotik ulertzen du.
+
+## Levenshtein eta Damerrau-Levenshtein distantzien arteko alderaketa
+
+### *Levenshtein* distantziarekin
+
+```{r include=TRUE}
+stringdist("ab", "bca", method = "lv")
+```
+Emaitza honela kalkulatzen du:
+
+$$ab\xrightarrow[+1]{kendu\ b}a\xrightarrow[+1]{gehitu\ b}ba\xrightarrow[+1]{gehitu\ c}bca$$
+
+### *Damerou-Levenshtein* distantzia
+
+Horrekin $d_{dl}$ berriz:
+
+```{r include=TRUE}
+stringdist("ab", "bca", method = "dl")
+```
+
+$$ab\xrightarrow[+1]{aldatu\ b,a}ba\xrightarrow[+1]{gehitu\ c}bca$$
+
+### Laburpena
+
+Beraz, denera honela antolatzen dira distantziak:
+
+*d*~hamming~ >= *d*~lcs~ >= *d*~lv~ >= *d*~osa~ >= *d*~lv~ >= 0
+
+Eta distantziok ez dute hartzen kontuan karaktere katearen luzera emaitzetan
+
+```{r include=TRUE}
+# Zein bi kate multzoen artean dago distantzia handiagoa
+stringdist("hortorrinogarinlologo", "otorrinonaringologo", method = "lv") ; stringdist('jai', 'gin', method = "lv")
+```
+
+> Ematen du komeni litzatekeela aplikazioren bat ezartzea katearen luzera ere kontuan izango duena, *d*~lv~ren gainean eginda.
+
+## *q-gram*etan oinarritutakoak
+
+q-gram neurriak beti daude 0 eta 1 artean, 0 litzateke alderik ez duena eta 1 erabat bestelakoa.
+
+Edozein kate > 0 dela, berori sortzen duten *q* luzerako zenbait grametan. Lehengo *jai* hori izango da, *q*=2 hartzen badugu, *ja* eta *ai*.
+
+q-gram distantzia kalkulatzeko alderatzen dira kate bitan ematen diren q-gramak eta zenbatzen dira elkarrekin ez dituzten qgram kopurua. Esate baterako:
+
+```{r include=TRUE}
+stringdist('leia', 'leela', method = "jaccard", q=2)
+```
+
+Horren azalpena honela ulertu behar da: $Q('leia';2)=\{'le', 'ei', 'ia'\}$ eta $Q('leela';2)=\{'le','ee','el','la'\}$ batera ez datozenak 6 dira, beraz: $1-\frac{1}{6}\approx 0.83$.
+
+Beraz, emaitzak *q*ren tamainaren araberakoa izango da:
+
+```{r include=TRUE}
+stringdist('leia', 'leela', method = "jaccard", q=1); 
+stringdist('leia', 'leela', method = "jaccard", q=3)
+```
+
+Lehen edizioan oinarritutako distantzietarako alderatu ditugun elementuak q-grametan alderatuta honela ikusiko lirateke:
+
+```{r include=TRUE}
+stringdist("hortorrinogarinlologo", "otorrinonaringologo", method = "jaccard", q=2); stringdist('jai', 'gin', method = "jaccard", q=2)
+```
+
+- q-gram $d_{qgram}$  
+`method = "qgram"`  
+Honek dio zenbat q-gram ez duten komun alderatzen diren kateek
+- Jaccard $d_{jaccard}$  
+`method = "jaccard"`  
+Honek aurrekoaren antzera, baina komun dituztenak kontuan izanda, halan 0 eta 1en arteko balioak hartzen ditu
+- cosine $d_{cos}$  
+`method = "cosine"`  
+Honek kosinuaren kalkulua hartzen du oinarri. Geometrian oinarritutako neurria da: alderatzen diren *s* eta *t* kate bi hartuta, *v*(*s;q*) eta  *v*(*t;q*) ulertu behar dira. Bektore bien arteko anguluaren kosinua da *d*~cos~ hori.
+
+## Heuristic ikuspegikoak
+
+Ez zaizkigu interesatzen, horregatik aipatu baino ez dir aegiten
+
+- Jaro
+- Jaro-Winkler 
+
+#  <span style="color:red">Gure interes eta asmoen arabera begiratu beharrekoak</span>:
+
+- Distantzia era desberdinen araberako hurrenkerak eregi, teorian oinarrituta horien doikuntza aztertzeko.
+- Aztertu literaturan zelan agertzen diren distantzion erabilerak.
+- Aztertu distantzion araberako sailkapenak koherenteak diren (cluster analisa)
+
+# Sintaxia
+
+Paketearen oinarrizko aginduak dira `stringdist`, elementu bien arteko distantzia kalkulatzen duena, eta `stringdistmatrix` matriz biko elementuak alderatzen dituena.
+
+Aztertzeko erabiliko ditudan datuak:
+
+```{r results='asis'}
+# Datuak aukeratu
+datuak <- read.table('datuak', 
+                     sep = ',', 
+                     stringsAsFactors = F)
+datuak <- datuak[,-1]
+colnames(datuak) <- datuak[1,]
+rownames(datuak) <- datuak[,1]
+datuak <- datuak[-1, -1]
+
+knitr::kable(datuak[2,20])
+knitr::kable(datuak[c(3:12),20])
+
+```
+
+
+```{r include=TRUE}
+stringdist(datuak[2,20], datuak[c(3:12),20])
+
+```
+
+
+Matrizeak alderatzeko aginduarekin:
+
+```{r include=TRUE}
+table(datuak[,20], datuak$Adin.tartea)
+x <- stringdistmatrix(datuak[,20], method = "cosine", q=2)
+round(x,3)
+plot(hclust(x), labels = datuak$Adin.tartea)
+
+```
+
+Matrizearen itxuran erakusteko, aurreko datuak:
+
+```{r results='asis'}
+xm <-as.matrix(round(x,3))
+knitr::kable(xm)
+```
+
+# Erreferentziak
+
+Downey, S. S., Sun, G., & Norquest, P. (2017). alineR: an R Package for Optimizing Feature-Weighted Alignments and Linguistic Distances. *The R Journal*, *9*(1), 138–152.
+
+Loo, M. P. J. van der. (2014). The stringdist package for approximate string matching. *The R Journal*, *6*(1), 111–122. [*](https://journal.r-project.org/archive/2014/RJ-2014-011/RJ-2014-011.pdf)

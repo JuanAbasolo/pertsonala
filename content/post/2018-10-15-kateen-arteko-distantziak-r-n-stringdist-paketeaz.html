@@ -1,0 +1,414 @@
+---
+title: 'Kateen arteko distantziak R-n'
+author: Juan
+date: '2018-10-15'
+slug: kateen-arteko-distantziak-r-n-stringdist-paketeaz
+categories:
+  - dialektometriaz
+tags:
+  - r
+  - distantziak
+  - ikerketa
+---
+
+
+
+<p><code>stringdist</code> paketearen erabilerarako nire oharrak publiko egiten ditut hemen, bat edo bati ondo etorriko ote zaizkion, erabaki bat edo beste hartzeko. Hala ere, kontuan izan hemengo hau ohar tekniko multzoa baino ez dela, ordena gutxiduna.</p>
+<p>Karaktere kateen arteko distantziak kalkulatzeko zenbait pakete eta funtizo daude, hemen <code>stringdist</code> baino ez da azaltzen. Lehengo beste post batean <code>alineR</code> paketea erabili zen. <em>IPA</em> kodeketa erabiliaz egiten du lan aipatu paketeak, baina ez du matrizik sortzeko berezko inplementaziorik.</p>
+<p>Oinarrizko informazioa jakiteko:</p>
+<pre class="r"><code># ??stringdist # Informazioa hartzeko
+library(stringdist)</code></pre>
+<p>Paketeak hiru eratako distantziak kalkula ditzake:</p>
+<ul>
+<li>Edizioan oinarritutako distantziak<br />
+Horietan kontatzen da zenbat oinarrizko operazio<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> behar diren kate batetik beste batera igarotzeko.</li>
+<li><em>q-gram</em>etan oinarritutako distantziak<br />
+Karaktereen sekuentziak alderatzen ditu kateen artean</li>
+<li>Distantzia heuristikoak<br />
+Teklatuetan gertatzen diren gertaerak analizatzeko, oinarri matematiko makala ei dauka.</li>
+</ul>
+<div id="edizioan-oinarritutako-distantziak" class="section level2">
+<h2>Edizioan oinarritutako distantziak</h2>
+<ul>
+<li>Hamming <span class="math inline">\(d_{hamming}\)</span><br />
+<code>method = &quot;hamming&quot;</code></li>
+<li>generalized Levenshtein <span class="math inline">\(d_{lv}\)</span><br />
+<code>method = &quot;lv&quot;</code><br />
+Beste inplementazio bat dago r-core paketean: <code>adist()</code></li>
+<li>Longest Common Substring <span class="math inline">\(d_{lcs}\)</span><br />
+<code>method = &quot;lcs&quot;</code></li>
+<li>optimal string alignment <span class="math inline">\(d_{osa}\)</span> <em>by default</em><br />
+<code>method = &quot;osa&quot;</code></li>
+<li>generalized Damerau-Levenshtein <span class="math inline">\(d_{dl}\)</span><br />
+<code>method = &quot;dl&quot;</code><br />
+Damerauk birplanteatu zuen Levenshteinen algoritmoa, baina kokapen trukaketa ikuskera zabalagotik ulertzen du.</li>
+</ul>
+</div>
+<div id="levenshtein-eta-damerrau-levenshtein-distantzien-arteko-alderaketa" class="section level2">
+<h2>Levenshtein eta Damerrau-Levenshtein distantzien arteko alderaketa</h2>
+<div id="levenshtein-distantziarekin" class="section level3">
+<h3><em>Levenshtein</em> distantziarekin</h3>
+<pre class="r"><code>stringdist(&quot;ab&quot;, &quot;bca&quot;, method = &quot;lv&quot;)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Emaitza honela kalkulatzen du:</p>
+<p><span class="math display">\[ab\xrightarrow[+1]{kendu\ b}a\xrightarrow[+1]{gehitu\ b}ba\xrightarrow[+1]{gehitu\ c}bca\]</span></p>
+</div>
+<div id="damerou-levenshtein-distantzia" class="section level3">
+<h3><em>Damerou-Levenshtein</em> distantzia</h3>
+<p>Horrekin <span class="math inline">\(d_{dl}\)</span> berriz:</p>
+<pre class="r"><code>stringdist(&quot;ab&quot;, &quot;bca&quot;, method = &quot;dl&quot;)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p><span class="math display">\[ab\xrightarrow[+1]{aldatu\ b,a}ba\xrightarrow[+1]{gehitu\ c}bca\]</span></p>
+</div>
+<div id="laburpena" class="section level3">
+<h3>Laburpena</h3>
+<p>Beraz, denera honela antolatzen dira distantziak:</p>
+<p><em>d</em><sub>hamming</sub> &gt;= <em>d</em><sub>lcs</sub> &gt;= <em>d</em><sub>lv</sub> &gt;= <em>d</em><sub>osa</sub> &gt;= <em>d</em><sub>lv</sub> &gt;= 0</p>
+<p>Eta distantziok ez dute hartzen kontuan karaktere katearen luzera emaitzetan</p>
+<pre class="r"><code># Zein bi kate multzoen artean dago distantzia handiagoa
+stringdist(&quot;hortorrinogarinlologo&quot;, &quot;otorrinonaringologo&quot;, method = &quot;lv&quot;) ; stringdist(&#39;jai&#39;, &#39;gin&#39;, method = &quot;lv&quot;)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 3</code></pre>
+<blockquote>
+<p>Ematen du komeni litzatekeela aplikazioren bat ezartzea katearen luzera ere kontuan izango duena, <em>d</em><sub>lv</sub>ren gainean eginda.</p>
+</blockquote>
+</div>
+</div>
+<div id="q-grametan-oinarritutakoak" class="section level2">
+<h2><em>q-gram</em>etan oinarritutakoak</h2>
+<p>q-gram neurriak beti daude 0 eta 1 artean, 0 litzateke alderik ez duena eta 1 erabat bestelakoa.</p>
+<p>Edozein kate &gt; 0 dela, berori sortzen duten <em>q</em> luzerako zenbait grametan. Lehengo <em>jai</em> hori izango da, <em>q</em>=2 hartzen badugu, <em>ja</em> eta <em>ai</em>.</p>
+<p>q-gram distantzia kalkulatzeko alderatzen dira kate bitan ematen diren q-gramak eta zenbatzen dira elkarrekin ez dituzten qgram kopurua. Esate baterako:</p>
+<pre class="r"><code>stringdist(&#39;leia&#39;, &#39;leela&#39;, method = &quot;jaccard&quot;, q=2)</code></pre>
+<pre><code>## [1] 0.8333333</code></pre>
+<p>Horren azalpena honela ulertu behar da: <span class="math inline">\(Q(&#39;leia&#39;;2)=\{&#39;le&#39;, &#39;ei&#39;, &#39;ia&#39;\}\)</span> eta <span class="math inline">\(Q(&#39;leela&#39;;2)=\{&#39;le&#39;,&#39;ee&#39;,&#39;el&#39;,&#39;la&#39;\}\)</span> batera ez datozenak 6 dira, beraz: <span class="math inline">\(1-\frac{1}{6}\approx 0.83\)</span>.</p>
+<p>Beraz, emaitzak <em>q</em>ren tamainaren araberakoa izango da:</p>
+<pre class="r"><code>stringdist(&#39;leia&#39;, &#39;leela&#39;, method = &quot;jaccard&quot;, q=1); </code></pre>
+<pre><code>## [1] 0.25</code></pre>
+<pre class="r"><code>stringdist(&#39;leia&#39;, &#39;leela&#39;, method = &quot;jaccard&quot;, q=3)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Lehen edizioan oinarritutako distantzietarako alderatu ditugun elementuak q-grametan alderatuta honela ikusiko lirateke:</p>
+<pre class="r"><code>stringdist(&quot;hortorrinogarinlologo&quot;, &quot;otorrinonaringologo&quot;, method = &quot;jaccard&quot;, q=2); stringdist(&#39;jai&#39;, &#39;gin&#39;, method = &quot;jaccard&quot;, q=2)</code></pre>
+<pre><code>## [1] 0.4210526</code></pre>
+<pre><code>## [1] 1</code></pre>
+<ul>
+<li>q-gram <span class="math inline">\(d_{qgram}\)</span><br />
+<code>method = &quot;qgram&quot;</code><br />
+Honek dio zenbat q-gram ez duten komun alderatzen diren kateek</li>
+<li>Jaccard <span class="math inline">\(d_{jaccard}\)</span><br />
+<code>method = &quot;jaccard&quot;</code><br />
+Honek aurrekoaren antzera, baina komun dituztenak kontuan izanda, halan 0 eta 1en arteko balioak hartzen ditu</li>
+<li>cosine <span class="math inline">\(d_{cos}\)</span><br />
+<code>method = &quot;cosine&quot;</code><br />
+Honek kosinuaren kalkulua hartzen du oinarri. Geometrian oinarritutako neurria da: alderatzen diren <em>s</em> eta <em>t</em> kate bi hartuta, <em>v</em>(<em>s;q</em>) eta <em>v</em>(<em>t;q</em>) ulertu behar dira. Bektore bien arteko anguluaren kosinua da <em>d</em><sub>cos</sub> hori.</li>
+</ul>
+</div>
+<div id="heuristic-ikuspegikoak" class="section level2">
+<h2>Heuristic ikuspegikoak</h2>
+<p>Ez zaizkigu interesatzen, horregatik aipatu baino ez dir aegiten</p>
+<ul>
+<li>Jaro</li>
+<li>Jaro-Winkler</li>
+</ul>
+</div>
+<div id="gure-interes-eta-asmoen-arabera-begiratu-beharrekoak" class="section level1">
+<h1><span style="color:red">Gure interes eta asmoen arabera begiratu beharrekoak</span>:</h1>
+<ul>
+<li>Distantzia era desberdinen araberako hurrenkerak eregi, teorian oinarrituta horien doikuntza aztertzeko.</li>
+<li>Aztertu literaturan zelan agertzen diren distantzion erabilerak.</li>
+<li>Aztertu distantzion araberako sailkapenak koherenteak diren (cluster analisa)</li>
+</ul>
+</div>
+<div id="sintaxia" class="section level1">
+<h1>Sintaxia</h1>
+<p>Paketearen oinarrizko aginduak dira <code>stringdist</code>, elementu bien arteko distantzia kalkulatzen duena, eta <code>stringdistmatrix</code> matriz biko elementuak alderatzen dituena.</p>
+<p>Aztertzeko erabiliko ditudan datuak:</p>
+<pre class="r"><code># Datuak aukeratu
+datuak &lt;- read.table(&#39;datuak&#39;, 
+                     sep = &#39;,&#39;, 
+                     stringsAsFactors = F)
+datuak &lt;- datuak[,-1]
+colnames(datuak) &lt;- datuak[1,]
+rownames(datuak) &lt;- datuak[,1]
+datuak &lt;- datuak[-1, -1]
+
+knitr::kable(datuak[2,20])</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lenarte</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>knitr::kable(datuak[c(3:12),20])</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lenarte</td>
+</tr>
+<tr class="even">
+<td align="left">lenarte</td>
+</tr>
+<tr class="odd">
+<td align="left">lenarte</td>
+</tr>
+<tr class="even">
+<td align="left">lenaurarte</td>
+</tr>
+<tr class="odd">
+<td align="left">lenaurarte</td>
+</tr>
+<tr class="even">
+<td align="left">lenarte</td>
+</tr>
+<tr class="odd">
+<td align="left">lenarte</td>
+</tr>
+<tr class="even">
+<td align="left">lenarte</td>
+</tr>
+<tr class="odd">
+<td align="left">lenaurarte</td>
+</tr>
+<tr class="even">
+<td align="left">lenaurarte</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>stringdist(datuak[2,20], datuak[c(3:12),20])</code></pre>
+<pre><code>##  [1] 0 0 0 3 3 0 0 0 3 3</code></pre>
+<p>Matrizeak alderatzeko aginduarekin:</p>
+<pre class="r"><code>table(datuak[,20], datuak$Adin.tartea)</code></pre>
+<pre><code>##             
+##              adineko EI gazte heldu
+##   lenarte          4  1     1     2
+##   lenaurarte       0  0     2     2</code></pre>
+<pre class="r"><code>x &lt;- stringdistmatrix(datuak[,20], method = &quot;cosine&quot;, q=2)
+round(x,3)</code></pre>
+<pre><code>##        1     2     3     4     5     6     7     8     9    10    11
+## 2  0.000                                                            
+## 3  0.000 0.000                                                      
+## 4  0.000 0.000 0.000                                                
+## 5  0.000 0.000 0.000 0.000                                          
+## 6  0.184 0.184 0.184 0.184 0.184                                    
+## 7  0.184 0.184 0.184 0.184 0.184 0.000                              
+## 8  0.000 0.000 0.000 0.000 0.000 0.184 0.184                        
+## 9  0.000 0.000 0.000 0.000 0.000 0.184 0.184 0.000                  
+## 10 0.000 0.000 0.000 0.000 0.000 0.184 0.184 0.000 0.000            
+## 11 0.184 0.184 0.184 0.184 0.184 0.000 0.000 0.184 0.184 0.184      
+## 12 0.184 0.184 0.184 0.184 0.184 0.000 0.000 0.184 0.184 0.184 0.000</code></pre>
+<pre class="r"><code>plot(hclust(x), labels = datuak$Adin.tartea)</code></pre>
+<p><img src="/post/2018-10-15-kateen-arteko-distantziak-r-n-stringdist-paketeaz_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Matrizearen itxuran erakusteko, aurreko datuak:</p>
+<pre class="r"><code>xm &lt;-as.matrix(round(x,3))
+knitr::kable(xm)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+<th align="right">11</th>
+<th align="right">12</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="even">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="odd">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="even">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="odd">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="even">
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="odd">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="even">
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+</tr>
+<tr class="odd">
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.184</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="erreferentziak" class="section level1">
+<h1>Erreferentziak</h1>
+<p>Downey, S. S., Sun, G., &amp; Norquest, P. (2017). alineR: an R Package for Optimizing Feature-Weighted Alignments and Linguistic Distances. <em>The R Journal</em>, <em>9</em>(1), 138–152.</p>
+<p>Loo, M. P. J. van der. (2014). The stringdist package for approximate string matching. <em>The R Journal</em>, <em>6</em>(1), 111–122. <a href="https://journal.r-project.org/archive/2014/RJ-2014-011/RJ-2014-011.pdf">*</a></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Oinarrizko operazioak dira (1) gehitzea, (2) kentzea, (3) ordezkatzea eta (4) tokiz aldatzea.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
