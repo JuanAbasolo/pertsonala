@@ -9,6 +9,8 @@ Orain 15 bat urte ibilbide akademikoan hasi nintzen eta 2011tik karrera akademik
 
 Aita, senar, berbaldun eta ikertzaile-irakaslea. Hona nire zenbait datu eta aurkezpena.
 
+Jon (2009) eta Xabier (2011) , semeak; Itziar, andrea (2008) eta bidaidea (2006).
+
 ORCID: [0000-0002-1911-4118](https://orcid.org/0000-0002-1911-4118)
 
 ResearchID: [R-9257-2018](http://www.researcherid.com/rid/R-9257-2018)
@@ -37,6 +39,8 @@ Sarriena auzoa, z/g
 48940 Leioa  
 Bizkaia
 
+Eta **bulegora** etorri behar baduzu: **3S40B**
+
 **Telefonoa**:  
 \+ (34) 94 601 75 67
 
@@ -47,11 +51,13 @@ Aurrez, Didaktika eta Eskola Antolakuntza sailean irakasle  Bilbo eta Gasteizko 
 
 ## Aurretik 
 
+Oraingo honetara iritsi arte, hainbat lanetan eta eginkizunetan ibili naiz, hemen zerrendatxu sailkatu bat.
+
 ### Ikerketu nahirik
 
 Doktoratu aurretikoak
 
-* Tesi proiektua: [Zailtasunak aditz jokatuaren inguruan B2-C1 ibilbidean](https://addi.ehu.es/handle/10810/25306); eta berorrekin lotutako [bloga](https://euskara2h.wordpress.com/)
+* Tesi proiektua: [Zailtasunak aditz jokatuaren inguruan B2-C1 ibilbidean](https://addi.ehu.es/handle/10810/25306) (2017); eta berorrekin lotutako [bloga](https://euskara2h.wordpress.com/)(2012)
 * Antropologian ikasle: Immigrazioa eta hizkuntzak Euskal Herrian. Bizkaiko kasua. XVII Congreso de Estudios Vascos: Gizarte aurrerapen iraunkorrerako berrikuntza. Gasteiz, 2009
 * Pedagogia ikasle: Argentinan Euskaraz. Erabiltzaile eta bultzatzaileen helburuak eta ekintzak harremanean. Euskal Herria Mugaz Gaindi, Baiona, 2007-10-07
 
@@ -63,23 +69,23 @@ Doktoratu aurretikoak
 
 ### Irakasle beharrean
 
-* Zornotzako Barnetegian, euskara irakasle eta kanpo-ekintzetako arduradun
-* Gernikako Aita Villasante Udal Euskaltegian, euskara irakasle
-* Lekeitioko Resurrección Maria de Azkue ikastolan, irakasle-ordezko
-* Nagusi eta umeentzako musika-tailerretan
-* Eskola partikularrak nagusi eta umeei, irakur-idatz trebetasunetan eta hizkuntza klaseetan.
+* Zornotzako Barnetegian, euskara irakasle eta kanpo-ekintzetako arduradun (2005-2010)
+* Gernikako Aita Villasante Udal Euskaltegian, euskara irakasle (2007-2010)
+* Lekeitioko Resurrección Maria de Azkue ikastolan, irakasle-ordezko (2006)
+* Nagusi eta umeentzako musika-tailerretan (2004 eta 2006)
+* Eskola partikularrak nagusi eta umeei, irakur-idatz trebetasunetan eta hizkuntza klaseetan (1994 - 2004)
 
 ### Behargin
 
-*Behargin* izerdia botaz.
+Izerdia botaz egiten diren zenbait behar.
 
-* Tabernari (barman)
-* Tabernari (sukaldari)
-* Tabernari (jangela eroale)
-* Operario (MCC-k espolatatua)
-* Hondartzain
-* Udaltzain
-* Libruruzain
-* Zinemako tekniko
-* Korreo banatzaile
-* ...
+* Tabernari (barman) (1994-2005)
+* Tabernari (sukaldari) (1998)
+* Tabernari (jangela eroale) (1999)
+* Operario (MCC-k espolatatua) (2002)
+* Hondartzain (2000-2004)
+* Udaltzain (2005-2006)
+* Libruruzain (1992-1994)
+* Zinemako tekniko (2006)
+* Korreo banatzaile (1988-1989)
+* ... (198?-200?)
