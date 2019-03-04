@@ -1,0 +1,64 @@
+---
+title: Justuri/Iurtzuri mapa
+author: Juan
+date: '2019-03-04'
+slug: justuri-iurtzuri-mapa
+categories:
+  - proiektua
+  - mapa
+tags:
+  - r
+---
+
+Lematizazioa eta lemak zelan banatzen diren aztertzen nabilela, hiru lema aurkitu ditut urrun-hurrekoak: *justuri* (*inusturi* ahozkera barne hartzen duela), *ihurtzuri* eta *iurtzuri*. Hirurok agertzen dira hiru adiera nahasean:
+*trumoia* (burrunba), *oinaztarria* (lurra jotzen duena) eta *tximista* (lurrik jotzen ez duena).
+
+Interesgarri begitandu zait lemen zabalpena aztertu ahal izatea, zein galderari erantzuten dion ikusiaz, baina denak batean. Berez, EHHAko mapa hauetan beste lema batzuekin nahasian ematen dira horiek:
+
+*    [242: trueno / tonnerre / thunder](https://www.euskaltzaindia.eus/index.php?&option=com_ehha&view=frontpage&Itemid=466&lang=eu&mapa=242)
+*    [244: rayo / foudre / lightning](https://www.euskaltzaindia.eus/index.php?&option=com_ehha&view=frontpage&Itemid=466&lang=eu&mapa=244)
+*   [245: tormenta / orage / thunderstorm](https://www.euskaltzaindia.eus/index.php?&option=com_ehha&view=frontpage&Itemid=466&lang=eu&mapa=245)
+*   [243: relámpago / éclair / flash of lightning](https://www.euskaltzaindia.eus/index.php?&option=com_ehha&view=frontpage&Itemid=466&lang=eu&mapa=243)
+
+Eta, mapak sortzen ikaste prozesuan nabilenez, sortzeari ekin diot. Hona prozesua eta emaitza:
+
+```{r}
+library(leaflet)
+
+# Datuak kargatu
+lema.iurtzuri <- read.csv('../../data/lemaiurtzuri.csv')
+
+# KOLOREAK
+koloreak <- c('purple', 'red', 'blue', 'green')
+
+# Maila bakotxa kolore bategaz lotu ta dana aldagai bihurtu
+for(i in 1:length(levels(factor(lema.iurtzuri$pregunta)))){
+  y <- levels(factor(lema.iurtzuri$pregunta))[i]
+  # print(y)
+  lema.iurtzuri[which(lema.iurtzuri$pregunta==y), "kolorea"] <- koloreak[i]
+  # print(koloreak[i])
+}
+
+# MAPA
+m <- leaflet(lema.iurtzuri) %>% addProviderTiles(providers$Stamen.Toner)
+
+m %>% addCircles(~lng,
+                 ~lat,
+                 popup = paste(lema.iurtzuri$herriak.izena, 
+                               lema.iurtzuri$question, 
+                               lema.iurtzuri$pregunta,
+                               sep = '-'),
+                 weight = 1,
+                 radius = 2000,
+                 color = lema.iurtzuri$kolorea,
+                 stroke = TRUE, 
+                 fillOpacity = 0.5
+)%>%  
+  #addControl('<h3>Odei lemaren banaketa</h3>', position = "topleft") %>% 
+  addLegend("bottomright",
+            colors = levels(factor(lema.iurtzuri$kolorea))[c(3, 4, 1, 2)],
+            labels = levels(factor(lema.iurtzuri$pregunta)),
+            title = "justuri/iurtzuri")
+
+```
+

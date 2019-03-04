@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Mon, 15 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Justuri/Iurtzuri mapa</title>
+      <link>/2019/03/04/justuri-iurtzuri-mapa/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/04/justuri-iurtzuri-mapa/</guid>
+      <description>Lematizazioa eta lemak zelan banatzen diren aztertzen nabilela, hiru lema aurkitu ditut urrun-hurrekoak: justuri (inusturi ahozkera barne hartzen duela), ihurtzuri eta iurtzuri. Hirurok agertzen dira hiru adiera nahasean: trumoia (burrunba), oinaztarria (lurra jotzen duena) eta tximista (lurrik jotzen ez duena).
+Interesgarri begitandu zait lemen zabalpena aztertu ahal izatea, zein galderari erantzuten dion ikusiaz, baina denak batean. Berez, EHHAko mapa hauetan beste lema batzuekin nahasian ematen dira horiek:</description>
+    </item>
     
     <item>
       <title>Kateen arteko distantziak R-n</title>
@@ -28,7 +38,7 @@ Karaktere kateen arteko distantziak kalkulatzeko zenbait pakete eta funtizo daud
       
       <guid>/2018/10/11/barne-aldagarritasunari-begira/</guid>
       <description>Labur: Lerrootakoa ariketa da: erantzun gehien eragin dituzten galderak identifikatzea izan da helburua. Bilaketa horretan gehien kontzeptuaren inguruko analisi ariketa egiten da. Ikuskera matematikoan ardaztu nahi izan dut ariketa zati honetan, horregatik interesaren fokoa eta azalpenak galderetan kokatu dira.
-Datuak Lan hau egiteko oinarritzat Euskal Herri Hizkeren Atlaseko (EHHA hemendik aurrera) (Dialektologia batzordea 2008) lehenengo 44 galderen erantzunak erabili dira informatzaileek emandako formen edo lemen araberako alderaketa egin ahal izateko. EHHA I eta IIko datuak erabili dira formaren araberako alderaketarako soilik, ez baitigu denak izan lematizatuta eskura.</description>
+Datuak Lan hau egiteko oinarritzat Euskal Herri Hizkeren Atlaseko (EHHA hemendik aurrera) (Dialektologia batzordea 2008) lehenengo 44 galderen erantzunak erabili dira informatzaileek emandako formen edo lemen araberako alderaketa egin ahal izateko.</description>
     </item>
     
     <item>

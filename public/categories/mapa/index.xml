@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mapa on Ikerketa hondarrak</title>
+    <link>/categories/mapa/</link>
+    <description>Recent content in Mapa on Ikerketa hondarrak</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>eu</language>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/mapa/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Justuri/Iurtzuri mapa</title>
+      <link>/2019/03/04/justuri-iurtzuri-mapa/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/04/justuri-iurtzuri-mapa/</guid>
+      <description>Lematizazioa eta lemak zelan banatzen diren aztertzen nabilela, hiru lema aurkitu ditut urrun-hurrekoak: justuri (inusturi ahozkera barne hartzen duela), ihurtzuri eta iurtzuri. Hirurok agertzen dira hiru adiera nahasean: trumoia (burrunba), oinaztarria (lurra jotzen duena) eta tximista (lurrik jotzen ez duena).
+Interesgarri begitandu zait lemen zabalpena aztertu ahal izatea, zein galderari erantzuten dion ikusiaz, baina denak batean. Berez, EHHAko mapa hauetan beste lema batzuekin nahasian ematen dira horiek:</description>
+    </item>
+    
+  </channel>
+</rss>
