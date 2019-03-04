@@ -44,10 +44,11 @@ m <- leaflet(lema.iurtzuri) %>% addProviderTiles(providers$Stamen.Toner)
 
 m %>% addCircles(~lng,
                  ~lat,
-                 popup = paste(lema.iurtzuri$herriak.izena, 
-                               lema.iurtzuri$question, 
-                               lema.iurtzuri$pregunta,
-                               sep = '-'),
+                 popup = paste(lema.iurtzuri$herriak.izena, ' - ',
+                               lema.iurtzuri$lema,
+                               '(', lema.iurtzuri$question, ')', #fr emanda
+                               # lema.iurtzuri$pregunta, #es emanda (koloreek informazio hori)
+                               sep = ''),
                  weight = 1,
                  radius = 2000,
                  color = lema.iurtzuri$kolorea,
