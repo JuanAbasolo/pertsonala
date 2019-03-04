@@ -26,7 +26,7 @@ Eta, mapak sortzen ikaste prozesuan nabilenez, sortzeari ekin diot. Hona prozesu
 library(leaflet)
 
 # Datuak kargatu
-lema.iurtzuri <- read.csv('../../data/lemaiurtzuri.csv')
+lema.iurtzuri <- read.csv('../../static/data/lemaiurtzuri.csv')
 
 # KOLOREAK
 koloreak <- c('purple', 'red', 'blue', 'green')
@@ -58,7 +58,7 @@ m %>% addCircles(~lng,
   addLegend("bottomright",
             colors = levels(factor(lema.iurtzuri$kolorea))[c(3, 4, 1, 2)],
             labels = levels(factor(lema.iurtzuri$pregunta)),
-            title = "justuri/iurtzuri")
+            title = "justuri / iurtzuri")
 
 ```
 
