@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ikerketa on Ikerketa hondarrak</title>
+    <title>ikerketa on Ikerketa hondarrak</title>
     <link>/tags/ikerketa/</link>
-    <description>Recent content in Ikerketa on Ikerketa hondarrak</description>
+    <description>Recent content in ikerketa on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Mon, 15 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/ikerketa/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dialektometria 3D</title>
+      <link>/2019/05/18/dialektometria-3d/</link>
+      <pubDate>Sat, 18 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/18/dialektometria-3d/</guid>
+      <description>Jo eta ke. Eta Su ere bai. Hala ekin diot MCA nola ezarri aztertzeari.
+Zeri buruz ari naizen, baina, aurretik azaldu behar:
+Dimentsio Anitzeko Analisian (Multi Dimentional Analysis) erabiltzen diren tekniketan azterketa egiteko agindu sub/objektiboa izan dut. Tesiaren lanketan, lorpen handirik izan ez banuen ere, horri ekiten hasi nintzen. Horregatik distantzietan oinarritutako clusterrak eta mapak elkarrekin ikusi nituenean barrua ixiotu zitzaidan.
+Letretako baten intuiziotik abiatuta azaldu nahirik
+ Principal Component Analysis1 (PCA): Aldagai kuantitatibo askoren irudia sortzen du ahalik eta dimentsio gutxien erabilita; aldagai berri horiek originalak baino gutxiago dira.</description>
+    </item>
     
     <item>
       <title>Kateen arteko distantziak R-n</title>

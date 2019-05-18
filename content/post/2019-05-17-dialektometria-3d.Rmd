@@ -1,0 +1,246 @@
+---
+title: Dialektometria 3D 
+author: Juan
+date: '2019-05-18'
+slug: dialektometria-3d
+categories:
+  - dialektometriaz
+  - mapa
+  - proiektua
+tags:
+  - ikerketa
+  - distantziak
+output: 
+  html_document: 
+    fig_height: 7
+    fig_width: 9
+bibliography: references190518.bib
+---
+
+```{r setup, include=FALSE}
+# Add a common class name for every chunks
+knitr::opts_chunk$set(
+  echo = FALSE)
+require(factoextra)
+require(FactoMineR)
+require(scales)
+require(scatterplot3d)
+require(plot3D)
+require(rgdal)
+require(here)
+```
+```{r htmlTemp3, echo=FALSE, eval=TRUE}
+# codejs <- readr::read_lines("js/codefolding.js")
+# collapsejs <- readr::read_lines("js/collapse.js")
+# transitionjs <- readr::read_lines("js/transition.js")
+# 
+# htmlhead <- 
+#   paste('
+# <script>',
+# paste(transitionjs, collapse = "\n"),
+# '</script>
+# <script>',
+# paste(collapsejs, collapse = "\n"),
+# '</script>
+# <script>',
+# paste(codejs, collapse = "\n"),
+# '</script>
+# <style type="text/css">
+# .code-folding-btn { margin-bottom: 4px; }
+# .row { display: flex; }
+# .collapse { display: none; }
+# .in { display:block }
+# </style>
+# <script>
+# $(document).ready(function () {
+#   window.initializeCodeFolding("show" === "show");
+# });
+# </script>
+# ', sep = "\n")
+# 
+# readr::write_lines(htmlhead, path = "header.html")
+```
+
+Jo eta ke. Eta Su ere bai. Hala ekin diot MCA nola ezarri aztertzeari. 
+
+Zeri buruz ari naizen, baina, aurretik azaldu behar:
+
+Dimentsio Anitzeko Analisian (Multi Dimentional Analysis) erabiltzen diren tekniketan azterketa egiteko agindu sub/objektiboa izan dut. Tesiaren lanketan, lorpen handirik izan ez banuen ere, horri ekiten hasi nintzen. Horregatik distantzietan oinarritutako clusterrak eta mapak elkarrekin ikusi nituenean barrua ixiotu zitzaidan.
+
+Letretako baten intuiziotik abiatuta azaldu nahirik
+
+* Principal Component Analysis^[Euskaraz *Osagai Nagusien Analisia* edo *Konposatu Nagusien Analisia* eman ohi da; kontzeptu bakarrarentzat forma bakartzat ingelesezkoa eman behar dut euskarazko bertsioren bat orokortu arte.] ([PCA](https://eu.wikipedia.org/wiki/Osagai_nagusien_analisi)): Aldagai kuantitatibo askoren irudia sortzen du ahalik eta dimentsio gutxien erabilita; aldagai berri horiek originalak baino gutxiago dira. Baina soilik dira sortutako irudi horretakoak. Hau da, ez dira mundu honetakoak, baizik eta Matematicland batekoak.  
+  Metodo hori ez denez erabiliko hemen, ez dut gehiago sakondu behar. @aurrekoetxeaPrincipalComponentsClustering2016 lanean PCA erabiltzen da herri hizkeren eta batuaren bitarteko distantziaren neurketaren analisirako.
+* Multiple Concordances Analysis ^[Euskeraz *Korrespondentzia Anizkoitzen Analisia* ematen duenik aurkitu dut] ([MCA](https://en.wikipedia.org/wiki/Multiple_correspondence_analysis)): Aldagai kualitatiboetarako garapena da, aurrekoaren filosofian oinarritua. Matematikan oinarritua, jakina.  
+  Eman dezagun errealitatearen dena delako irudia deskribatzeko erabiltzen ditugun datuek *n~1~* aldagai erabiltzen dutela; MCAk *n~2~* dimentsio bitartez irudikatzen du, *n~1~* > *n~2~* araua betetzen dela. Hau da, aldagai gutxiago erabiliaz.
+* Multi Dimentional Scaling^[Euskeraz ... ?] ([MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling)): Beste irudikatze mota bat da. Hau bigarren kalkulu bat eginaz sortzen da. Aurretik intereseko elementuen arteko distantziak kalkulatu behar dira, dena delako irizpide eta tekniken bitartez. Distantzi matrizea hartu eta horren proiekzioa egiten da agintzen zaion dimentsio kopuruan.  
+  Obejktu biren arteko distantzia lerro zuzen batez irudikatu ahal da. Hiruren artekoa plano batez. Lauren artekoa espazioa erabiliaz.
+  Bostetik gorako elementuen arteko distantzia guk interpretatzeko hiru edo bi dimentsiotan irudikatu behar dugu, nahiz eta gehiago behar liratekeen datuak hobeto irudikatzeko. MDSk horixe egiten du, dimentsioak eskalatu gure ulertze neurrira; planisferio batek gure mundu biribila irudikatzen duen antzera.
+  
+---
+
+Lan honetan eta hurrengoan Bourciezen datuei [@aurrekoetxeaBourciezBildumakoEuskal2004; @aurrekoetxeaBourciezBildumakoEuskal2005a] zukua aterako diet, nahikoa zukututa daudelakoan.
+
+# Multiple Correspondence Analysis & (eskual) Bourciez
+
+Bourciezen datuak Diatech-en [@aurrekoetxeaDiaTechNewTool2013] egindako proiektutik esportatu eta MCAren premien arabera egokitu behar dira. Data base horren lagintxu bat ikusten da segidan. Lerroetan herriak eta zutabeetan aldagaiak, bistan denez.
+
+```{r}
+## Datuak sartu
+# dtk.brcz <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', header = T)
+dtk.brcz <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), sep = ',', header = T)
+# names(dtk.brcz) <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', stringsAsFactors = F)[1,]
+names(dtk.brcz) <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), sep = ',', stringsAsFactors = F)[1,]
+row.names(dtk.brcz) <- dtk.brcz[,1] 
+dtk.brcz <- dtk.brcz[,-1]
+# NA gehiegi daukaz Hendaiak
+dtk.brcz <- dtk.brcz[-which(row.names(dtk.brcz)=="Hendaia"),]
+
+## Datuen hasiera eta amaiera erakutsi
+knitr::kable(rbind(head(dtk.brcz[,1:10]), tail(dtk.brcz[,1:10])), 
+             caption = 'Datuen hasiera eta amaiera, lehenengo hamar aldagaiak')
+```
+
+Aztertu diren aldagaiak `r length(names(dtk.brcz))` dira, berez. Herriak, berriz `r length(row.names(dtk.brcz))`.
+
+Goiko taulan ikusten da zenbait aldagaitako aldakiak errepikatzen direla herri batzuetan. Aldagaietako aldakiak eta herrien arteko korrespondentziak zein diren analizatzeko R lengoaian idatzitako FactoMineR [@hussonFactoMineRMultivariateExploratory2018] erabili da.
+
+```{r}
+par(mfrow = c(1,3))
+mca.bourciez <- MCA(dtk.brcz[,1:245], ncp = 4, graph = T)
+par(mfrow = c(1,1))
+```
+
+Hodei gorriek aldagaiak irudikatzen dituzte eta urdinek, antzeman daitekeen moduan, herriak; beti ere lehenengo bi dimentsioetan.
+
+Dimentsioek zenbat azaltzen duten hurrengo bi grafikoeta ikusten da. Lehenengoak MCAk sortutako lehenengo 10 aldagaiek bariazioaren ehuneko zenbat azaltzen duten erakusten dute. Bigarrenak dimentsio guztiak irudikatzen ditu informazio bi nabarmenduta: Gehien azaltzen duten lehenengo hiruak, giza neurrian irudika daitezkeenak, eta zenbat dimentsio behar diren datu horien bariazioaren %50 azaltzeko.
+
+```{r}
+fviz_screeplot(mca.bourciez, addlabels = TRUE, ylim = c(0, 7))
+```
+
+```{r}
+barplot(mca.bourciez$eig[,2], 
+        ylim = c(0,7),
+        col = c(rep('red',3), rep('darkred', 34), rep('gray', nrow(mca.bourciez$eig)-37)), 
+        las = 2,
+        cex.names = 0.7,
+        main = 'Dimentsio guztiek zenbat azaltzen duten',
+        sub = '')
+legend('topright', 
+       legend = c('Grafikoetan azalduak', 'lehenengo %50', 'bigarren %50'), 
+       col = c('red', 'darkred', 'gray'),
+       pch = 20)
+```
+
+Segidan aurkezten diren grafikoek dimentsio bitan aurkezten dute datuen banaketa, herrien informazioan ardaztuta.
+Koloreek dimentsioen gaineko informazioa ematen dute.
+
+```{r}
+tauli <- mca.bourciez$ind$coord
+col <- rgb(rescale(mca.bourciez$ind$coord[,1:3], to = c(0,1)))
+tauli <- cbind(tauli, col)
+plot(tauli[,1:2], 
+     col = tauli[,'col'], 
+     pch = 20, 
+     cex = 3,
+     xlab = paste( 'Dim 1ek aldakuntzen %',
+                   round(mca.bourciez$eig[1,2], 2), 'azaltzen du'),
+     ylab = paste( 'Dim 2k aldakuntzen %',
+                   round(mca.bourciez$eig[2,2], 2), 'azaltzen du'),
+     main = 'Bourciez-en datuen araberako bariazioa (Dim 1 eta Dim 2)',
+     sub = 'Bariazioaren azalpenaren lehenengo bi dimentsioak'
+)
+text(tauli[,1:2], labels = row.names(tauli), col = 'gray40', cex = 0.7)
+```
+
+
+```{r}
+plot(tauli[,2:3], 
+     col = tauli[,'col'], 
+     pch = 20, 
+     cex = 3,
+     xlab = paste( 'Dim 2k aldakuntzen %',
+                   round(mca.bourciez$eig[2,2], 2), 'azaltzen du'),
+     ylab = paste( 'Dim 3k aldakuntzen %',
+                   round(mca.bourciez$eig[3,2], 2), 'azaltzen du'),
+     main = 'Bourciez-en datuen araberako bariazioa (Dim 2 eta Dim 3)',
+     sub = 'Bariazioaren azalpenaren bigarren eta hirugarren dimentsioak'
+)
+text(tauli[,2:3], labels = row.names(tauli), col = 'gray40', cex = 0.6)
+```
+
+
+```{r}
+mapi <- readOGR(here('static','data', 'maps', 'EH_Udalerriak-Barri/udalerriak_EH_berriaB.shp'), verbose = FALSE)
+
+col <- rescale(mca.bourciez$ind$coord[,], to = c(0,1))
+
+mapi@data$r <- 0
+mapi@data$g <- 0
+mapi@data$b <- 0
+for(i in row.names(col)){
+        # print(i)
+        mapi@data[mapi@data$IZ_EUSKAL==i, "r"] <- col[i,1]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "g"] <- col[i,2]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "b"] <- col[i,3]
+}
+tauli <- mca.bourciez$ind$coord
+x <- tauli[,1]
+y <- tauli[,2]
+z <- tauli[,3]
+par(mfrow = c(1, 1))
+```
+
+
+
+```{r chunk-label, fig.show='animate', ffmpeg.format='gif', dev='jpeg'}
+plot(mapi, col = rgb(mapi@data$r, 0, 0),
+     main = paste('Dim 1k bariantzaren %', round(mca.bourciez$eig[1,2], 2)))
+plot(mapi, col = rgb(0, mapi@data$g, 0),
+     main = paste('Dim 2k bariantzaren %', round(mca.bourciez$eig[2,2],2)))
+plot(mapi, col = rgb(0, 0, mapi@data$b),
+     main = paste('Dim 3k bariantzaren %', round(mca.bourciez$eig[3,2],2)))
+
+```
+
+```{r}
+plot(mapi, col = rgb(mapi@data$r, 
+                     mapi@data$g, 
+                     mapi@data$b),
+     main = paste('Bariantzaren %', round(mca.bourciez$eig[3,3], 2), 'MCA erabilita'))
+legend('bottomleft', legend = c('Dim 1', 'Dim 2', 'Dim 3'), col = c('red', 'green', 'blue'), pch = 20)
+```
+
+## Eta hor zer ikusten dugu?
+
+Hasteko, azken mapa horretan eta 3D grafikoan oso datu koherenteak. Begiratzeko tokia egokituz gero, MCA teknika erabilita, lehenengo hiru dimentsioek sortzen duten irudian antzeman daiteke mapako informazio geografikoko egitura bera ere, **salbuespenak salbuespen**:
+
+```{r}
+scatter3D(as.numeric(x), as.numeric(y), as.numeric(z), #clab = c("Sepal", "Width (cm)"),
+          type = 'p', 
+          pch = 20, 
+          cex = 1.5, 
+          bty = "f",
+          col = 1,
+          theta = -165, 
+          phi = 225
+          )
+text3D(mca.bourciez$ind$coord[,1],
+       mca.bourciez$ind$coord[,2],
+       mca.bourciez$ind$coord[,3],
+       labels = row.names(mca.bourciez$ind$coord),
+       col = rgb(col[,1:3]),
+       cex = 0.7,
+       add = T)
+title(main = 'Bourciezen datuen MCAren lehenengo hiru dimentsioak',
+      sub = paste('Azaltzen du bariantzaren %', round(mca.bourciez$eig[3,3], 2)))
+```
+
+Lehenengo begirada batean argi ikusten da Zuberoak eremu trinkoagoa osatzen duela. Ezaugarri batzuen ardatza ere somatzen da Gipuzkoa-Lapurdi mugatik Nafarroa Beherea-Zuberoa-Bearne mugara. Mapan edo 3D irudian horiek horitik gorri-more ilunera bidean antzematen dira.
+
+---
+
+## Hau ez da amaitu
+
+Hurrengo baterako lagatzen ditut MCAren azalpen zehatzagoak eta *salbuespenak salbuespen* hori nabarmentzea. Salbuespenek ere badute-eta zerbait kontatzeko, teknikaren analisia gardenago utzi behar luketenak.
