@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="eu">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>Dialektometria 3D - Ikerketa hondarrak</title>
+<meta property="og:title" content="Dialektometria 3D - Ikerketa hondarrak">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.jpg"
+         width="50"
+         height="50"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">Egileaz</a></li>
+    
+    <li><a href="https://www.ehu.eus/eudia">EUDIA</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">5 min read</span>
+    
+
+    <h1 class="article-title">Dialektometria 3D</h1>
+
+    
+    <span class="article-date">2019/05/18</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>Jo eta ke. Eta Su ere bai. Hala ekin diot MCA nola ezarri aztertzeari.</p>
+<p>Zeri buruz ari naizen, baina, aurretik azaldu behar:</p>
+<p>Dimentsio Anitzeko Analisian (Multi Dimentional Analysis) erabiltzen diren tekniketan azterketa egiteko agindu sub/objektiboa izan dut. Tesiaren lanketan, lorpen handirik izan ez banuen ere, horri ekiten hasi nintzen. Horregatik distantzietan oinarritutako clusterrak eta mapak elkarrekin ikusi nituenean barrua ixiotu zitzaidan.</p>
+<p>Letretako baten intuiziotik abiatuta azaldu nahirik</p>
+<ul>
+<li>Principal Component Analysis<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> (<a href="https://eu.wikipedia.org/wiki/Osagai_nagusien_analisi">PCA</a>): Aldagai kuantitatibo askoren irudia sortzen du ahalik eta dimentsio gutxien erabilita; aldagai berri horiek originalak baino gutxiago dira. Baina soilik dira sortutako irudi horretakoak. Hau da, ez dira mundu honetakoak, baizik eta Matematicland batekoak.<br />
+Metodo hori ez denez erabiliko hemen, ez dut gehiago sakondu behar. <span class="citation">Aurrekoetxea et al. (2016)</span> lanean PCA erabiltzen da herri hizkeren eta batuaren bitarteko distantziaren neurketaren analisirako.</li>
+<li>Multiple Concordances Analysis<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> (<a href="https://en.wikipedia.org/wiki/Multiple_correspondence_analysis">MCA</a>): Aldagai kualitatiboetarako garapena da, aurrekoaren filosofian oinarritua. Matematikan oinarritua, jakina.<br />
+Eman dezagun errealitatearen dena delako irudia deskribatzeko erabiltzen ditugun datuek <em>n<sub>1</sub></em> aldagai erabiltzen dutela; MCAk <em>n<sub>2</sub></em> dimentsio bitartez irudikatzen du, <em>n<sub>1</sub></em> &gt; <em>n<sub>2</sub></em> araua betetzen dela. Hau da, aldagai gutxiago erabiliaz.</li>
+<li>Multi Dimentional Scaling<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> (<a href="https://en.wikipedia.org/wiki/Multidimensional_scaling">MDS</a>): Beste irudikatze mota bat da. Hau bigarren kalkulu bat eginaz sortzen da. Aurretik intereseko elementuen arteko distantziak kalkulatu behar dira, dena delako irizpide eta tekniken bitartez. Distantzi matrizea hartu eta horren proiekzioa egiten da agintzen zaion dimentsio kopuruan.<br />
+Obejktu biren arteko distantzia lerro zuzen batez irudikatu ahal da. Hiruren artekoa plano batez. Lauren artekoa espazioa erabiliaz.
+Bostetik gorako elementuen arteko distantzia guk interpretatzeko hiru edo bi dimentsiotan irudikatu behar dugu, nahiz eta gehiago behar liratekeen datuak hobeto irudikatzeko. MDSk horixe egiten du, dimentsioak eskalatu gure ulertze neurrira; planisferio batek gure mundu biribila irudikatzen duen antzera.</li>
+</ul>
+<hr />
+<p>Lan honetan eta hurrengoan Bourciezen datuei <span class="citation">(Aurrekoetxea, Videgain, and Aitor Iglesias 2004; Aurrekoetxea, Videgain, and Iglesias 2005)</span> zukua aterako diet, nahikoa zukututa daudelakoan.</p>
+<div id="multiple-correspondence-analysis-eskual-bourciez" class="section level1">
+<h1>Multiple Correspondence Analysis &amp; (eskual) Bourciez</h1>
+<p>Bourciezen datuak Diatech-en <span class="citation">(Aurrekoetxea et al. 2013)</span> egindako proiektutik esportatu eta MCAren premien arabera egokitu behar dira. Data base horren lagintxu bat ikusten da segidan. Lerroetan herriak eta zutabeetan aldagaiak, bistan denez.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-1">Table 1: </span>Datuen hasiera eta amaiera, lehenengo hamar aldagaiak</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">-e + a</th>
+<th align="left">-o + a</th>
+<th align="left">’Bigarren graduko leku aditzondoa</th>
+<th align="left">‘Gainean’ postposizioa</th>
+<th align="left">“Anitz” zenbatzaile zehaztugabea</th>
+<th align="left">“arrautza” hitzaren bilakaera</th>
+<th align="left">“Aski” adberbioa</th>
+<th align="left">“Bat ere” zenbatzaile zehaztugabea</th>
+<th align="left">“Car” antolatzailea</th>
+<th align="left">“Inor” izenordain zehaztugabea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ahatsa-Altzieta-Bazkazane</td>
+<td align="left">-ia</td>
+<td align="left">-uak</td>
+<td align="left">hara</td>
+<td align="left">-aren gainean</td>
+<td align="left">anhitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">gehiago</td>
+<td align="left">NA</td>
+<td align="left">nehor</td>
+</tr>
+<tr class="even">
+<td>Ahetze</td>
+<td align="left">-ea</td>
+<td align="left">-oak</td>
+<td align="left">huna</td>
+<td align="left">-aren gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">ezen ba-</td>
+<td align="left">nihor</td>
+</tr>
+<tr class="odd">
+<td>Aiherra</td>
+<td align="left">-ia</td>
+<td align="left">-oak</td>
+<td align="left">huna</td>
+<td align="left">-aren gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bestelakoak</td>
+<td align="left">zeren (eta) bait-</td>
+<td align="left">nihor</td>
+</tr>
+<tr class="even">
+<td>Ainharbe</td>
+<td align="left">-ia</td>
+<td align="left">-uak</td>
+<td align="left">horra</td>
+<td align="left">-an gainean</td>
+<td align="left">hanitx</td>
+<td align="left">arraultze</td>
+<td align="left">aski</td>
+<td align="left">bestelakoak</td>
+<td align="left">ezi(k) ba-</td>
+<td align="left">ihur</td>
+</tr>
+<tr class="odd">
+<td>Ainhize-Monjolose</td>
+<td align="left">-ia</td>
+<td align="left">-oak</td>
+<td align="left">horra</td>
+<td align="left">-Ø gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arraultze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">zeren (eta) bait-</td>
+<td align="left">nehor</td>
+</tr>
+<tr class="even">
+<td>Ainhoa</td>
+<td align="left">-ea</td>
+<td align="left">-oak</td>
+<td align="left">huna</td>
+<td align="left">-an gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bat</td>
+<td align="left">zeren (eta) bait-</td>
+<td align="left">nihor</td>
+</tr>
+<tr class="odd">
+<td>Ürrüstoi-Larrabile</td>
+<td align="left">-ia</td>
+<td align="left">-uk</td>
+<td align="left">hau</td>
+<td align="left">-an gainean</td>
+<td align="left">hanitx</td>
+<td align="left">arrautze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">ezi(k) ba-</td>
+<td align="left">ihur</td>
+</tr>
+<tr class="even">
+<td>Uztaritze</td>
+<td align="left">-ea</td>
+<td align="left">-oak</td>
+<td align="left">horra</td>
+<td align="left">-Ø gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bestelakoak</td>
+<td align="left">zeren (eta) bait-</td>
+<td align="left">nehor</td>
+</tr>
+<tr class="odd">
+<td>Zalgize-Doneztebe</td>
+<td align="left">-ia</td>
+<td align="left">-uak</td>
+<td align="left">huna</td>
+<td align="left">-aren gainean</td>
+<td align="left">hanitx</td>
+<td align="left">arrautze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">bait-</td>
+<td align="left">ihur</td>
+</tr>
+<tr class="even">
+<td>Zaro</td>
+<td align="left">-ia</td>
+<td align="left">-uak</td>
+<td align="left">horra</td>
+<td align="left">-aren gainean</td>
+<td align="left">NA</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bestelakoak</td>
+<td align="left">ezi(k) ba-</td>
+<td align="left">nehor</td>
+</tr>
+<tr class="odd">
+<td>Ziburu</td>
+<td align="left">-ea</td>
+<td align="left">-oak</td>
+<td align="left">horra</td>
+<td align="left">mahaian</td>
+<td align="left">(h)anitz</td>
+<td align="left">arroltze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">zeren -n</td>
+<td align="left">nihor</td>
+</tr>
+<tr class="even">
+<td>Zuraide</td>
+<td align="left">-ia</td>
+<td align="left">-uak</td>
+<td align="left">huna</td>
+<td align="left">-aren gainean</td>
+<td align="left">(h)anitz</td>
+<td align="left">arrotze</td>
+<td align="left">aski</td>
+<td align="left">bat ere</td>
+<td align="left">zeren -lakotz</td>
+<td align="left">nihor</td>
+</tr>
+</tbody>
+</table>
+<p>Aztertu diren aldagaiak 248 dira, berez. Herriak, berriz 137.</p>
+<p>Goiko taulan ikusten da zenbait aldagaitako aldakiak errepikatzen direla herri batzuetan. Aldagaietako aldakiak eta herrien arteko korrespondentziak zein diren analizatzeko R lengoaian idatzitako FactoMineR <span class="citation">(Husson et al. 2018)</span> erabili da.</p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Hodei gorriek aldagaiak irudikatzen dituzte eta urdinek, antzeman daitekeen moduan, herriak; beti ere lehenengo bi dimentsioetan.</p>
+<p>Dimentsioek zenbat azaltzen duten hurrengo bi grafikoeta ikusten da. Lehenengoak MCAk sortutako lehenengo 10 aldagaiek bariazioaren ehuneko zenbat azaltzen duten erakusten dute. Bigarrenak dimentsio guztiak irudikatzen ditu informazio bi nabarmenduta: Gehien azaltzen duten lehenengo hiruak, giza neurrian irudika daitezkeenak, eta zenbat dimentsio behar diren datu horien bariazioaren %50 azaltzeko.</p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Segidan aurkezten diren grafikoek dimentsio bitan aurkezten dute datuen banaketa, herrien informazioan ardaztuta.
+Koloreek dimentsioen gaineko informazioa ematen dute.</p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/chunk-label.gif" width="672" /></p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div id="eta-hor-zer-ikusten-dugu" class="section level2">
+<h2>Eta hor zer ikusten dugu?</h2>
+<p>Hasteko, azken mapa horretan eta 3D grafikoan oso datu koherenteak. Begiratzeko tokia egokituz gero, MCA teknika erabilita, lehenengo hiru dimentsioek sortzen duten irudian antzeman daiteke mapako informazio geografikoko egitura bera ere, <strong>salbuespenak salbuespen</strong>:</p>
+<p><img src="/post/2019-05-17-dialektometria-3d_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Lehenengo begirada batean argi ikusten da Zuberoak eremu trinkoagoa osatzen duela. Ezaugarri batzuen ardatza ere somatzen da Gipuzkoa-Lapurdi mugatik Nafarroa Beherea-Zuberoa-Bearne mugara. Mapan edo 3D irudian horiek horitik gorri-more ilunera bidean antzematen dira.</p>
+<hr />
+</div>
+<div id="hau-ez-da-amaitu" class="section level2">
+<h2>Hau ez da amaitu</h2>
+<p>Hurrengo baterako lagatzen ditut MCAren azalpen zehatzagoak eta <em>salbuespenak salbuespen</em> hori nabarmentzea. Salbuespenek ere badute-eta zerbait kontatzeko, teknikaren analisia gardenago utzi behar luketenak.</p>
+</div>
+</div>
+<div id="erreferentziak" class="section level1 unnumbered">
+<h1>Erreferentziak</h1>
+<div id="refs" class="references">
+<div id="ref-aurrekoetxeaDiaTechNewTool2013">
+<p>Aurrekoetxea, G., K. Fernandez-Aguirre, J. Rubio, B. Ruiz, and J. Sanchez. 2013. “’DiaTech’: A New Tool for Dialectology.” <em>Literary and Linguistic Computing</em> 28 (1): 23–30. <a href="https://doi.org/10/gfpqb3">https://doi.org/10/gfpqb3</a>.</p>
+</div>
+<div id="ref-aurrekoetxeaPrincipalComponentsClustering2016">
+<p>Aurrekoetxea, Gotzon, Karmele Fernandez-Aguirre, Juan Ignacio Modroño, and Jesus Rubio. 2016. “Principal Components and Clustering on Lexical Distances from Standard Basque to Local Varieties.” <em>Journal of Research Design and Statistics in Linguistics and Communication Science</em> 3 (1): 5–22. <a href="https://doi.org/10/gfxfwq">https://doi.org/10/gfxfwq</a>.</p>
+</div>
+<div id="ref-aurrekoetxeaBourciezBildumakoEuskal2004">
+<p>Aurrekoetxea, Gotzon, Xarles Videgain, and Aitor Iglesias. 2004. “&quot;Bourciez&quot; bildumako euskal atlasa (BBEA): 1. Lexikoa.” <em>Anuario Del Seminario de Filología Vasca Julio de Urquijo: International Journal of Basque Linguistics and Philology</em>.</p>
+</div>
+<div id="ref-aurrekoetxeaBourciezBildumakoEuskal2005a">
+<p>Aurrekoetxea, Gotzon, Xarles Videgain, and Aitor Iglesias. 2005. “&quot;Bourciez&quot; bildumako euskal atlasa (BBEA): 2. Gramatika.” <em>Anuario Del Seminario de Filología Vasca &quot;Julio de Urquijo&quot;</em> 39 (1): 1–277.</p>
+</div>
+<div id="ref-hussonFactoMineRMultivariateExploratory2018">
+<p>Husson, Francois, Julie Josse, Sebastien Le, and Jeremy Mazet. 2018. “FactoMineR: Multivariate Exploratory Data Analysis and Data Mining.”</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Euskaraz <em>Osagai Nagusien Analisia</em> edo <em>Konposatu Nagusien Analisia</em> eman ohi da; kontzeptu bakarrarentzat forma bakartzat ingelesezkoa eman behar dut euskarazko bertsioren bat orokortu arte.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Euskeraz <em>Korrespondentzia Anizkoitzen Analisia</em> ematen duenik aurkitu dut<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Euskeraz … ?<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+
