@@ -27,6 +27,7 @@ require(scales)
 require(scatterplot3d)
 require(plot3D)
 require(rgdal)
+require(rgl)
 require(here)
 ```
 ```{r htmlTemp3, echo=FALSE, eval=TRUE}
@@ -238,6 +239,29 @@ title(main = 'Bourciezen datuen MCAren lehenengo hiru dimentsioak',
 ```
 
 Lehenengo begirada batean argi ikusten da Zuberoak eremu trinkoagoa osatzen duela. Ezaugarri batzuen ardatza ere somatzen da Gipuzkoa-Lapurdi mugatik Nafarroa Beherea-Zuberoa-Bearne mugara. Mapan edo 3D irudian horiek horitik gorri-more ilunera bidean antzematen dira.
+
+```{r}
+try(rgl.close(), silent = TRUE)
+plot3d(as.numeric(x), as.numeric(y), as.numeric(z), 
+       xlab = "x", ylab = "y", zlab = "z", type = 's',
+          pch = 20, 
+          size = 1,
+       col = rgb(col[,1:3])
+       ) 
+rgl.texts(x = mca.bourciez$ind$coord[,1],
+       y = mca.bourciez$ind$coord[,2],
+       z = mca.bourciez$ind$coord[,3],
+       text = row.names(mca.bourciez$ind$coord),
+       col = 'grey20',
+       cex = 1,
+       add = T)
+# aspect3d("iso")
+# Change view
+view3d(theta = 30, phi = -40, zoom = 0.5)
+rglwidget()
+```
+
+
 
 ---
 
