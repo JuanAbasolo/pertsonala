@@ -1,0 +1,424 @@
+---
+title: 'Le mystere du Bourciez... 3D aren azalpena eta datu indusketa'
+author: Juan
+date: '2019-05-23'
+slug: le-mystere-du-bourciez-3d-aren-azalpena-eta-datu-indusketa
+categories:
+  - dialektometriaz
+  - mapa
+  - proiektua
+tags:
+  - distantziak
+  - r
+  - ikerketa
+---
+
+```{r setup, include=FALSE}
+# Add a common class name for every chunks
+knitr::opts_chunk$set(
+  echo = FALSE)
+require(factoextra)
+require(FactoMineR)
+require(scales)
+require(scatterplot3d)
+require(plot3D)
+require(rgdal)
+require(rgl)
+require(here)
+require(gridExtra)
+
+```
+
+[Aurreko postean](https://juanabasolo.netlify.com/2019/05/18/dialektometria-3d/) erakutsi nahi izan ditut 3D sortutako irudiak. Oraingo honetan sakondu nahi dut datuen azterketan bertan. 
+
+Ahalegin bati segitzen diot: azaltzen ditudan kontzeptuak eta ideiak, ahal dudan neurrian, datu-erreferentez hornitzeari.
+
+# Bourciezen datuen dialektometria MCA erabiliaz
+
+Esana den moduan, datu kategorikoak nola antolatzen diren aztertzen du MCAk, nolabaiteko laburpena egin helburuz. Horrek esan nahi du, hurrengo datuetan:
+
+```{r}
+## Datuak sartu
+# dtk.brcz <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', header = T)
+dtk.brcz <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), sep = ',', header = T)
+# names(dtk.brcz) <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', stringsAsFactors = F)[1,]
+names(dtk.brcz) <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), 
+                              sep = ',', stringsAsFactors = F)[1,]
+row.names(dtk.brcz) <- dtk.brcz[,1] 
+dtk.brcz <- dtk.brcz[,-1]
+# NA gehiegi daukaz Hendaiak
+dtk.brcz <- dtk.brcz[-which(row.names(dtk.brcz)=="Hendaia"),]
+
+## MCA
+mca.bourciez <- MCA(dtk.brcz[,1:245], ncp = 4, graph = F)
+
+## Mapi
+mapi <- readOGR(here('static','data', 'maps', 'EH_Udalerriak-Barri/udalerriak_EH_berriaB.shp'), verbose = FALSE)
+
+col <- rescale(mca.bourciez$ind$coord[,], to = c(0,1))
+
+mapi@data$r <- 0
+mapi@data$g <- 0
+mapi@data$b <- 0
+for(i in row.names(col)){
+        # print(i)
+        mapi@data[mapi@data$IZ_EUSKAL==i, "r"] <- col[i,1]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "g"] <- col[i,2]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "b"] <- col[i,3]
+}
+plot(mapi, col = rgb(mapi@data$r, 
+                     mapi@data$g, 
+                     mapi@data$b),
+     main = paste('MCA analisia, datuen bariantzaren %', round(mca.bourciez$eig[3,3], 2), 'azalduta'))
+legend('bottomleft', legend = c('Dim 1', 'Dim 2', 'Dim 3'), col = c('red', 'green', 'blue'), pch = 20)
+```
+
+
+
+```{r}
+lagina <- dtk.brcz[20:35,227:237]
+data.frame(lapply(lagina, as.character), stringsAsFactors=FALSE) %>%
+replace(is.na(lagina),'·') %>%
+## Datuen hasiera eta amaiera erakutsi
+knitr::kable(caption = 'Datuen lagin bat, 16 herri 11 aldagai', row.names = T, align = 'c')
+```
+
+Adibidean hamaika aldagai ditugu zenbait aldaki dituztenak. Eta hamabi bat hutsune ere bai.
+
+```{r results='asis'}
+
+for(i in names(lagina)) cat('*\t', i, '(', length(levels(lagina[,i])), 'aldaki )', ':\t', levels(lagina[,i]), '\n')
+
+```
+
+Segur naiz zenbaitek, kasu horiek ikusita, pentsa lezaketela *heldu* ez dela *jin* edo *etorri*ren baliokide. Edota *helgaldazale* hitzak eta *airatu*k ikuskera desberdinegitik daudela pentsatuta.
+
+Onar nezake arazotzat hori, ez balitz datuen osotasunaren analisiak emaitza koherenteak ematen dituelako. Bibliografiarekin eta geografiarekin koherenteak.
+
+Datu hutsuneak ere nabarmeak dira datu basean; eta aurrez emandako baieztapenarekin bat etor daitekeela uste daitekeen arren, bestelako eragina dute analisian. Baina analisia analizatu behar dugu horixe ikusteko.
+
+## Datuen MCA (*Multiple Concordance Analysis*)
+
+Interpretatzen zailak izan daitezke korrelazio anizkoitzak sortzen dituen irudiak, aldagaiak edo banakoak (gure kasuan, herriak) ugariak direnean. Besteak besste, hurrengo irudiek 137 herri eta 248 aldagai asko direla erakusten dute.
+
+```{r fig.cap='MCA irudia'}
+par(mfrow = c(1,3))
+mca.bourciez <- MCA(dtk.brcz[,1:245], ncp = 4, graph = T)
+par(mfrow = c(1,1))
+```
+
+Irudi horretako *x* eta *y* ardatzetan irakurtzen da lehenengo dimentsioek (2/136) bariazio guztiaren hamarretik bat ere ez dutela azaltzen. *x* ardatzean %6.24 eta *y* ardatzean %3.01, hain zuzen.
+
+Erabili dudan teknikak eta erremintak, baina, uzten du faktoreen inguruko analisia era agerikoagoan egiten. Horrela, goiko datu-hodei ulergaitz horiek mehaztu ahal dira pazientziaz.
+
+Hurrengo irudi bietan aurreko irudietako informazioa era bitara mehaztuta: Batean kuantitatiboki egin da inausketa (50 garrantzitsuenak erakusteko eskatu zaio) eta bestean kualitatiboki (*vin* kontzeptua emateko hiru aldaerak eskatuta)
+
+```{r fig.height=6, fig.width=6}
+p1 <- fviz_mca_var(mca.bourciez, select.var = list(contrib = 50)) +
+ labs(title = "50 kategoria garrantzitsuenak", x = "Dim.1", y ="Dim.2" )+
+   xlim(-1.8, 1) + ylim (-1.5, 1.1)
+p2 <- fviz_mca_var(mca.bourciez, select.var= list(name = c("ardu", "arno", "ano", 'ardo')))+
+ labs(title = "'vin' hitzaren ordainak", x = "Dim.1", y ="Dim.2" )+
+   xlim(-1.8, 1) + ylim (-1.5, 1.1)
+
+grid.arrange(p1, p2, nrow = 1, 
+             top = 'Aldagaien proiekzio partzial bi')
+```
+
+Bigarren hirudian irudikatuta dauden *ardu* eta *arno* aldakiak ez dira lehenengoan agertzen, aldaki bi horiek ez daudelako lehenengo bi dimentsio horien 50 osagai nagusietan. Beste aldakia berriz, agerian dago beheko eskumako koadrantean.
+
+Era berean, herriak eta aldakiak batera irudika daitezke, nola banatzen diren aztertzeko.
+
+```{r fig.height=7, fig.width=9}
+
+p1 <- fviz_mca_biplot(mca.bourciez,
+                select.ind = list(contrib = 20),
+                select.var = list(contrib = 20))+
+ labs(title = "20 garrantzitsuenak", x = "Dim.1", y ="Dim.2" )+
+   xlim(-2, 1) + ylim (-2, 1.3)
+p2 <- fviz_mca_biplot(mca.bourciez,
+                select.ind = list(contrib = 25),
+                select.var = list(contrib = 45))+
+ labs(title = "25 herri eta 45 aldaki garrantzitsuenak", x = "Dim.1", y ="Dim.2" )+
+   xlim(-2, 1) + ylim (-2, 1.3)
+p3 <- fviz_mca_biplot(mca.bourciez,
+                select.ind = list(name = c("Urdiñarbe", "Sara", 'Iholdi', 'Behauze', 'Maule', 'Bidarte', 'Eskiula', 'Urepele', 'Pagola', 'Maule-Lextarre', 'Arrueta-Sarrikota', 'Suhuskune', 'Jatsu Garazi')),
+                select.var = list(name = c("ardu", "arno", "ano", 'ardo', 'aratxe', 'ergi', 'txahal')))+
+ labs(title = "Zenbait herri eta aldaki aukeratu", x = "Dim.1", y ="Dim.2" )+
+   xlim(-2, 1) + ylim (-2, 1.3)
+
+grid.arrange(p1, p2, p3, nrow = 1, 
+             top = 'Aldagaien eta herrien hiru proiekzio partzial')
+```
+
+Oraingoan lehenengo bi irudietan osagaiak irizpide kuantitatiboekin eskatu dira: 20 garrantzitsuenak lehenengoan, eta bigarrenean bi dimentsioetako lau koadranteak irudikatzeko gutxieneko kopurua eskatu da (25 herri eta 45 aldaki). Horrek zubereraren trinkotasuna irudikatzen du. Azken irudian hasierako taulako aldagai bitako zazpi aldaki eta 11 herri aukeratu dira irudikatzeko.
+
+
+## Irudikatze kalitatea eta dimentsioak: Ordezkagarritasuna
+
+Analisi era honek kuantifikatzen du, besteak beste, aldagai bakoitza zelako ondo edo txarto dagoen irudikatuta dimentsio bakoitzean.  *Aldagaia* diot, baina, berez, elementu zehatzagoa litzateke, herri bakoitza eta item bakoitzeko aldaki bakoitzaren ordezkagarritasuna ere neurtzen ditu. 
+
+Hurrengo grafikoetan irudikatzen da dimentsio bakoitzean ondoen irudikatuta dauden 40 herriak.
+
+```{r fig.height=8}
+p1 <- fviz_cos2(mca.bourciez, choice = "ind", axes = 1, top = 40)
+p2 <- fviz_cos2(mca.bourciez, choice = "ind", axes = 2, top = 40)
+p3 <- fviz_cos2(mca.bourciez, choice = "ind", axes = 3, top = 40)
+
+grid.arrange(p1, p2, p3, ncol = 1, 
+             top = 'Ordezkagarritasuna: herriak hiru lehenengo dimentsioetan')
+```
+
+Irudiak ikusita, lehenengoan antzematen da Dim-1 horretan Zuberoa ordezkatzen dela gehienbat eta bigarren maila batean Lapurdi oposaketan. Bigarrenak, berriz, ematen du Amikuze ingurua eta Lapurdi irudikatzen dituela. Hirugarrenak, Nafarroa Behereko herriak, Zuberoko eta Lapurdikoren batekin nahastean ematen ditu.
+
+Baina, bistan denez, garrantzia du zer ikusteak: Ea analisi era hau erabilita herriak ordezkatzen diren ala ez; horretarako eta hiru dimentsiorekin ari garenez bueltaka, ikus dezakegu hiru dimentsiootan zein diren eta zelan dauden ordezkatuta herriak
+
+
+```{r fig.height=4, fig.cap='Lehenengo hiru dimentsioen ordezkagarritasuna, herrien ikuskera'}
+fviz_cos2(mca.bourciez, choice = "ind", axes = 1:3, top = 50)
+```
+
+Beste analisi batzuk erakutsia dutena gogoan hartuaz, erraz ulertzen da Zuberoa aldeko hizkerak ordezkatuen agertzea, Zuberoko berbetak baitira euren artean trinkotasunik handiena erakutsi dutena bestelako dialektometrietan.
+
+## Dimentsioak zerk eta zelan osatzen duen
+
+Supermerkatura noanean sarri begiratzen dut ea palma olioduna berriro sartu nahi didaten. Ba, interesgarri deritzot Dim-1, Dim-2 edo Plim-$\alpha$ dalakoak barruan zer duen ikusteari. Konkordantzia analisiak hori ere identifikatzen du; begiratu daiteke zein aldakik edo zein herrik sortzen duen zein neurritan aztertzen ari garen dimentsioa.
+
+Gardentasun horren erakusgarri, lehenego dimentsioaren osaera erakusten da segidan. Lehenengoaren (Dim-1) hasiera erakusten den moduan, 125.aren 7. osagaia ere erakuts liteke.
+
+### Herriak eta aldagaiak
+
+```{r fig.height=8, fig.cap='Dim-1 Lehenengo 50 osagairik garrantzitsuenak'}
+p1 <- fviz_contrib(mca.bourciez, choice = "ind", axes = 1, top = 50)
+p2 <- fviz_contrib(mca.bourciez, choice = "var", axes = 1, top = 50)
+grid.arrange(p1, p2, ncol = 1, 
+             top = 'Aldagaien eta herrien ekarpenak: Dim-1')
+
+```
+
+Eta horrek zer esan nahi duen hizkuntzalariek esatea dute. Nik gaur esan dezaket, biribilkeriarik gabe, datu guztien bariazioaren %`r mca.bourciez$eig[1,2]` azaltzen duen Dim-1 horretako % `r round(sum(mca.bourciez$ind$contrib[order(mca.bourciez$ind$contrib[,1], decreasing = T),1][1:50]), 2)` erakusten dela lehenengo irudian, herrien gaineko informazioaz. Bai, biribilduta. Eta bigarrenean % `r round(sum(mca.bourciez$var$contrib[order(mca.bourciez$var$contrib[,1], decreasing = T),1][1:50]), 2)` erakusten dela aldagai eta aldakietakoaz.
+
+
+# 1D analisia: Pisua eta garrantziaren inguruko azterketa.
+
+Tarte honetan MCAk sortutako dimentsio horiei begiratu behar zaie banaka... baina hiruko ikuskera hori ahaztu barik. Horretarako dimentsio bakarreko grafikoak egiten dira, baina mapan agerturiko koloreak desagertu barik.
+
+Irudi hirukoitzak proposatzen ditut azterketaren zati honetarako (laukoitzak izan zitezkeen, baina ikusiko denez hiru horiek nahi izan ditut). Lehenengo zatiak irudikatzen ditu herriak aztertzen diren dimentsioan, dimentsio horri egiten dioten ekarpenaren arabera. Bigarren irudiak hurrenkerarako irizpide berberekin aldakiak ageri dira^[Etiketak ondo kabitu daitezen, ez dira erabili izenak osorik, azken 15 karaktereak baino]. Hirugarrenak, azkenik, ordezkarraitasunaren arabera erakusten ditu herriak berriro. Laugarren batek azal litzake aldakien ordezkagarritasuna dimentsio bakoitzean. Ez dugu holakorik egin, ordea.
+
+```{r}
+tauli <- mca.bourciez$ind$contrib
+col <- rescale(mca.bourciez$ind$coord[,1:3], to = c(0,1))
+attributes(col)$dimnames[[2]] <- c('r', 'g', 'b')
+
+# 
+t.var.ekarpenak <- mca.bourciez$var$contrib
+attributes(t.var.ekarpenak)$dimnames[[1]] <- substr(attributes(t.var.ekarpenak)$dimnames[[1]],
+                                                    nchar(attributes(t.var.ekarpenak)$dimnames[[1]])-15,
+                                                    nchar(attributes(t.var.ekarpenak)$dimnames[[1]]))
+
+tauli2 <-mca.bourciez$ind$cos2
+attributes(tauli2)$dimnames[[1]] <- substr(attributes(tauli2)$dimnames[[1]], 1 , 15)
+
+```
+
+## Lehenengo dimentsioa: *Dim-1*
+
+```{r fig.height=10, fig.width=10, fig.cap=paste('Dim-1. Bariazioaren', round(mca.bourciez$eig[1,2], 2), ' azaltzen du')}
+# Dimentsioka
+par(mfrow = c(1, 3))
+dotchart(tauli[order(tauli[,1]),1], color = rgb(col[order(tauli[, 1]),]), pch = 20,
+         main = 'Herrien ekarpena')
+
+dotchart(sort(t.var.ekarpenak[order(t.var.ekarpenak[,1], 
+                                    decreasing = TRUE), 1][1:150]), cex = 0.7,
+         main = 'Aldagaien ekarpenak')
+
+dotchart(tauli2[order(tauli2[,1]),1], color = rgb(col[order(tauli2[, 1]),]), pch = 20,
+         main = bquote('Ordezkagarritasuna' ~(cos^2)))
+```
+
+Irudia nahiko koherentea da mapan ikusten denarekin. Bai dimentsioari egiten dioten ekarpenen arabera zein zein neurritara dauden islatuta dimentsio horretan, lehenengo nabarmentzen dira Zuberoako hizkerak eta hurrengo Lapurdikoak, pixkana-pikana Baxe Nafarroakoak agertzen hasten direla. 
+Kausistikak azaldu behar lituzke emaitza horietan Etxarri, Arrokiaga eta Pagola herrien kokapena; pentsatzekoa dena baino beheraxeago ageri dira-eta. 
+Espero izatekoa zatekeena baino gorago agertzen dira, besteak beste, Banka, Eiheralarre eta Irulegi, besteak beste.
+
+
+
+## Bigarren dimentsioa: *Dim-2*
+
+Aurrekoaren antzera, bigarren dimentsioa irudikatzen da hiru informazio motez: Herrien ekarpena, lehenengoan; bigarrenean, aldakien ekarpena; eta herrien ordezkagarritasuna, hirugarrenean.
+
+```{r fig.height=10, fig.width=10, fig.cap=paste('Dim-2. Bariazioaren', round(mca.bourciez$eig[2,2], 2), ' azaltzen du'), fig.align='center'}
+# Dimentsioka
+par(mfrow = c(1, 3))
+dotchart(tauli[order(tauli[,2]),2], color = rgb(col[order(tauli[, 2]),]), pch = 20,
+         main = 'Herrien ekarpena')
+# knitr::kable(t.var.ekarpenak[order(t.var.ekarpenak[,1], 
+#                                    decreasing = TRUE), 1][1:120])
+# attributes(t.var.ekarpenak)$dimnames[[1]] <- substr(attributes(t.var.ekarpenak)$dimnames[[1]], 1, 15)
+dotchart(sort(t.var.ekarpenak[order(t.var.ekarpenak[,2], 
+                                    decreasing = TRUE), 2][1:150]), cex = 0.7,
+         main = 'Aldagaien ekarpenak')
+#tauli2 <-mca.bourciez$ind$cos2
+#attributes(tauli2)$dimnames[[1]] <- substr(attributes(tauli2)$dimnames[[1]], 1 , 15)
+dotchart(tauli2[order(tauli2[,2]),2], color = rgb(col[order(tauli2[, 2]),]), pch = 20,
+         main = bquote('Ordezkagarritasuna' ~(cos^2)))
+```
+
+Bigarren dimentsio honetan, berriz, argi ikusten da Nafarroa - Lapurdi ardatza eta hortik aparte ageri da Zuberoa.
+Hala ere, koloreak ere erakusten du, Nafarroako herri batzuk (Donapaleu, Azkarate, Eiheralarre...) eta Lapurdiko beste batzuk (Lekuine, Jatsu...) zerrendan azken agertzen dira, ez orezkatuta ez ekarpenik ia eginda.
+
+## Hirugarren dimentsioa: *Dim-3*
+
+Ber sistema erabilita irudikatzen da *Dim-3*, hirugarren dimentsioa.
+
+```{r fig.height=10, fig.width=10, fig.cap=paste('Dim-3. Bariazioaren', round(mca.bourciez$eig[3,2], 2), ' azaltzen du'), fig.align='center'}
+# Dimentsioka
+par(mfrow = c(1, 3))
+dotchart(tauli[order(tauli[,3]),3], color = rgb(col[order(tauli[, 3]),]), pch = 20,
+         main ='Herrien ekarpena')
+
+dotchart(sort(t.var.ekarpenak[order(t.var.ekarpenak[,3], 
+                                    decreasing = TRUE), 3][1:150]), cex = 0.7,
+         main = 'Aldagaien ekarpenak')
+
+dotchart(tauli2[order(tauli2[,3]),3], color = rgb(col[order(tauli2[, 3]),]), pch = 20,
+         main = bquote('Ordezkagarritasuna' ~(cos^2)))
+```
+
+Dimentsio honetan nahasiago ikusten dira koloreak; berde gehiago beherago agertzeak lioskuke Zuberoko hizkerak ez leudekeela hain ordezkatuta. Baina hierarkiako lehenengo postuetan ere ikusten ditugu Zuberoako hizkeraren bat. 
+
+*Zer ari dük heben Arrokiaga?* pentsa lezake Zuberotarrak hierarkiako 5.ari begiratuta. Ta hala galdetu zidan... dimentsio bakarreko azterketari utzi behar eta gehiago batera erabilita ea zer agertzen den aztertzera jo dezagun.
+
+# 2D Ikuskera
+
+Hiru dimentsioak koloreekin irudikatzen segituta, 2Dko irudiak aurkezten dira hemen:
+
+```{r fig.height=7, fig.cap='2Dko irudikapena bi hiru dimentsiorekin', fig.align='center'}
+##         Dimentsio biko irudiak
+tauli <- mca.bourciez$ind$coord
+col <- rgb(rescale(mca.bourciez$ind$coord[,1:3], to = c(0,1)))
+tauli <- cbind(tauli, col)
+par(mfrow = c(1, 2))
+plot(tauli[,1:2], 
+     col = tauli[,'col'], 
+     pch = 20, 
+     cex = 3,
+     xlab = paste( 'Aldakuntzen %',
+                   round(mca.bourciez$eig[1,2], 2), 'azaltzen du'),
+     ylab = paste( 'Aldakuntzen %',
+                   round(mca.bourciez$eig[2,2], 2), 'azaltzen du'),
+     sub = 'Bariazioaren azalpenaren lehenengo bi dimentsioak'
+)
+text(tauli[,1:2], labels = row.names(tauli), col = 'gray40', cex = 0.7)
+plot(tauli[,2:3], 
+     col = tauli[,'col'], 
+     pch = 20, 
+     cex = 3,
+     xlab = paste( 'Aldakuntzen %',
+                   round(mca.bourciez$eig[2,2], 2), 'azaltzen du'),
+     ylab = paste( 'Aldakuntzen %',
+                   round(mca.bourciez$eig[3,2], 2), 'azaltzen du'),
+     sub = 'Bariazioaren azalpenaren bigarren eta hirugarren dimentsioak'
+)
+text(tauli[,2:3], labels = row.names(tauli), col = 'gray40', cex = 0.6)
+par(mfrow = c(1, 1))
+```
+
+Irakurleak igarriko zion, akaso: lehenengo irudia ez da besterik goiko MCA irudiko erdiko irudia baino, 3Dko koloreztatze bitxiarekin, bai, baina ez besterik. Irudi horretan nahiko argi ikusten dira aski ezagunak ditugun ezaugarri geografikoak, baina eskuin-ezker aldatuta. Zuberoa berdeskaz ezkerrean, Lapurdiko kostaldea horiskaz eskumaldean goian eta behean eta batez ere gorri indartsuz Nafarroa Behereko lautadak; zenbat eta hegoalderago edo mendebalderako orduan eta apalago agertzen da gorritasun hori. Baina, *zer ari duk hor Donapaleu?* esan lezake batek baino gehiago.
+
+Bigarren irudian Donapaleu eta Arrokiaga, hor zer ari diren ongi ez dakigun horiek, Banka-eta gorago ageri zaizkigu. Beste bateratze argirik ez da ikusten, aurreko irudien bitartez aipatu gabekorik, behinik behin. 3D azterketarako ordua:
+
+# 3D azterketa
+
+Hurrengo irudian ageri dira hiru dimentsioak irudikatuta perspektiba adierazi nahi duen irudi batez:
+
+```{r fig.cap='Bourciezen datuen MCA analisia 3D errepresantazioan', fig.height=7}
+##         3D irudia
+tauli <- mca.bourciez$ind$coord
+x <- tauli[,1]
+y <- tauli[,2]
+z <- tauli[,3]
+
+sct3d <- scatterplot3d(x,
+                       y,
+                       z,
+                       color = col,
+                       pch = 19,
+                       type = 'h', # c('p', 'h', 'l')
+                       # main = "Arratiako hizkerak eta batua 3D errepresantazioan",
+                       xlab = 'Dim-1',
+                       ylab = 'Dim-2',
+                       zlab = 'Dim-3')
+s3d.coords <-sct3d$xyz.convert(x,y,z)
+text(s3d.coords$x,
+     s3d.coords$y,
+     labels = row.names(tauli),
+     col = 'gray40',
+     cex = 0.7,
+     pos = 4)
+```
+
+Aurrekoetan Arrokiaga, Donapaleu, Azkaraten, Banka, Dozunantze, Eiheralarre ikusita izan ditugu. Larresorok ere badu  herriok duten ezaugarriren bat, ezaugarriren batzuetan bat datoz herriotako datuok.
+
+## Hipotesia
+
+Hirugarren dimentsio horren azalpen handia datuen nolakotasunak eman behar du, ez azalpen geografiko linguistikoa, ez, irizpide mailako azalpena. Irizpide estilistiko edo metodologikoak azaldu behar luke. 3-Dim azaltzeko 1D egindako erdiko irudian zenbait aldagaitan daturik ez agertzeak (NA) pisua duela erakusten du. Beraz, seguruenera datuak falta dituen herrien hierarkia eta 3-Dim aztertzekoa nahikoa bateragarriak izanen dira gorengo balioetan, behintzat.
+
+## Froga
+
+Zein dira informazio hutsune gehien dituzten herriak? Horixe aztertu behar da, ea irudiarekin bat datorren informazio hori
+
+```{r}
+na.in.ind <- rowSums(is.na(dtk.brcz))%>%sort( decreasing = TRUE)
+knitr::kable(na.in.ind[1:8], col.names = 'hutsuneak', 
+             caption = 'Herrietako informazio hutsuneak', 
+             align = 'c')
+
+```
+
+Eta bai. Hala da, informazio hutsune gehien dituzten herri horiek dira 3D irudian nabarmendu direnak.
+
+Hori bista hutsez 3D irudian baino ez da ikusten, begira beza irakurleak 1D eta 2D herrietan Larresoro herria non agertzen den, bere taldekotik 3D irudian nabarmen desberdintzen bada ere.
+
+Ikusten den hori adierazgarria denentz aztertzeko korrelazio testa egin behar da. Datuak ordinaltzat hartuko ditugu, ez baita informazio garrantzitsua hierarkia eraikitzeko zenbakia hierarkia bera baino; horretarako eta Spearman-en korrelazio testak huts egin dezakeela jakinda (balio pareko asko ditugulako), Kendallen &tau; kalkulatzea erabaki nuen.
+
+```{r}
+tau <- cor.test(x = na.in.ind, y = mca.bourciez$ind$contrib[,3], method = 'kendall')
+```
+
+Emaitzok (&tau; =`r tau$estimate`, p-balioa=`r round(tau$p.value, 3)`) dioskue baietz, hutsune kopurua eta Dim-3 erlazionatuta daudela.
+
+Berez, hutsuneak uniformeki banatuta baleude, eta ez daude, ez zatekeen erlazio adierazgarririk aurkituko haien artean. Baina aurkitu ditugunez, beste hipotesiren bat egin behar litzateke: hutsune antolatu horien antolaerari buruzkoa. 
+
+Nik balienteki, balientekeriatan hasita, hobeki esanda: *Bourciezen datuak itzulpenean oinarritu zirenez, ez ote ziren izanen estilo irizpide antzerakoak hartuko herri guzti horietan?* Itzulpengintza eta dialektometria bat eginin XIX gizaldiko azterketan.
+
+Jakina, datuak kategorizatzeko irizpideetan, nik hatzamar totoloak eta begi motzak izateak eta bestek ere izango dute esplikazio ahalmenik gaiaz.
+
+
+### Bonus track
+
+Segidan, hutsune gehien dituzten lehenengo 20 aldagaiak
+```{r}
+knitr::kable(sort(colSums(is.na(dtk.brcz)), decreasing = TRUE)[2:21], 
+             col.names = 'hutsuneak',
+             caption = "Aldagaietako informazio hutsune handiak", 
+             align = 'c')
+```
+
+Gera bitez hurrengo azterketa baterako
+
+# Segitzeko ideia batzuk
+
+Batzuk, niretzat nabarmenenak, zerak dira: alderatu MCA eta MDS, erakutsi zer alde dagoen non eta abar. Baina hori hurrengo post batean erakusteko asmoa dudanez, garrantzitsuagoa begitantzen zait oraindik burutaziotik ahalegin eta ikerketara igaro gabeko beste pare bat aipatzea.
+
+* Datuen azterketa interaktiboa egin [FactoMineR](http://factominer.free.fr/index_fr.html)reko egileek proposatzen duen [Factoshiny](http://factominer.free.fr/graphs/factoshiny-fr.html) [[*](https://cran.r-project.org/package=Factoshiny)] erreminta interaktiboarekin
+* Datu matrizeko hutsuneen tratamendurako, RCran-eko `missMDA` paketeak [[*](https://cran.r-project.org/package=missMDA)] proposatzen duen inputazio sistema aztertzea.
+
+Gera bitez hemen ideiok neuk edo bestek ahal denean kolpe eta aztertzeko.
+
+
+# Erreferentziak
+
+Oraingoan ez dut aitamenik aurrekotik aparte
+
+

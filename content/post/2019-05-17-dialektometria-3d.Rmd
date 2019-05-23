@@ -104,7 +104,7 @@ knitr::kable(rbind(head(dtk.brcz[,1:10]), tail(dtk.brcz[,1:10])),
 
 Aztertu diren aldagaiak `r length(names(dtk.brcz))` dira, berez. Herriak, berriz `r length(row.names(dtk.brcz))`.
 
-Goiko taulan ikusten da zenbait aldagaitako aldakiak errepikatzen direla herri batzuetan. Aldagaietako aldakiak eta herrien arteko korrespondentziak zein diren analizatzeko R lengoaian idatzitako FactoMineR [@hussonFactoMineRMultivariateExploratory2018] erabili da.
+Goiko taulan ikusten da zenbait aldagaitako aldakiak errepikatzen direla herri batzuetan. Aldagaietako aldakiak eta herrien arteko korrespondentziak zein diren analizatzeko R lengoaian idatzitako [FactoMineR](http://factominer.free.fr/) [@hussonFactoMineRMultivariateExploratory2018] erabili da.
 
 ```{r}
 par(mfrow = c(1,3))
