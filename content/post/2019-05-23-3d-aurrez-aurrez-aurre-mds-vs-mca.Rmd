@@ -1,7 +1,7 @@
 ---
 title: 'MDS Vs MCA: 3D aurrez aurre. Eta aurre.'
 author: Juan
-date: '2019-05-25'
+date: '2019-05-29'
 slug: 3d-aurrez-aurrez-aurre-mds-vs-mca
 code_folding: hide
 categories:
@@ -30,7 +30,7 @@ require(sp)
 require(plot3D)
 ```
 
-Sarrera hau Baionan nabilela idatzi behar dudan azkena edo azkenaurrekoa izango da, seguruenera.
+Sarrera hau Baionan nabilela idatzi behar dudan azkena da... momentuz.
 
 ```{r}
 leaflet() %>% 
