@@ -30,6 +30,7 @@ require(rgdal)
 require(rgl)
 require(here)
 ```
+
 ```{r htmlTemp3, echo=FALSE, eval=TRUE}
 # codejs <- readr::read_lines("js/codefolding.js")
 # collapsejs <- readr::read_lines("js/collapse.js")
@@ -72,7 +73,7 @@ Letretako baten intuiziotik abiatuta azaldu nahirik
 
 * Principal Component Analysis^[Euskaraz *Osagai Nagusien Analisia* edo *Konposatu Nagusien Analisia* eman ohi da; kontzeptu bakarrarentzat forma bakartzat ingelesezkoa eman behar dut euskarazko bertsioren bat orokortu arte.] ([PCA](https://eu.wikipedia.org/wiki/Osagai_nagusien_analisi)): Aldagai kuantitatibo askoren irudia sortzen du ahalik eta dimentsio gutxien erabilita; aldagai berri horiek originalak baino gutxiago dira. Baina soilik dira sortutako irudi horretakoak. Hau da, ez dira mundu honetakoak, baizik eta Matematicland batekoak.  
   Metodo hori ez denez erabiliko hemen, ez dut gehiago sakondu behar. @aurrekoetxeaPrincipalComponentsClustering2016 lanean PCA erabiltzen da herri hizkeren eta batuaren bitarteko distantziaren neurketaren analisirako.
-* Multiple Concordances Analysis ^[Euskeraz *Korrespondentzia Anizkoitzen Analisia* ematen duenik aurkitu dut] ([MCA](https://en.wikipedia.org/wiki/Multiple_correspondence_analysis)): Aldagai kualitatiboetarako garapena da, aurrekoaren filosofian oinarritua. Matematikan oinarritua, jakina.  
+* Multiple Correspondence Analysis ^[Euskeraz *Korrespondentzia Anizkoitzen Analisia* ematen duenik aurkitu dut] ([MCA](https://en.wikipedia.org/wiki/Multiple_correspondence_analysis)): Aldagai kualitatiboetarako garapena da, aurrekoaren filosofian oinarritua. Matematikan oinarritua, jakina.  
   Eman dezagun errealitatearen dena delako irudia deskribatzeko erabiltzen ditugun datuek *n~1~* aldagai erabiltzen dutela; MCAk *n~2~* dimentsio bitartez irudikatzen du, *n~1~* > *n~2~* araua betetzen dela. Hau da, aldagai gutxiago erabiliaz.
 * Multi Dimentional Scaling^[Euskeraz ... ?] ([MDS](https://en.wikipedia.org/wiki/Multidimensional_scaling)): Beste irudikatze mota bat da. Hau bigarren kalkulu bat eginaz sortzen da. Aurretik intereseko elementuen arteko distantziak kalkulatu behar dira, dena delako irizpide eta tekniken bitartez. Distantzi matrizea hartu eta horren proiekzioa egiten da agintzen zaion dimentsio kopuruan.  
   Obejktu biren arteko distantzia lerro zuzen batez irudikatu ahal da. Hiruren artekoa plano batez. Lauren artekoa espazioa erabiliaz.

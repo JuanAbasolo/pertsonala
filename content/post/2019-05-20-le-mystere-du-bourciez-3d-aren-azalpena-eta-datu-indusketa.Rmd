@@ -97,7 +97,7 @@ Onar nezake arazotzat hori, ez balitz datuen osotasunaren analisiak emaitza kohe
 
 Datu hutsuneak ere nabarmeak dira datu basean; eta aurrez emandako baieztapenarekin bat etor daitekeela uste daitekeen arren, bestelako eragina dute analisian. Baina analisia analizatu behar dugu horixe ikusteko.
 
-## Datuen MCA (*Multiple Concordance Analysis*)
+## Datuen MCA (*Multiple Correspondence Analysis*)
 
 Interpretatzen zailak izan daitezke korrelazio anizkoitzak sortzen dituen irudiak, aldagaiak edo banakoak (gure kasuan, herriak) ugariak direnean. Besteak besste, hurrengo irudiek 137 herri eta 248 aldagai asko direla erakusten dute.
 
@@ -394,6 +394,26 @@ Nik balienteki, balientekeriatan hasita, hobeki esanda: *Bourciezen datuak itzul
 
 Jakina, datuak kategorizatzeko irizpideetan, nik hatzamar totoloak eta begi motzak izateak eta bestek ere izango dute esplikazio ahalmenik gaiaz.
 
+Teoriak teoria, egia da datu baseko aldagaietan herri guztietan badaudela bi edo gehiago hutsune. Gehien 28. Hurrengo mapak informazio hori erakusten du.
+
+```{r fig.cap='Balio galduen presentzia irudikatzen duen mapa'}
+mapi <- readOGR(here('static','data', 'maps', 'EH_Udalerriak-Barri/udalerriak_EH_berriaB.shp'), verbose = FALSE)
+col.huts <- rescale(na.in.ind*-1, to = c(0,1))
+
+mapi@data$col.huts <- 0
+
+for(i in attributes(col.huts)$names){
+        # print(i)
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.huts"] <- col.huts[i]
+}
+plot(mapi, col = rgb(ifelse(mapi@data$col.huts>0, mapi@data$col.huts, 0), 
+                     ifelse(mapi@data$col.huts>0, mapi@data$col.huts, 0), 
+                     ifelse(mapi@data$col.huts>0, mapi@data$col.huts, 0)),
+     main = 'Hutsuneak datu basean',
+     sub = 'Gutxienik 2 huts eta gehienez 28')
+```
+
+Bistan denez zenbait herri beltzez agertzen dira, bertako daturik ez dago analisiotarako erabili den datu basean.
 
 ### Bonus track
 

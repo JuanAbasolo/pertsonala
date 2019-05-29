@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Thu, 23 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ikerketa</title>
+      <link>/tags/ikerketa/</link>
+      <pubDate>Sat, 25 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ikerketa/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>distantziak</title>
@@ -17,15 +26,6 @@
       <pubDate>Thu, 23 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/tags/distantziak/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ikerketa</title>
-      <link>/tags/ikerketa/</link>
-      <pubDate>Thu, 23 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ikerketa/</guid>
       <description></description>
     </item>
     

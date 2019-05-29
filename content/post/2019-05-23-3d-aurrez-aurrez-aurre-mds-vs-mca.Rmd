@@ -1,0 +1,439 @@
+---
+title: 'MDS Vs MCA: 3D aurrez aurre. Eta aurre.'
+author: Juan
+date: '2019-05-25'
+slug: 3d-aurrez-aurrez-aurre-mds-vs-mca
+code_folding: hide
+categories:
+  - dialektometriaz
+tags:
+  - ikerketa
+bibliography: references190518.bib
+---
+
+```{r setup, include=FALSE}
+# Add a common class name for every chunks
+knitr::opts_chunk$set(echo = FALSE)
+# knitr::opts_chunk$set(collapse = FALSE)
+require(factoextra)
+require(FactoMineR)
+require(diaMeasures)
+require(gridExtra)
+require(here)
+require(leaflet)
+require(reshape2)
+require(rgdal)
+require(rgl)
+require(scales)
+require(scatterplot3d)
+require(sp)
+require(plot3D)
+```
+
+Sarrera hau Baionan nabilela idatzi behar dudan azkena edo azkenaurrekoa izango da, seguruenera.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>%
+  setView(lng=-1.47046, lat=43.48994, zoom = 18)
+
+```
+
+
+Helburu bakarra du: **nondik segitu nezakeen (*daitekeen?*) aztertzen erakustea**. 
+
+Aurreko sarrera bietan hiru dimentsioko analisia erakutsi dut askotariko konkordantzia analisiaren bitartez (Multiple Correspondence Analysis, MCA). Lehenengoan [aurkezpen laburtxua egin nuen](https://juanabasolo.netlify.com/2019/05/18/dialektometria-3d/) eta bigarrenean [horren azalpena hurratsik hurrats](https://juanabasolo.netlify.com/2019/05/23/le-mystere-du-bourciez-3d-aren-azalpena-eta-datu-indusketa/) aztertzeko bidea erakusgai utzi nahirik.
+
+Oraingo honetan, dialektometrian zabalpen handixeagoa duen dimentsio anitzeko eskalatzearekin (MDS) alderatzeko elementu batzuk erakutsi nahi ditut; segitu eta sakondu behar dela bistan dudala.
+
+Datuak aurrekoetan erabilitako berberak dira, Bourciezek batu eta Aurrekoetxeak, Videgainek eta Iglesiasek sailkatu eta antolatutakoak [@aurrekoetxeaBourciezBildumakoEuskal2004; @aurrekoetxeaBourciezBildumakoEuskal2005a]
+
+Dimentsio anitzeko azterketetan MDS (MultiDimensional Scaling) bariazioan erabiltzen dela badira urteak [@embletonMultidimensionalScalingDialectometrical1993]. MCA, ba, lar ez dut ikusi, egia esan.
+
+# MDS zer den, profanoentzat
+
+Izenak dioen moduan, dimentsio asko eskalatzen ditu gutxiagotara. Baina zer izan daiteke dimentsio asko gutxiagotara eramatearen kontu hori. Ba, oinarri oinarrian distantzia matrize bat behar duela ez da kendu behar begibistatik.
+
+Elementu bakarra adierazteko, konbentsioz, puntu batekin nahikoa dugu. Bi elementu badira adierazi nahi direnak, lerro bat sortuko dugu, toki bakarrean ez badaude; hiruk, lerro bakarrean ez badaude, plano bat irudikatuko dute. Eta plano horretan ez dagoen laugarren puntu bat irudikatzeko espazioa erabili behar dugu. Lau puntuk espazioa definitzen dute. Eta bostek?... seik?... zazpik?... Dimentsioak defini ditzakegu, baina ez dira zehatz irudikatzen errazak. 
+
+Uler dezakegu, akaso, puntu berriak irudikatzen baditugu, aurrekoe guztiekin bat ez datozenak, dimentsio berriak sortuko dituela. 
+Ideia hori uler daiteken arren, 15. dimentsiotako irudirik gure buruak ezin du irudikatu (neurozientziari bidea horren esplikazionearentzat). Ideia abstraktu horiek zer forma hartuko luketen benetan da zaila hiru dimentsiotan baino ikusten ez dugunontzat. 
+
+Ba, MDSk hurrengo dimentsio horiek eskalatu eta irudikatzen ditu 2D edo 3D irudietan. Elementuen arteko distantziak irudikatzeko behar lituzkeen dimentsioak errepresentatzen ditu, irudi behartu batez. 
+
+
+```{r}
+
+## Datuak sartu
+# dtk.brcz <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', header = T)
+dtk.brcz <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), sep = ',', header = T)
+# names(dtk.brcz) <- read.table('../../static/data/raw/bourciez-taulazabalduan-b.csv', sep = ',', stringsAsFactors = F)[1,]
+names(dtk.brcz) <- read.table(here('static','data', 'raw', 'bourciez-taulazabalduan-b.csv'), 
+                              sep = ',', stringsAsFactors = F)[1,]
+row.names(dtk.brcz) <- dtk.brcz[,1] 
+dtk.brcz <- dtk.brcz[,-1]
+# NA gehiegi daukaz Hendaiak
+dtk.brcz <- dtk.brcz[-which(row.names(dtk.brcz)=="Hendaia"),]
+
+## MCA
+mca.bourciez <- MCA(dtk.brcz[,1:245], ncp = 4, graph = F)
+
+
+```
+
+
+```{r}
+## Mapi
+mapi <- readOGR(here('static','data', 'maps', 'EH_Udalerriak-Barri/udalerriak_EH_berriaB.shp'), verbose = FALSE)
+
+```
+
+## Oinarrizko datuak
+
+Oinarri-oinarrian lehengo datuen matrize hori dugu, herriak (`r nrow(dtk.brcz)`) eta aldagaiak (`r ncol(dtk.brcz)`). segidan beste lagintxu bat
+
+```{r}
+knitr::kable(dtk.brcz[10:20,5:10], caption = 'Bigarren 10 herriak eta bigarren 5 aldagaiak')
+```
+
+Datuotan oinarrituta egiten dira hurrengo kalkulu guztiak, distantziak, proiekzioak, analisiak eta abar.
+
+### Datu matrizetik distantzia matrizera
+
+Hasierako datuetan oinarrituta RIV distantzia kalkulatu eta herrien arteko distantzia linguistikoaren matrizea lortzen da; segidan lehenengo zazpi herriei dagokien tartea.
+
+```{r}
+## Datuen prestaketa
+dtk.tnp <- cbind(herria = row.names(dtk.brcz), dtk.brcz)
+names.bcrz <- names(dtk.tnp)
+
+dtk.bcrz.luze <- suppressWarnings(melt(dtk.tnp, id.vars = 'herria', variable.name = 'erantzunak'))
+## Distantzia
+d.brcz <- as.dist(diaMeasures::diaMeasure(data = dtk.bcrz.luze, 
+                                  formula = herria~erantzunak, 
+                                  value.var = 'value',
+                                  measure = 'iri',
+                                  binaryIndex = 'dice'))
+## Erakutsi
+# knitr::kable(as.matrix(d.brcz)[1:10,1:10], digits = 2)
+m <- as.matrix(d.brcz)[1:7,1:7]
+m[upper.tri(m)] <- NA
+pander::pander(m, split.table = Inf, digits = 4, missing = '', keep.trailing.zeros = TRUE)
+
+```
+
+Aurreko matrizeko herrien artean (`r row.names(as.matrix(d.brcz)[1:7,1:7])`) zein distantzia linguistiko dagoen zenbakiz islatzen da; zenbat eta antzekotasun handiagoa herriko ezaugarri linguistikoen artean orduan eta zenbaki baxuagua, zenbat eta handiagoa izan, zenbaki handiagoa.
+
+Herri horien arteko distantziak, 3D errepresentazioan, irudikatzen da segidan bi neurritan: 4,  eta 25 herrietako laginak, lehenengoak ez du informaziorik koloreetan, bigarrenak, berriz, laugarren dimentsio baten informazioa koloreetan du islatua^[Zenbat eta argiagoa, orduan eta puntuazio altuagoa dimentsio horretan].
+
+```{r}
+
+par(mfrow = c(1,2))
+adi2de <- cmdscale(as.dist(as.matrix(d.brcz)[1:4, 1:4]), k = 3)
+
+x <- adi2de[,1]
+y <- adi2de[,2]
+z <- adi2de[,3]
+
+sct3d <- scatterplot3d(x,
+                       y,
+                       z,
+                       color = 2,
+                       pch = 19,
+                       type = 'h', # c('p', 'h', 'l')
+                       xlab = '',
+                       ylab = '',
+                       zlab = '', main = '4 elementu')
+s3d.coords <-sct3d$xyz.convert(x,y,z)
+text(s3d.coords$x,
+     s3d.coords$y,
+     labels = row.names(adi2de),
+     col = 'gray40',
+     cex = 0.7,
+     pos = 4)
+
+adi2de <- cmdscale(as.dist(as.matrix(d.brcz)[1:25, 1:25]), k = 4)
+x <- adi2de[,1]
+y <- adi2de[,2]
+z <- adi2de[,3]
+
+sct3d <- scatterplot3d(x,
+                       y,
+                       z,
+                       color = rgb(rescale(adi2de[,4], to = c(0, 1)),                                 
+                                   rescale(adi2de[,4], to = c(0, 1)), 
+                                   rescale(adi2de[,4], to = c(0, 1))),
+                       pch = 19,
+                       type = 'h', # c('p', 'h', 'l')
+                       xlab = '',
+                       ylab = '',
+                       zlab = '', main = '25 elementu')
+s3d.coords <-sct3d$xyz.convert(x,y,z)
+text(s3d.coords$x,
+     s3d.coords$y,
+     labels = row.names(adi2de),
+     col = 'gray40',
+     cex = 0.7,
+     pos = 4)
+
+```
+
+Irudiotan distantziak adierazten dira, herrien artean zenbateko distantzia linguistikoa dagoen islatzen du. Irakurle kuxkuxeroak aztertu ahal ditu goiko matrizeko datuak nola adierazten diren irudiotan. 
+
+Argi ez da ikusten, aztertuta atzeman badaiteke ere, distantzia guztiak ez daudela berdin adierazita. Zergatik hori? Ba, MDS horixe delako, eskalatze prozesu bat, dimentsioak kendu eta gutxiagotan adierazteko laburpena. Laburpen ona, baina zaila koantifikatzen.
+
+```{r}
+mds.bcrz <- cmdscale(d.brcz, k = 3)
+```
+
+## Bourciezen datuen MDSren 3D irudikapena
+
+Bourciezen datuen arabera distantzi lingusitikoaren matrizea kalkultatuta, hiru dimentsiotako hurrengo irudia sortu daiteke^[Koloreen erabilera proiekzioarekin erredundantea da, RGB osaketa dute (gorria, berdea eta urdina), kolore bakoitza dimentsio bati datxakiolarik. Koloreen araberako errepresentazioak, baina, mapan dimentsioen presentzia/absentzia irudikatzeko balio du]
+
+```{r}
+col.mds <- rescale(1-mds.bcrz[,], to = c(0, 1))
+```
+
+
+
+```{r fig.width=8, fig.height=8}
+# MDS 3D
+
+tauli <- mca.bourciez$ind$coord
+x <- mds.bcrz[,1]
+y <- mds.bcrz[,2]
+z <- mds.bcrz[,3]
+
+sct3d <- scatterplot3d(x,
+                       y,
+                       z,
+                       color = rgb(col.mds),
+                       pch = 19,
+                       type = 'h', # c('p', 'h', 'l')
+                       # main = "Arratiako hizkerak eta batua 3D errepresantazioan",
+                       xlab = 'MDS-1',
+                       ylab = 'MDS-2',
+                       zlab = 'MDS-3')
+s3d.coords <-sct3d$xyz.convert(x,y,z)
+text(s3d.coords$x,
+     s3d.coords$y,
+     labels = row.names(mds.bcrz),
+     col = 'gray40',
+     cex = 0.7,
+     pos = 4)
+title(main = 'Bourciezen datuen esklatze multidimentsionala (MDS)', 
+      sub = 'RIV distantzia jaccard indizearekin erabilita')
+```
+
+### ... eta interaktiboki
+
+```{r fig.width=10, fig.height=10, fig.align='center', fig.cap='MDS 3D interaktiboa'}
+try(rgl.close(), silent = TRUE)
+plot3d(x, y, z, 
+       xlab = "x", ylab = "y", zlab = "z", type = 's',
+          pch = 20, 
+          size = 1,
+       col = rgb(col.mds)
+       ) 
+rgl.texts(x = x,
+       y = y,
+       z = z,
+       text = row.names(mds.bcrz),
+       col = 'grey20',
+       cex = 1,
+       add = T)
+# aspect3d("iso")
+# Change view
+view3d(theta = 30, phi = -40, zoom = 0.5)
+rglwidget()
+```
+
+### Mapan 3D
+
+Aurreko errepresentazioko dimentsioak koloreetan ere egin dira, horietxek, koloreen araberako irudikapenak maparatu daitezke, dagozkien herrien arabera koloreak emanaz; horixe egiten da hurrengo mapan.
+
+```{r}
+df <- data.frame(cbind(mds.bcrz, col.mds))
+
+mapi@data$col.mds.r <- 0
+mapi@data$col.mds.g <- 0
+mapi@data$col.mds.b <- 0
+
+for(i in row.names(df)){
+        # print(i)
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mds.r"] <- df[i, 4]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mds.g"] <- df[i, 5]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mds.b"] <- df[i, 6]
+        
+}
+
+plot(mapi, col = rgb(mapi@data$col.mds.r,
+                     mapi@data$col.mds.g,
+                     mapi@data$col.mds.b),
+     main = 'Bourciezen datuen esklatze multidimentsionala (MDS) maparatuta')
+legend("bottomleft",
+       legend = c('1. MDS dim', '2. MDS dim', '3. MDS dim'),
+       title = 'MDS dimentsioak',
+       col = c(2:4),
+       pch = 20)
+```
+
+Goiko mapa horrek antz nabarmen handia du blog honetako aurreko postekoarekin, konkordantzia anizkoitzen analisiarenarekin (MCA). Dakardan irudi horixe hona, alderatzeko:
+
+# Bourciezen datuen konkordantzia analisi anizkoitza: MCA
+
+Hurrengo irudi biak aurreko postean aztertutakoak dira, MDS proiekzioarekin bat etor daitezen, baina informazio berri gabe.
+
+```{r fig.cap='Bourciezen datuen MCA analisia 3D errepresantazioan', fig.width=8, fig.height=8}
+##         3D irudia
+tauli <- mca.bourciez$ind$coord
+col <- rgb(rescale(mca.bourciez$ind$coord[,1:3], to = c(0,1)))
+tauli <- cbind(tauli, col)
+tauli <- mca.bourciez$ind$coord
+x <- tauli[,1]
+# x <- rescale(x, to = -range(x))
+y <- tauli[,2]
+# y <- rescale(y, to = -range(y))
+z <- tauli[,3]
+# z <- rescale(z, to = -range(z))
+
+sct3d <- scatterplot3d(x*-1,
+                       y*-1,
+                       z,
+                       color = col,
+                       pch = 19,
+                       type = 'h', # c('p', 'h', 'l')
+                       # main = "Arratiako hizkerak eta batua 3D errepresantazioan",
+                       xlab = 'Dim-1',
+                       ylab = 'Dim-2',
+                       zlab = 'Dim-3')
+s3d.coords <-sct3d$xyz.convert(x*-1,y*-1,z)
+text(s3d.coords$x,
+     s3d.coords$y,
+     labels = row.names(tauli),
+     col = 'gray40',
+     cex = 0.7,
+     pos = 4)
+```
+
+## Mapan
+
+Aurreko irudikapenen koloreak, honetan ere, mapara eraman dira.
+
+```{r}
+## Mapi MCA
+
+col.mca <- rescale(mca.bourciez$ind$coord[,], to = c(0,1))
+
+mapi@data$col.mca.r <- 0
+mapi@data$col.mca.g <- 0
+mapi@data$col.mca.b <- 0
+for(i in row.names(col.mca)){
+        # print(i)
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mca.r"] <- col.mca[i,1]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mca.g"] <- col.mca[i,2]
+        mapi@data[mapi@data$IZ_EUSKAL==i, "col.mca.b"] <- col.mca[i,3]
+}
+plot(mapi, col = rgb(mapi@data$col.mca.r, 
+                     mapi@data$col.mca.g, 
+                     mapi@data$col.mca.b),
+     main = paste('MCA analisia, datuen bariantzaren %', round(mca.bourciez$eig[3,3], 2), 'azalduta'))
+legend('bottomleft', legend = c('Dim 1', 'Dim 2', 'Dim 3'), col = c('red', 'green', 'blue'), pch = 20)
+```
+
+# Biak batera
+
+Irudi biak alderatu ahal izateko, seguruenera, biderik egokiena bateratzea izango da. Horrela, segidan aurkezten da GIF formatuan.
+
+Badira hor Arrokiaga, Banka eta Donapaleu aldaketa nabarmenekin. MCAn hirugarren dimentsioan desberdinen irudikatzen zirenak, alegia.
+
+```{r GIFIN, fig.show='animate', ffmpeg.format='gif', dev='jpeg', fig.width=8, fig.height=8}
+plot(mapi, col = rgb(mapi@data$col.mca.r, 
+                     mapi@data$col.mca.g, 
+                     mapi@data$col.mca.b),
+     main = 'Bourciezen datuen MCA')
+plot(mapi, col = rgb(mapi@data$col.mds.r,
+                     mapi@data$col.mds.g,
+                     mapi@data$col.mds.b),
+     main = 'Bourciezen datuen MDS')
+
+```
+
+Datu mota biek, MDSk eta MCAk, oso antzerako irudiak sortzen dituzte; are gehiago, maparatuta, aldea kontraste kontua baino ez dela ematen du.
+
+Interesgarria izan liteke dimentsioen arteko korrelazioak ere aztertzea. Datuen ezaugarriengatik pearsonen korrelazio koefizienteak egokia ematen du alderaketak egiteko:
+
+# Hipotesia
+
+**Hº**: Bourciezen corpusen datuen analisi biek korrelazio handia izanen dute, MCAko lehenengo hiru dimentsioek eta distantzia linguistikoetan oinarritutako proiekzioak. MCAko hirugarren dimentsioak eta MDS proiekzioaren hirugarrenak, berriz, korrelazio baxuagoa izango du besteek baino
+
+# Froga
+
+```{r}
+## DIM-1 eta MDS1
+cor.1 <- cor.test(col.mca[, 1], col.mds[, 1])
+
+## DIM-2 eta MDS2
+cor.2 <- cor.test(col.mca[, 2], col.mds[, 2])
+
+## DIM-3 eta MDS
+cor.3<- cor.test(col.mca[, 3], col.mds[, 3])
+
+df.cor <- data.frame(mca1 = col.mca[,1], 
+                     mca2 = col.mca[,2], 
+                     mca3 = col.mca[,3], 
+                     mds1 = col.mds[,1],
+                     mds2 = col.mds[,2],
+                     mds3 = col.mds[,3])
+```
+
+
+```{r fig.cap='MCA eta MDSko lehenengo hiru dimentsioen arteko korrelazioak'}
+par(mfrow=c(1,3))
+
+plot(df.cor[ , c(1,4)], pch = 20, cex = 1.5, col = 'red')
+text(df.cor[ , c(1,4)], labels = row.names(df.cor), col = 'gray70', cex = 0.6)
+abline(lm(mds1 ~ mca1, data = df.cor), col = 1, lty = 2)
+title(main = paste('1. dimentsioak: r = ',
+                   round(cor.1$estimate, 3), '***'),
+      sub = paste('p-balioa =', cor.1$p.value))
+
+plot(df.cor[ , c(2,5)], pch = 20, cex = 1.5, col = 'green')
+text(df.cor[ , c(2,5)], labels = row.names(df.cor), col = 'gray60', cex = 0.6)
+abline(lm(mds2 ~ mca2, data = df.cor), col = 1, lty = 2)
+title(main = paste('2. dimentsioak: r = ',
+                   round(cor.2$estimate, 3), '***'),
+      sub = paste('p-balioa =',cor.1$p.value))
+
+plot(df.cor[ , c(3,6)], pch = 20, cex = 1.5, col = 'blue')
+text(df.cor[ , c(3,6)], labels = row.names(df.cor), col = 'gray50', cex = 0.8)
+abline(lm(mds3 ~ mca3, data = df.cor), col = 1, lty = 2)
+title(main = paste('3. dimentsioak: r = ',
+                   round(cor.3$estimate, 3), '***'),
+      sub = paste('p-balioa =',cor.3$p.value))
+
+par(mfrow=c(1,1))
+
+
+
+```
+
+# Azalpena
+
+Azterketak erakusten duenez, korrelazio oso handia dute lehenengo dimentsio biek. Irudiaren hirugarren atalean islatzen denez, gainera, ematen du egokia izan litekeela muturreko balioen pisua motelduko lukeen beste estatistikoren bat erabiltzea, erregresio lerroan, antza, igartzen da muturreko 6 bat balioen pisua.
+MCAko Dim-1 eta MDSko mds1 zein MCAko Dim-2 eta mds2 aldagaiek euren arteko korrelazio indizeak asko hurbiltzen zaizkio 1ari, korrelazio perfektua litzatekeena. Azterketon probabilitate balioak, *p-value*, 0.001 baino baxuagoak dira.
+
+# Ondorioak
+
+MDS eskalatze eta proiekzioa egokiak dira Bourciezen corpuseko datuak adierazteko, MCA egokia den neurrian.
+
+# Geroko
+
+Beste corpus batzuekin ere alderatu behar lirateke analisi modu biak, ea zein neurritan diren egonkorrak antzematen diren paralelotasunak. 
+Egongokortasuna erakutsiko balute, MCAk duen azalpen gaitasunaren alderdi koantitatiboa oinarri hartuta, MDS irudikapenena ere koantifikatzeko bidea azter liteke. 
+
+Kasu honetako analisian, behintzat, interesgarria litzateke aztertzea Dim-3 eta mds3 horien erlazioa; agian, Dim-4 edo hurrengo batzuk ere kontuan hartuta.
+
+Irudikapenok eta cluster analisaren bitartez sortzen direne arteko harremanak aztertzea ere nabari interesekoa dela esateko minik ez dut.
+
+# Erreferentziak
