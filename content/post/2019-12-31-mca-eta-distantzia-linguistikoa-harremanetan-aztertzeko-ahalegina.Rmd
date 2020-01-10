@@ -334,4 +334,60 @@ Eta zer pentsa emateaz gain, zer landu ere eman digu:
 + Zer dago 0ren inguruan?
 + Zelan antolatzen dira neurgai hartu ditugun elementu linguistikoak?
 
+```{r}
+par(mfrow = c(1,2))
+plot(table.mca.4.plot.var, 
+     cex = 2,
+     pch =  20,
+     col = 'white',
+     ylab = '', xlab = '')
+points(table.mca.4.plot.var, cex = 0.5, col = 'white')
+text(table.mca.4.plot.ind, 
+     labels = rownames(table.mca.4.plot.ind),
+     col = kolorik[2])
+points(table.mca.4.plot.ind, cex = 2, col = kolorik[2], pch = 20)
+points(table.mca.4.plot.ind, cex = 1, col = 'black', pch = 1)
+abline(v = 0, col = 'gray')
+abline(h = 0, col = 'gray')
+# 
+# legend('topright', 
+#        legend = c('8 hizkerak', '521 aldakiak\n(gardentasunez maiztasuna)'),
+#        col = kolorik[c(2,1)],
+#        pch = 20, pt.cex = 2, bty = FALSE)
+title(main = 'Puntutxu marroaikin hori ...', 
+      xlab = paste0('DIM 1, %', 
+                    round(mca.arratia.plus.01$eig[1,2], 2)),
+      ylab = paste0('DIM 2, %', 
+                    round(mca.arratia.plus.01$eig[2,2],2))
+)
+
+plot(table.mca.4.plot.var, 
+     cex = 2,
+     pch =  20,
+     col = alpha(kolorik[1], 0.1),
+     ylab = '', xlab = '')
+points(table.mca.4.plot.var, cex = 0.5, col = 'white')
+# text(table.mca.4.plot.ind, 
+#      labels = rownames(table.mca.4.plot.ind),
+#      col = kolorik[2])
+# points(table.mca.4.plot.ind, cex = 2, col = kolorik[2], pch = 20)
+# points(table.mca.4.plot.ind, cex = 1, col = 'black', pch = 1)
+abline(v = 0, col = 'gray')
+abline(h = 0, col = 'gray')
+
+# legend('topright', 
+#        legend = c('8 hizkerak', '521 aldakiak\n(gardentasunez maiztasuna)'),
+#        col = kolorik[c(2,1)],
+#        pch = 20, pt.cex = 2, bty = FALSE)
+title(main = '... zer jazoko da berdetxuekin?', 
+      xlab = paste0('DIM 1, %', 
+                    round(mca.arratia.plus.01$eig[1,2], 2)),
+      ylab = paste0('DIM 2, %', 
+                    round(mca.arratia.plus.01$eig[2,2],2))
+)
+
+
+```
+
+
 
