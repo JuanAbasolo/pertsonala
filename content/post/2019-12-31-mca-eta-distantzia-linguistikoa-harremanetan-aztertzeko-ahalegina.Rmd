@@ -1,0 +1,337 @@
+---
+title: MCA eta Distantzia Linguistikoa harremanetan aztertzeko ahalegina
+author: Juan Abasolo
+date: '2019-12-31'
+slug: mca-eta-distantzia-linguistikoa-harremanetan-aztertzeko-ahalegina
+categories:
+  - dialektometriaz
+tags:
+  - distantziak
+  - MCA
+output: 
+  html_document: 
+    fig_height: 7
+    fig_width: 9
+---
+
+Pasa den zemendian, MCA eta Dialektometria teknikak batera erabilita, aurkezpen bat egin genuen Arratiako datuak erabilita, [*Influencia del euskera estándar en el habla de dos generaciones del valle de Arratia: alfabetizada y no alfabetizada*](https://eudia-ehu.github.io/aurkezpenak/1911SEDLL.html/). Aurkezpena mentalki birpasatzen genbiltzala, datuei bestelako begirada batez heldu nien. Nahi barik. Begitandu zitzaidan, MCAk kalkulatzen dituen dimentsioak, akaso, bat etorri behar luketela distantzia linguistikoetara iraulitako datuen antolaerarekin.
+
+Ea irudikapen hori zein neurritaraino dagoen ondo bideratuta:
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE)
+# Libreriak-eta
+require(pander)
+require(scales)
+
+```
+
+Post hau irudiek osatzen dute, aurrekoetan azalduta daudelako distantzi linguistikoaren edo MCAren inguruko informazioa.
+
+# Distantzia Linguistikoen matrizea
+
+Segidan dendograma eregiteko distantzia linguistiko matrizea:
+
+```{r}
+## Datuak sartu ---------------------------
+## 
+load('data/191230.RData')
+c <- as.matrix(neurria.1)
+
+## Inprimatu
+
+c[upper.tri(c)] <- NA
+c[c==0]<-NA
+pander(c[-1, -9], split.table = Inf, 
+       digits = 4, 
+       missing = '', 
+       keep.trailing.zeros = TRUE, emphasize.strong.rows = 2,
+       emphasize.strong.cols = 3, caption = 'RIV distantzia linguistikoaren araberako matrizea')
+```
+
+Eta goiko hori oinarri hartuta, segidako dendograma oinarrian.
+
+```{r}
+hc <- hclust(neurria.1, method = 'ward.D2')
+hcd <- as.dendrogram(hc)
+```
+
+```{r}
+
+plot(hc, 
+     ylab = 'Distantzia',
+     xlab = 'Distancia RIV',
+     sub = 'Ward-en algoritmoaren araberako multzoen dendograma'#,
+     # main = 'Arratiako belaunaldi bi eta euskara estandarra'
+)
+
+```
+
+# MCA
+
+MCA analisia oinarri hartuta, segidan lehenengo bi dimentsioen *mapa*, "biplota", aldakiak zein informatzaile taldeak irudikatzen direalako. DIM 1ek eta DIM 2k bariantzaren erdia baino gutxixeago azaltzen dute.
+
+```{r}
+table.mca.4.plot.ind <- mca.arratia.plus.01$ind$coord
+
+
+table.mca.4.plot.var <- mca.arratia.plus.01$var$coord
+
+table.mca.4.plot.var <- table.mca.4.plot.var[which(regexpr('_0',
+                                                           rownames(table.mca.4.plot.var))<6),]
+
+## Irudiak sortu ---------------------------
+##         
+kolorik <- RColorBrewer::brewer.pal(8, 'Dark2')
+
+## DIM 1 eta 2
+plot(table.mca.4.plot.var, 
+     cex = 2,
+     pch =  20,
+     col = alpha(kolorik[1], 0.1),
+     ylab = '', xlab = '')
+points(table.mca.4.plot.var, cex = 0.5, col = 'white')
+text(table.mca.4.plot.ind, 
+     labels = rownames(table.mca.4.plot.ind),
+     col = kolorik[2])
+points(table.mca.4.plot.ind, cex = 2, col = kolorik[2], pch = 20)
+points(table.mca.4.plot.ind, cex = 1, col = 'black', pch = 1)
+abline(v = 0, col = 'gray')
+abline(h = 0, col = 'gray')
+
+legend('topright', 
+       legend = c('8 hizkerak', '521 aldakiak\n(gardentasunez maiztasuna)'),
+       col = kolorik[c(2,1)],
+       pch = 20, pt.cex = 2, bty = FALSE)
+title(main = 'Estandarra eta Arratiako hizkeren MCA (DIM1 eta DIM2)', 
+      xlab = paste0('DIM 1, %', 
+                    round(mca.arratia.plus.01$eig[1,2], 2)),
+      ylab = paste0('DIM 2, %', 
+                    round(mca.arratia.plus.01$eig[2,2],2))
+)
+```
+
+Goiko irudian ageri-agerian dago puntu berde bat x,y (2.7, 0.1) koordenadetan. Horrek irudikatuko ditu *euskara batu* gogorreko hitzak, Arratian agertzen ez direanak (eb. *igandea*, *amona*, *izeba*...)
+
+Teknika bera erabilita, hurrengoan irudikatu dira MCAko DIM 3 eta DIM 4, bariantzaren laurdena baino gutxiago.
+
+```{r}
+## DIM 3 eta 4
+plot(table.mca.4.plot.var[, 3:4], 
+     cex = 2,
+     pch =  20,
+     col = alpha(kolorik[1], 0.1),
+     ylab = '', xlab = '')
+points(table.mca.4.plot.var[, 3:4], cex = 0.5, col = 'white')
+text(table.mca.4.plot.ind[, 3:4], 
+     labels = rownames(table.mca.4.plot.ind[, 3:4]),
+     col = kolorik[2])
+points(table.mca.4.plot.ind[, 3:4], cex = 2, col = kolorik[2], pch = 20)
+points(table.mca.4.plot.ind[, 3:4], cex = 1, col = 'black', pch = 1)
+abline(v = 0, col = 'gray')
+abline(h = 0, col = 'gray')
+
+legend('topright', 
+       legend = c('8 hizkerak', '521 aldakiak'),
+       col = kolorik[c(2,1)],
+       pch = 20, pt.cex = 2, bty = FALSE)
+title(main = 'Estandarra eta Arratiako hizkeren MCA (DIM3 eta DIM4)', 
+      xlab = paste0('DIM 3, %', 
+                    round(mca.arratia.plus.01$eig[3,2], 2)),
+      ylab = paste0('DIM 4, %', 
+                    round(mca.arratia.plus.01$eig[4,2],2))
+)
+```
+
+# Clusterrak eta MCAko dimentsioak batera
+
+Tarte honetan, Ward-en arabera sortzen direan clusterrak (gehienez n-1) alderatzen dira MCAk datuen bariazioa azaltzeko kalkulatzen dituan dimentsioak. Bariantzaren % 100 azaltzeko n-1 dimentsio kalkulatu behar dira, horiek direlako oposizio posible guztiak.
+
+```{r}
+barplot(mca.arratia.plus.01$eig[,2], col = 1, xlab = 'MCAko dimentsioak',
+        ylab = 'Azaldutako bariazioaren ehunekoa',
+        main = 'MCAko dimentsio bakoitzak datuen % zenbat azaltzen duen')
+```
+
+Hurrengo irudietan dimentsioak banaka erakusten dira elementuen arteko oposizioaren arabera. Konparagai Warden araberako clusterren kopurua da dimentsioaren zenbakia + 1. Ezkerreko grafikoan nabarmentzen dira kolore gorri eta urdinez, clusterretan sortutako azken bietako elementuak.
+
+
+```{r}
+## Dotchart
+tauli <- mca.arratia.plus.01$ind$coord
+
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,1]),1], 
+         main = paste0('DIM 1, %', round(mca.arratia.plus.01$eig[1,2], 2)),
+         lcolor = c(rep(4, 8), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma (Ward)',
+     sub = 'Warden araberako lehenengo multzo biak')
+rect.hclust(hc,
+            k=2, 
+            border= 2, 
+            which = 1:2)
+
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,2]),2], 
+         main = paste0('DIM 2, %', round(mca.arratia.plus.01$eig[2,2], 2)),
+         lcolor = c(4, 4, 4, alpha(1, 0.6), 2, 4, 4, 2, 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma (Ward)',
+     sub = 'Warden araberako 2. eta 3. multzoak')
+rect.hclust(hc, 
+            k=3, 
+            border= 2, 
+            which = 2:3)
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,3]),3], 
+         main = paste0('DIM 3, %', round(mca.arratia.plus.01$eig[3,2], 2)),
+         lcolor = c(2, 2, rep(alpha(1, 0.6), 4), 4, 4, 4),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma, 4 multzo',
+     sub = 'Warden araberako 2. eta 3. multzoak')
+rect.hclust(hc, 
+            k=4, 
+            border= 2, 
+            which = c(2,4))
+
+```
+
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,4]),4], 
+         main = paste0('DIM 4, %', round(mca.arratia.plus.01$eig[4,2], 2)),
+         lcolor = c(4, 4, rep(alpha(1, 0.6), 6), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+# abline(v = -0.3, col = 2)
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma, 5 multzo',
+     sub = 'Warden araberako 4. eta 5. multzoak')
+rect.hclust(hc, 
+            k=5, 
+            border= 2, 
+            which = 2:3) 
+
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,5]),5], 
+         main = paste0('DIM 5, %', round(mca.arratia.plus.01$eig[5,2], 2)), 
+         lcolor = c(4, rep(alpha(1, 0.6), 7), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma, 6 multzo',
+     sub = 'Warden araberako 5. eta 6. multzoak')
+rect.hclust(hc, 
+            k=6, 
+            border= 2, 
+            which = 5:6) 
+
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,6]),6], 
+         main = paste0('DIM 6, %', round(mca.arratia.plus.01$eig[6,2], 2)), 
+         lcolor = c(4, rep(alpha(1, 0.6), 7), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma, 7 multzo',
+     sub = 'Warden araberako 5. eta 6. multzoak')
+rect.hclust(hc, 
+            k=7, 
+            border= 2, 
+            which = 3:4) 
+
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,7]),7], 
+         main = paste0('DIM 7, %', round(mca.arratia.plus.01$eig[7,2], 2)), 
+         lcolor = c(4, 4, rep(alpha(1, 0.6), 6), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma, 8 multzo',
+     sub = 'Warden araberako 5. eta 6. multzoak')
+rect.hclust(hc, 
+            k=8, 
+            border= 2, 
+            which = 5:6) 
+```
+
+```{r}
+par(mfrow = c(1,2))
+dotchart(tauli[order(tauli[,8]),8], 
+         main = paste0('DIM 8, %', round(mca.arratia.plus.01$eig[8,2], 2)), 
+         lcolor = c(4, rep(alpha(1, 0.6), 7), 2),
+         pch = 19)
+abline(v = 0, col = 8, lty = 2)
+
+plot(hc, cex.lab = 0.1,
+     hang = -1,
+     ylab = 'Distantzia linguistikoa (RIV)',
+     xlab = 'Hizkerak',
+     main = 'Dendograma (Ward)',
+     sub = 'Lehenengo multzoa nabarmenduta')
+abline(h = 25, col = 2 , lty = 2)
+abline(v = 6.5, col = 2, lty = 2)
+```
+
+
+# Zer pentsa...
+
+zer pentsa eman dit ariketatxuak. DIM2 eta hiru clusterreko alderaketaren kasuan izan ezik, beste guztietan bat etorri dira aztertu oposaketa pareak.
+
+Eta zer pentsa emateaz gain, zer landu ere eman digu:
+
++ Zer dago 0ren inguruan?
++ Zelan antolatzen dira neurgai hartu ditugun elementu linguistikoak?
+
+
