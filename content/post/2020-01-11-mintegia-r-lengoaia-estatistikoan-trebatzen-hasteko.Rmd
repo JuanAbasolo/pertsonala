@@ -1,0 +1,106 @@
+---
+title: 'Mintegia: R lengoaia estatistikoan trebatzen hasteko'
+author: Juan Abasolo
+date: '2020-01-11'
+slug: mintegia-r-lengoaia-estatistikoan-trebatzen-hasteko
+categories:
+  - proiektua
+tags:
+  - r
+---
+
+Mintegi honetara helburu batzuk dakartzat, garrantzitsuena niretzat hau da: **gure inguruan R lengoaia erabiltzen zelan ikasten den ikastea**.
+
+Jakina, horretarako [proposamenean](https://github.com/JuanAbasolo/Rikasi/blob/master/Proposamena.md) aurre ikusitakoak balio lezakete. Hala eta guztiz ere, hasierako proposamenean eman nuen lau pausu estandar horiek ez dira irmoak eta egokitu nahi nituzke mintegiko parte hartzaileen asmo, beharrizan edo gogoetara. Izan ere, *Estandar* jaun edo *Estandar* andrerik ez da etorriko, Caetano Velosok kantatzen duenez, *De perto, ninguém é normal*. 
+
+# Planteamendu egokitua
+
+Zer ikasi behar dugun dakigunean, diote, hobeto ikasten dugu. Ikasi behar dugunarekin konprometituta bagaude, errezago ikasten dugu. Diote.
+
++ Zertarako erabiltzen da R  
+  Eta hor ni non nago?  
+  - Horren gainean berba egin beharko dugu
++ Rrekiko komunikazioaren oinarrizkoak  
+  Eta zein diren oinarrizko horiek  
+  - Hor nik ariketa batzuk proposatuko ditut.
++ Zelan dokumentatu Rn egiten duguna  
+  RStudio aztertuko dugu apur bat.
+  - R lengoaia eta gurea tartekatuta erabiliko dugu, bakoitzaren asmoen arabera.  
+  - Markdown lengoaiko oinarrizkoak ere ikusiko ditugu.
++ Zelan sartu datuak R-ra  
+  Guk aurrez ditugun datuak Rko lan eremura sartzeko bide batzuk aztertu behar ditugu.
++ Datuen antolaketa batzuk  
+  Datuak birrantolatu eta laburtu  
+  Datuen analisi sinple batzuk egin ($\chi²$, $r$, $\tau$...) 
++ Grafikoak  
+  Ditugun datuak nolakoak dira? Nola grafikatzen dira? Zein informazio eman nahi nuke nire grafikarekin?  
+  - Bakoitzaren interesaren araberako ariketa egokituak egin behar genituzke, oinarrizko sintaxi elementu batzuk ezagutu eta gero  
++ Hizkuntza naturala eta R
+  Gure taldean, besteak beste, ezaugarri linguistikoak, espazialak eta linguistikoak lantzen ditugunez, tarte bat lehenengo horri. Bakoitzak bere datuekin, printzipioz.
+  - Intereseko ezaugarri linguistikoen deskribapena egiten trebatu.
+  - Antolaera posibleak aztertu behar ditugu analisi posibleekin harremanetan.
+  
+# Baliabideak
+
+Mintegia eroateko ariketa eta baliabide batzuk batzeko biltegitxu bat sortu dut [hemen](https://github.com/JuanAbasolo/Rikasi). Asmoa da berori egunotan egokitzen joatea eta egunen batean ikastaro itxurako zerbait egiten badut, bertatik argitaratzea.
+
+Biltegiaren barruan nabigatu daiteke; hala ere, hemen zerrendatuko ditut interesekoak izan daitezkeen toki batzuk.
+
++ [Ariketak](https://github.com/JuanAbasolo/Rikasi/tree/master/Testu%20edo%20ariketak). Berez, hau idazteko orduan bakarra dago, sintaxia ezagutu eta autonomian hasteko.
++ [Datuak](https://github.com/JuanAbasolo/Rikasi/tree/master/data/raw). Ikasleek betetako fitxa batzuk, izenez erantsita, Googleko inprimakitik jaitsi moduan eta karpeta batean EHHAko 10. liburukiko zenbait itemen erantzunak.
++ [Baliabideak](https://github.com/JuanAbasolo/Rikasi/tree/master/Kanpoko%20baliabideak).  
+  Besteak beste  
+  + [R baseko gida laburra](https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/base-r%5BR%5D.pdf)
+  + [RStudio erabilteko gida laburra](https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/rstudio-IDE-cheatsheet%5BR%5D.pdf)
+  + [RMarkdown erabiltzeko gida laburra](https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/rmarkdown-cheatsheet-2.0.pdf), [Markdown](https://eu.wikipedia.org/wiki/Markdown) lengoaia  Rk bitaminizatua.
+
+# Ondoriotzat
+
+Nire uste harroan, R erabiltzen ikasteko material eta ikastaroak falta dira psikodidaktikan ikerketan aritzen garenontzat, Rn trebatzeko ikastaro eta material asko badago ere. Hori dela-eta, itxurazko ikastaroa egiteko baliabideak sortzeko erabili nahi nuke mintegi hau. Eta, lagun hori, zure laguntza ere espero dut ikaskuntza prozesuaz hasnartuta, zure helburuak eta zalantzak azalduta eta abar.
+
+# **Bonus track**
+
+Adibidetxu batzuk ikusi
+
+![](https://www.r-project.org/Rlogo.png)
+
++ Zabaldu R  
+    GNU/Linux erabiltzen baduzu, terminanl batean idatzi `R` eta enterri eman
+    Windows edo Mac erabiltzen baduzu, R GUI, goiko R sinbolotxu hori daukana.
++ Bertan idatzi behar duzu
+
+```r
+demo()
+```
+
+Horrek zerrendatuko ditu zure R-ko instalazioan aztergai dituzun *demo*ak. Ba, aukeratu bat eta horixe aipatu `demo()` funtzioaren barruan kakotx bikoitz edo banakakoen artean, esate baterako: `graphics`.
+
+```r
+demo("graphics")
+```
+
+Voilà!
+
+Ah! Ez dut esan: blog hau osorik RStudio erabilita egiten dut, beraz, hemen dagoena nola egiten den erakuts dezaket
+
+![](/post/2020-01-11-mintegia-r-lengoaia-estatistikoan-trebatzen-hasteko_files/2020-01-11_184420.png){width=50%}
+
+# Kontuan izateko bibliografia eta webguneak
+
+R Core Team. (2018). *R: A Language and Environment for Statistical Computing*. R Foundation for Statistical Computing. https://www.R-project.org/
+
+> R Proiektuaren webgunea, bertatik jaitsi behar da beste ezeren aurretik instalateko
+
+RStudio Team. (2019). *RStudio: Integrated Development Environment for R*. RStudio, Inc. http://www.rstudio.com/
+
+> RStudio garatzen daben taldekoen webgunea. Lehenengo behar dogu instalatuta R, gero instalatu ahal dugu RStudio
+
+Paradis, E. (2005). *R for beginners*. E. Paradis. http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf
+
+> Liburu hori [gaztelaniaz](https://cran.r-project.org/doc/contrib/rdebuts_es.pdf) ere badago, *R para principiantes* izenarekin, baina, kasualitatea?, Mexikoko irakasle batek izen horrekin pasa den urtean beste liburu bat idatzi du:
+
+Mendoza Vega, J. B. (2018). *R para principiantes*. Bosco Mendoza. https://rprincipiantes.boscomendoza.com/
+
+> UNAMeko irakaslea da Bosco Mendoza, interesgarria eta oinarriak antolatzeko ere oso erabilgarria. Webgunetik `.epub` eta `.pdf` formatuetan jaits daiteke.
+
+Amaitzeko, inprimitu [hau](https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/base-r%5BR%5D.pdf) (goian ere erreferentziatua duzu).

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="eu">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>Mintegia: R lengoaia estatistikoan trebatzen hasteko - Ikerketa hondarrak</title>
+<meta property="og:title" content="Mintegia: R lengoaia estatistikoan trebatzen hasteko - Ikerketa hondarrak">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.jpg"
+         width="50"
+         height="50"
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">Egileaz</a></li>
+    
+    <li><a href="https://www.ehu.eus/eudia">EUDIA</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Mintegia: R lengoaia estatistikoan trebatzen hasteko</h1>
+
+    
+    <span class="article-date">2020/01/11</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>Mintegi honetara helburu batzuk dakartzat, garrantzitsuena niretzat hau da: <strong>gure inguruan R lengoaia erabiltzen zelan ikasten den ikastea</strong>.</p>
+<p>Jakina, horretarako <a href="https://github.com/JuanAbasolo/Rikasi/blob/master/Proposamena.md">proposamenean</a> aurre ikusitakoak balio lezakete. Hala eta guztiz ere, hasierako proposamenean eman nuen lau pausu estandar horiek ez dira irmoak eta egokitu nahi nituzke mintegiko parte hartzaileen asmo, beharrizan edo gogoetara. Izan ere, <em>Estandar</em> jaun edo <em>Estandar</em> andrerik ez da etorriko, Caetano Velosok kantatzen duenez, <em>De perto, ninguém é normal</em>.</p>
+<div id="planteamendu-egokitua" class="section level1">
+<h1>Planteamendu egokitua</h1>
+<p>Zer ikasi behar dugun dakigunean, diote, hobeto ikasten dugu. Ikasi behar dugunarekin konprometituta bagaude, errezago ikasten dugu. Diote.</p>
+<ul>
+<li>Zertarako erabiltzen da R<br />
+Eta hor ni non nago?
+<ul>
+<li>Horren gainean berba egin beharko dugu</li>
+</ul></li>
+<li>Rrekiko komunikazioaren oinarrizkoak<br />
+Eta zein diren oinarrizko horiek
+<ul>
+<li>Hor nik ariketa batzuk proposatuko ditut.</li>
+</ul></li>
+<li>Zelan dokumentatu Rn egiten duguna<br />
+RStudio aztertuko dugu apur bat.
+<ul>
+<li>R lengoaia eta gurea tartekatuta erabiliko dugu, bakoitzaren asmoen arabera.<br />
+</li>
+<li>Markdown lengoaiko oinarrizkoak ere ikusiko ditugu.</li>
+</ul></li>
+<li>Zelan sartu datuak R-ra<br />
+Guk aurrez ditugun datuak Rko lan eremura sartzeko bide batzuk aztertu behar ditugu.</li>
+<li>Datuen antolaketa batzuk<br />
+Datuak birrantolatu eta laburtu<br />
+Datuen analisi sinple batzuk egin (<span class="math inline">\(\chi²\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(\tau\)</span>…)</li>
+<li>Grafikoak<br />
+Ditugun datuak nolakoak dira? Nola grafikatzen dira? Zein informazio eman nahi nuke nire grafikarekin?
+<ul>
+<li>Bakoitzaren interesaren araberako ariketa egokituak egin behar genituzke, oinarrizko sintaxi elementu batzuk ezagutu eta gero<br />
+</li>
+</ul></li>
+<li>Hizkuntza naturala eta R
+Gure taldean, besteak beste, ezaugarri linguistikoak, espazialak eta linguistikoak lantzen ditugunez, tarte bat lehenengo horri. Bakoitzak bere datuekin, printzipioz.
+<ul>
+<li>Intereseko ezaugarri linguistikoen deskribapena egiten trebatu.</li>
+<li>Antolaera posibleak aztertu behar ditugu analisi posibleekin harremanetan.</li>
+</ul></li>
+</ul>
+</div>
+<div id="baliabideak" class="section level1">
+<h1>Baliabideak</h1>
+<p>Mintegia eroateko ariketa eta baliabide batzuk batzeko biltegitxu bat sortu dut <a href="https://github.com/JuanAbasolo/Rikasi">hemen</a>. Asmoa da berori egunotan egokitzen joatea eta egunen batean ikastaro itxurako zerbait egiten badut, bertatik argitaratzea.</p>
+<p>Biltegiaren barruan nabigatu daiteke; hala ere, hemen zerrendatuko ditut interesekoak izan daitezkeen toki batzuk.</p>
+<ul>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/tree/master/Testu%20edo%20ariketak">Ariketak</a>. Berez, hau idazteko orduan bakarra dago, sintaxia ezagutu eta autonomian hasteko.</li>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/tree/master/data/raw">Datuak</a>. Ikasleek betetako fitxa batzuk, izenez erantsita, Googleko inprimakitik jaitsi moduan eta karpeta batean EHHAko 10. liburukiko zenbait itemen erantzunak.</li>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/tree/master/Kanpoko%20baliabideak">Baliabideak</a>.<br />
+Besteak beste
+<ul>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/base-r%5BR%5D.pdf">R baseko gida laburra</a></li>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/rstudio-IDE-cheatsheet%5BR%5D.pdf">RStudio erabilteko gida laburra</a></li>
+<li><a href="https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/rmarkdown-cheatsheet-2.0.pdf">RMarkdown erabiltzeko gida laburra</a>, <a href="https://eu.wikipedia.org/wiki/Markdown">Markdown</a> lengoaia Rk bitaminizatua.</li>
+</ul></li>
+</ul>
+</div>
+<div id="ondoriotzat" class="section level1">
+<h1>Ondoriotzat</h1>
+<p>Nire uste harroan, R erabiltzen ikasteko material eta ikastaroak falta dira psikodidaktikan ikerketan aritzen garenontzat, Rn trebatzeko ikastaro eta material asko badago ere. Hori dela-eta, itxurazko ikastaroa egiteko baliabideak sortzeko erabili nahi nuke mintegi hau. Eta, lagun hori, zure laguntza ere espero dut ikaskuntza prozesuaz hasnartuta, zure helburuak eta zalantzak azalduta eta abar.</p>
+</div>
+<div id="bonus-track" class="section level1">
+<h1><strong>Bonus track</strong></h1>
+<p>Adibidetxu batzuk ikusi</p>
+<p><img src="https://www.r-project.org/Rlogo.png" /></p>
+<ul>
+<li>Zabaldu R<br />
+GNU/Linux erabiltzen baduzu, terminanl batean idatzi <code>R</code> eta enterri eman
+Windows edo Mac erabiltzen baduzu, R GUI, goiko R sinbolotxu hori daukana.</li>
+<li>Bertan idatzi behar duzu</li>
+</ul>
+<pre class="r"><code>demo()</code></pre>
+<p>Horrek zerrendatuko ditu zure R-ko instalazioan aztergai dituzun <em>demo</em>ak. Ba, aukeratu bat eta horixe aipatu <code>demo()</code> funtzioaren barruan kakotx bikoitz edo banakakoen artean, esate baterako: <code>graphics</code>.</p>
+<pre class="r"><code>demo(&quot;graphics&quot;)</code></pre>
+<p>Voilà!</p>
+<p>Ah! Ez dut esan: blog hau osorik RStudio erabilita egiten dut, beraz, hemen dagoena nola egiten den erakuts dezaket</p>
+<p><img src="/post/2020-01-11-mintegia-r-lengoaia-estatistikoan-trebatzen-hasteko_files/2020-01-11_184420.png" style="width:50.0%" /></p>
+</div>
+<div id="kontuan-izateko-bibliografia-eta-webguneak" class="section level1">
+<h1>Kontuan izateko bibliografia eta webguneak</h1>
+<p>R Core Team. (2018). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a></p>
+<blockquote>
+<p>R Proiektuaren webgunea, bertatik jaitsi behar da beste ezeren aurretik instalateko</p>
+</blockquote>
+<p>RStudio Team. (2019). <em>RStudio: Integrated Development Environment for R</em>. RStudio, Inc. <a href="http://www.rstudio.com/" class="uri">http://www.rstudio.com/</a></p>
+<blockquote>
+<p>RStudio garatzen daben taldekoen webgunea. Lehenengo behar dogu instalatuta R, gero instalatu ahal dugu RStudio</p>
+</blockquote>
+<p>Paradis, E. (2005). <em>R for beginners</em>. E. Paradis. <a href="http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf" class="uri">http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf</a></p>
+<blockquote>
+<p>Liburu hori <a href="https://cran.r-project.org/doc/contrib/rdebuts_es.pdf">gaztelaniaz</a> ere badago, <em>R para principiantes</em> izenarekin, baina, kasualitatea?, Mexikoko irakasle batek izen horrekin pasa den urtean beste liburu bat idatzi du:</p>
+</blockquote>
+<p>Mendoza Vega, J. B. (2018). <em>R para principiantes</em>. Bosco Mendoza. <a href="https://rprincipiantes.boscomendoza.com/" class="uri">https://rprincipiantes.boscomendoza.com/</a></p>
+<blockquote>
+<p>UNAMeko irakaslea da Bosco Mendoza, interesgarria eta oinarriak antolatzeko ere oso erabilgarria. Webgunetik <code>.epub</code> eta <code>.pdf</code> formatuetan jaits daiteke.</p>
+</blockquote>
+<p>Amaitzeko, inprimitu <a href="https://github.com/JuanAbasolo/Rikasi/blob/master/Kanpoko%20baliabideak/base-r%5BR%5D.pdf">hau</a> (goian ere erreferentziatua duzu).</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

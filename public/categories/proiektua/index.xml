@@ -6,10 +6,20 @@
     <description>Recent content in proiektua on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Thu, 23 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/proiektua/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mintegia: R lengoaia estatistikoan trebatzen hasteko</title>
+      <link>/2020/01/11/mintegia-r-lengoaia-estatistikoan-trebatzen-hasteko/</link>
+      <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/01/11/mintegia-r-lengoaia-estatistikoan-trebatzen-hasteko/</guid>
+      <description>Mintegi honetara helburu batzuk dakartzat, garrantzitsuena niretzat hau da: gure inguruan R lengoaia erabiltzen zelan ikasten den ikastea.
+Jakina, horretarako proposamenean aurre ikusitakoak balio lezakete. Hala eta guztiz ere, hasierako proposamenean eman nuen lau pausu estandar horiek ez dira irmoak eta egokitu nahi nituzke mintegiko parte hartzaileen asmo, beharrizan edo gogoetara. Izan ere, Estandar jaun edo Estandar andrerik ez da etorriko, Caetano Velosok kantatzen duenez, De perto, ninguém é normal.</description>
+    </item>
     
     <item>
       <title>Le mystere du Bourciez... 3D aren azalpena eta datu indusketa</title>
