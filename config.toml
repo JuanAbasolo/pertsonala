@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://juanabasolo.netlify.com/"
 languageCode = "eu"
 title = "Ikerketa hondarrak"
 theme = "hugo-lithium"
