@@ -29,7 +29,8 @@ Toki honetan dituzu 2020ko urtarrilean 27an hasi eta apirilaren 30ean amaitzekoa
 4. Noiz entregatu behar dut memoria?  
     Oraindik ez dut aurkitu data ofiziala. Baina GrALa egin nahi izatea litekeenez: albait arinen ;-)
     
-## Beste jakingarriren bat, arauditik-eta esperientziatik hartuta
+## Beste jakingarriren bat<br>  
+  <small>*Arauditik eta esperientziatik hartuta*</small>
 
 Ez ahaztu zu ez zarela behargina, ikaslea baino; beraz, zuk ikastetxearen pertsonal falta ez zenuke ordezkatu behar; demagun grebetan-eta.
 
@@ -39,7 +40,7 @@ Ondo-ondo pasatzeko probestu; irakasle hemendik hara ordezkapenetan zabiltzanean
 
 ---
 
-Nirekin kontaktuan paratzeko:
+# Nirekin kontaktuan paratzeko:
 
 * Telegram: [@JuanAbasolo](http://t.me/JuanAbasolo)
 * [Tutoretzara](https://labur.eus/JAbasolo-tutoretzak) etorrita edo, bulegoan bada, deituta (946017567).
