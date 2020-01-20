@@ -45,7 +45,7 @@ Eta **bulegora** etorri behar baduzu: **3S40B**
 \+ (34) 94 601 75 67
 
 
-2018ko urtarriletik Hizkuntza eta Literaturaren Didaktika sailean nabil lanean, Bilboko Hezkuntza Fakultatean. Eta urte bereko uztailetik [EUDIA](https://www.ehu.eus/eu/web/eudia/home) ikerketa taldeko partaide.
+2018ko urtarriletik Hizkuntza eta Literaturaren Didaktika sailean nabil lanean, Bilboko Hezkuntza Fakultatean. Eta urte bereko uztailetik [EUDIA](https://www.ehu.eus/eu/web/eudia/home) ikerketa taldeko partaide. Orain IT1208/19 
 
 Aurrez, Didaktika eta Eskola Antolakuntza sailean irakasle  Bilbo eta Gasteizko Irakasleen Unibertsitate Eskoletan, 2011ko urtarriletik.
 

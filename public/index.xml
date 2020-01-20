@@ -6,10 +6,21 @@
     <description>Recent content on Ikerketa hondarrak</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>eu</language>
-    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jan 2020 22:20:51 -0700</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Practicuma</title>
+      <link>/practicum/</link>
+      <pubDate>Mon, 20 Jan 2020 22:20:51 -0700</pubDate>
+      
+      <guid>/practicum/</guid>
+      <description>Toki honetan dituzu 2020ko urtarrilean 27an hasi eta apirilaren 30ean amaitzekoa den practicumari buruzko informazioa eta dokumentuak.
+ Ez ahaztu: Adingabeekin lan egiteko sexu-izaera Delitu Ziurtagiria behar duzu praktikak egiteko Ezbeharretarako protokoloa Bete beharreko fitxa duzu hemen.
+Ez bete praktiketan hasi arte, besteak beste ikasgelako berri, irakaslearen korreoa, eskolako telefonoa-eta eskatuko dizkizut eta. Kuxkuxeatu dezakezu; hori bai. Practicumaren inguruko informazioa fakultateko web gunean. Gida hementxe Oraintxe (2020-01-20) eguneratzen ari badira ere, hemen egongo da ikastetxe laguntzaileentzako informazioa.</description>
+    </item>
     
     <item>
       <title>Mintegia: R lengoaia estatistikoan trebatzen hasteko</title>
