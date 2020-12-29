@@ -1,0 +1,220 @@
+---
+title: IDAT aurkezten
+author: Juan Abasolo
+date: '2020-12-29'
+bibliography: '../../references.bib'
+csl: '../../apa7-euV0.csl'
+slug: idat-aurkezten
+categories:
+  - proiektua
+tags:
+  - idazketa
+  - ikerketa
+  - r
+
+---
+
+![Olivetti, Lettera 42](/post/2020-12-29-idat-aurkezten_files/photo_2020-12-29_14-49-19.jpg){ height=400px}
+
+```markdown
+---YAML
+title: Investigation report outline
+---
+# Aims
+# Literature review
+# Methodology
+# An account of your conduct of the investigation
+# Findings
+# Evaluation
+# References
+# Appendices
+```
+
+Oraintxe, 2020 amaitzear dagoela, konturatu naiz aurten bloga baztertuta izan dudala. Ikerkuntza ez, ordea.
+
+Iker-urtea amaitu aurretik hemen aipatuko dut aurton matxakatu dudan kontu "berria": Idatziaren azterketa. Hori egiteko IDAT garatzen nabil eta dagoeneko hiru bat aurkezpen egin ditut, Paraguayn bat[@abasoloCaracteristicasCuantitativasProceso2020] [[`bideoa`](https://youtu.be/m-Ee4W_FG-Y)], bat Iruñean [@abasoloIDazketaAztertzekoTresnaren2020] eta beste bat [@abasoloOnlinekoIdazkuntzaProzesua2020] Gasteizen... online, berez, ni beti Leioan.
+
+Hurrengo lerroetan aurkeztuko dudana da [aurreko batean aukeratzat aurkeztu nuena](../../../../2018/08/28/idazketa-prozesua-masiboki-aztertzeko-tresna/)ren garapena, maila koantitatiboan, gehienbat, emaitza batzuetara iristen lagundu didana. 
+
+Ah! Egiturazko ingelesezko izenburuak-eta Coffinen liburuari segituta [-@coffinTeachingAcademicWriting2005 : 23] nabil egiten. Berez, aurkeztu behar dudan proiektu baten aitzakian idazten ari naiz-eta. 
+
+# Aims
+
+Idatziaren denbora ezaugarriak aztertzeko tresnatzat erakutsiko dut **IDAT**, *IDatzia Aztertzeko Tresna*... *Idatzizko DATuak* batzekoa ere badena.
+
+# Literature review
+
+Alderdi nagusi bi daukaguz aztertzeko, batetik idatzia nola ekoizten dugun aztertzea; horretarako, labur-labur esanda, Hayes eta Flowerren bideari [-@flowerCognitiveProcessTheory1981; -@hayesIdentifyingOrganizationWriting1980] kolpetzen diot. Berez, haiek esakintzen duten marko psikolinguistikoak barne har ditzakeelako unibertsitateko katedratiko edo [Jorge Luis Borges](https://eu.wikipedia.org/wiki/Jorge_Luis_Borges)en idatziak zein nireak edo nire seme txikiarena.
+
+![Flower & Hayes (1980), neure itzulpena](/post/2020-12-29-idat-aurkezten_files/FLower-Hayes1980modeloa(eus).png){ height=400px}
+
+**Labur**: Idatziak gure jakintza asko eta trebetasun batzuk hartzen ditu barne. Zer dakigun idatzi behar dugunaren gainean, zer irakurri behar duenaren gainean, zer testu motaren gainean eta zer dakigun (uste dugun) eragin nahi dugunaren inguruan. Eta zer dakigun, hori ere bai, idazten ari den (ari garen?) testuaren inguruan.
+
+Eta prozesuak: 
+
+1. Ideiak sortu eta buruan antolatu
+2. Ideiok idatzira pasatu
+3. Idatzia ebaluatu eta zuzentzea
+
+## Ordenagailuz idatzia aztertzea
+
+Idatzia makinatuta egin behar zenean (Olivetti) edo eskuz baino ezin zitekeenean idatziaren jarduna aztertzeko erremintak urriak zirela esango nuke. Matsuhashik [-@matsuhashiPausingPlanningTempo1981] idazketa prozesua bideoz grabatu zuen arte, guztia idazleak kontatu nahi eta ahal zuenaren menpekoa zen.
+
+Baina ordenagailuaren zabalkundearekin aukerak ere zabaldu zirenean, prozesua gordetzen zuen kode-editore baten azterketan, Eureka!, igarri zuten prozesu osoa grabatu egiten zela eta aztergarria zela. Horrela Jedit [[*?](http://www.artman21.com/en/jedit_x/) ala [**?!](http://www.jedit.org/)**?**] editoreak sortzen zuen erregistroaren azterketan oinarrituta TraceIt [@kollberg1996trace] garatu zuten Machintosherako. 
+
+Zer litzatekeen? Ba, sakatutako tekla bakoitza noiz sakatzen den grabatzea. Horrek testuaren eraikuntza prozesua berreskuratzeko bidea zabalik uzten du.
+
+Berreskuratze prozesu hori zientzia helburuekin 1992an hasi zuten Umeåko Unibertsitatean TraceIt-eko garapenarekin [@severinson1992translating] eta horren jarraipena Ambereseko Unibertsitatean Inputlogen bitartez [@leijtenInputlogLoggingTool2005] mila urteko honetan, oraindik bizirik dagoen [proiektua](https://www.inputlog.net/). Beste batzuk ere egin dira, ez naiz luzatuko oraingoan.
+
+Datuak batzeko bide horrek arazo galanta ere badu: datuak batzeko erabiltzen den ordenagailuan instalatu behar da programa bat ordenagailuan egiten den guztia grabatzen duena. Bai, Gmaileko kontura sartzea, VISArekin ordaintzea... Ondorioz, laborategi inguruan erabili behar dira era horretako programok.
+
+[Aurrekoan](../../../../2018/08/28/idazketa-prozesua-masiboki-aztertzeko-tresna/) aipatu nuen [Etherpaden](https://etherpad.org/) berri; ez diot berriro horri ekin behar. Labur-labur: idazketa kolaboratiborako diseinatutako programa libre batek ere grabatzen ditu pausu guztiak hainbat informaziorekin batera:
+
++ Zer idatzi edo ezabatu den non
++ Noiz
++ Zein ordenagailutatik
++ ... beste kontu batzuk, orain alde batera utzi behar ditugunak
+
+Beraz, ikerketarako aukera bistan da.
+
+# Methodology
+
+Etherpad-eko pad batean idatzitakoa jaitsi eta analizatu neuk idatzitako IDAT sriptarekin.
+
+![IDAT scripta ezkerrean eta eskuman `.etherpad` fitxategia](/post/2020-12-29-idat-aurkezten_files/etherpad-eta-idat-Katen.png){ height=400px}
+
+## Helburua
+
+Fitxategi horretako datuak matriz batean antolatu eta birkodetu horien baitako ezaugarriez jabetze aldera
+
+# An account of your conduct of the investigation
+
+Hemen erakutsi behar dudan lanean 10 urteko ume bati egunerokoa idazteko eskatu zaio, idatzi horren ezkutuko prozesua agerira ekartzeko.
+
+# Findings
+
+Testua osotasunean ez, baina bai lehenengo tartetxu bat erakutsi nahi dizut
+
+```text
+2020-06-08
+
+Gaur nik balko de Bizkaia igon dut. Ez da nik espero bezain gatxa izan baina bai izan da ap
+```
+
+Segitzen du. Gero bueltatuko naiz zatitxu horren sorkuntzara, orain prozesuaren osotasuna erakusten duen irudi bat erakutsi nahi dut. 
+
+Hurrengo irudian ikusten da nola pauso bakoitzarekin tipeatutakoaren kopurua igotzen den (lerro beltzaz), nola sortzen ari den testuaren luzera egokitzen den (lerro gorriz) eta nola hausnartzeko beta hartzen duen, idazketari ekin aurretik, (triangeluak).
+
+![10 urteko haur baten testuaren ekoizpena, egunerokoa](/post/2020-12-29-idat-aurkezten_files/Prozesua-nonor104-chunk-7-5.png){ height=600px}
+
+Marra gorriak, gorago esan dudan moduan, idatzitako testuaren luzeraren berri ematen du; horrek esan nahi du hasierako mendi itxurako tontor bi horiek guk ikusten ez ditugun testu batzuk direala. Idatzi egin direla eta ezabatu gero, autozentzuraren bat eginaz, edo testuaren egokitzapen hutsa eginaz.
+
+IDATeko sistemak oraindik testuratze prozesua osotasunean berreskuratu ezin badu ere, bidean ari naiz. Bien bitartean, zatitxu honi pasurik pausu begira diezaiokegu:
+
+|   |  Pausu bakoitzeko  testua                               |
+|:--| ------------------------------------------------------- |
+|  1| w                                                       |
+|  2| we                                                      |
+|  3| wel                                                     |
+|  4| welk                                                    |
+|  5| welkom                                                  |
+|  6| welkom                                                  |
+|  7| welkom t                                                |
+|  8| welkom to                                               |
+|  9| welkom to m                                             |
+| 10| welkom to my                                            |
+| 11| welkom to my h                                          |
+| 12| welkom to my ho                                         |
+| 13| welkom to my hous                                       |
+| 14| welkom to my house                                      |
+| 15| welkom to my house h                                    |
+| 16| welkom to my house hahah                                |
+| 17| welkom to my house hahahaha                             |
+| 18| welkom to my house hahahahahah                          |
+| 19| welkom to my house hahahahahahaah                       |
+| 20| welkom to my house hahahahahahaaha                      |
+| 21| welkom to my house hahahahahahaahaaaaaaaa               |
+| 22| welkom to my house hahahahahahaahaaaaaaaai              |
+| 23| welkom to my house hahahahahahaahaaaaaaaaiaisgduy       |
+| 24| welkom to my house hahahahahahaahaaaaaaaaiaisgduyegwfuj |
+| 25| welkom to my house hahahahahahaahaaaaaaaaiaisgduyegwfu  |
+| 26| welkom to my house hahahahahahaahaaaaaaaaiaisgduyegwf   |
+| 27| welkom to my house hahahahahahaahaaaaaaaa               |
+| 28| welkom to my house hahahahaha                           |
+| 29| welkom to my hou                                        |
+| 30| welk                                                    |
+| 31|                                                         |
+| 32| ttttttttttttttttttthg                                   |
+| 33| ttttttttttttttttttthgñ                                  |
+| 34| ttttttttttttttttttthgñl                                 |
+| 35| ttttttttttttttttttthgñlñ                                |
+| 36| ttttttttttttttttttthgñlñ                                |
+| 37| ttttttttttttttttttthgñlñ                                |
+| 38| ttttttttttttttttttt                                     |
+| 39| ttttttttttttttt                                         |
+| 40| ttttttttttttttt                                         |
+| 41| tttttttttttttt                                          |
+| 42| tt                                                      |
+| 43|                                                         |
+| 44|                                                         |
+| 45|                                                         |
+| 46|                                                         |
+| 47|                                                         |
+| 48| s                                                       |
+| 49| ss                                                      |
+| 50| ssssss                                                  |
+| 51| sssss                                                   |
+| 52| ssss                                                    |
+| 53|                                                         |
+| 54| 2                                                       |
+| 55| 2020                                                    |
+| 56| -2020                                                   |
+| 57| -2020                                                   |
+| 58| -2020                                                   |
+| 59| 2020-0                                                  |
+| 60| 2020-06                                                 |
+| 61| 2020-06                                                 |
+| 62| 2020-06-                                                |
+| 63| 2020-06-0                                               |
+| 64| 2020-06-08                                              |
+| 65| 2020-06-08\\n                                            |
+| 66| 2020-06-08\\n \\n                                         |
+| 67| 2020-06-08\\n \\nG                                        |
+| 68| 2020-06-08\\n \\nGa                                       |
+| 69| 2020-06-08\\n \\nGau                                      |
+| 70| 2020-06-08\\n \\nGaur                                     |
+| 71| 2020-06-08\\n \\nGaur                                     |
+| 72| 2020-06-08\\n \\nGaur n                                   |
+| 73| 2020-06-08\\n \\nGaur ni                                  |
+| 74| 2020-06-08\\n \\nGaur ni                                  |
+| 75| 2020-06-08\\n \\nGaur ni                                  |
+| 76| 2020-06-08\\n \\nGaur nik                                 |
+| 77| 2020-06-08\\n \\nGaur nik                                 |
+| 78| 2020-06-08\\n \\nGaur nik b                               |
+| 79| 2020-06-08\\n \\nGaur nik ba                              |
+| 80| 2020-06-08\\n \\nGaur nik bak                             |
+| 81| 2020-06-08\\n \\nGaur nik ba                              |
+| 82| 2020-06-08\\n \\nGaur nik bal                             |
+| 83| 2020-06-08\\n \\nGaur nik balko                           |
+
+Table: Lehenengo 83 pausuak
+
+Horrez gainera esan dezakegu zenbat idatzi duen denera (729 karaktere) zenbat denboran (8.42 min), zein luzera hartu duen aurkezten duen testuak (532 karaktere) eta benetan idatzian zenbat denboraz jardun duen (5.13 minutu), zenbat ezabaketa egin dituen, zenbat etenaldi labur (11, 35 seg), etenak nola banatzen diren prozesuan zehar ($\bar{x}= 6seg$, $\sigma=3.7 seg$) eta... eta luzatu gintezke honetan.
+
+# Evaluation
+
+IDATen erabilerak idatziaren prozesamendua nabarmentzen du. Sortutako testuaren analisi hutsak ezin bistaratu dezakeena 
+  
+Aurreko kasuan ikus daitezke 10 urteko ume honen hiru jokaera mota.
+
+- Bere buruarentzako idatzia, ingelesezko testua: 1 pausutik 21.era
+- Tipeatze hutsa, helburu linguistiko bakoa: 22. pausutik 24.era, 32etik 37.era eta 48.etik 50.era.
+- Eskatutako zeregina (kasu honetan egunerokoa) 54. pausuan hasten dena
+
+Erreminta interesgarria hainbat azterketa egin ahal izateko, bistan denez.
+
+Identifikatu daitezke tipeatutakoa eta idatziaren arteko erlazioa.
+
+**Hurrengo baterako**: testuaren topografia eta aldagai kronologikoak
+
+# References
