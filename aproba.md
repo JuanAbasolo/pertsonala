@@ -1,0 +1,15 @@
+apa7-euV0.csl
+aproba.md
+archetypes
+config.toml
+content
+data
+IkerketaHondarrak.Rproj
+index.Rmd
+layouts
+public
+README.md
+references.bib
+static
+themes
+todo.md
