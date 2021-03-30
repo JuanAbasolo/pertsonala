@@ -1,0 +1,117 @@
+---
+title: Ideia idatzien azterketarako tresna
+author: Juan Abasolo
+date: '2021-03-30'
+slug: ideien-azterketa
+draft: false
+categories:
+  - testuen azterketaz
+tags:
+  - r
+  - ikerketa
+  - iramuteq
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Gaurkoan kolpe nahi diot alderdi batetik eta bestetik agertzen izan zaidan aplikazio bati: <a href="http://www.iramuteq.org/">Iramuteq</a></p>
+<p>Euren webgunean diote testuen eta galdetegien analisi dimentsio anitza egiteko R-ren interfacea dela; beraz ez naiz lar urrunduko nire ohiturazko kontuetatik.</p>
+<p>Iramuteq garatzen dute LERASSen barruan (<em>Laboratoire d’Études et de Recherches Appliquées en Sciences Sociales</em>) eta garatzaile ikertzaile mantentzaile nabarmenena <a href="https://www.lerass.com/author/pratinaud/">Pierre Ratinaud</a> da, Frantziako Tolosako unibertsitatekoa.</p>
+<div class="figure">
+<img src="http://www.iramuteq.org/captures-decrans/interface/interface-classification" style="width:90.0%" alt="" />
+<p class="caption">IRaMuTeQ</p>
+</div>
+<p>Aplikazio honen helburua da Reinertek (1983) proposatutako analisia bide errezagoan eta librean ezartzea. Horretaz gain beste zenbait aukera ere ematen ditu analisirako eta datuen aurkezpenerako.</p>
+<p>Hasteko, etiketatutako corpusa behar da; intersa duen irakurleak beste nonbait irakur beza nola egiten den, baina jakitea dauka testu zati bakoitza mugatuta egon behar dela eta gutxienez aldagai bat izan behar duela dagokion etiketarekin.</p>
+<ul>
+<li><p>Corpusaren estatistika orokorrak</p>
+<ul>
+<li>Formak</li>
+<li>Formak lematizatuta</li>
+<li>Formen gertaldiak</li>
+</ul></li>
+<li><p><em>AFM</em> izenez agertzen den analisia, <em>analyse factorielle des correspondances</em><a href="http://www.iramuteq.org/documentation/html/copy3_of_2-5-1-3-options-supplementaires-de-lanalyse-statistique-textuelle-sur-chaque-forme">1</a>. Nire begitazioa da hori MCA dela. <em>Multiple Correspondences Analysis</em> ingelesez<br />
+Analisi mota horrekin faktoreak sortzen ditu norberak aurrez aukeratutako aldagaien arabera. Horrek lehenengo hurreratze baterako balio lezake.<br />
+Multzokatzeak identifikatzen ditu, formen artean dagoen distantziaren arabera. Multzo horien forma adierazgarrienak ere ematen ditu zutabeetan eta berba-hodeietan, hala aztertu nahi izanez gero.<br />
+Multzoak egiteko orduan multzoetako forma osagaiak ere eskuragai uzten ditu, forma bakoitzak zenbat gertaldi dituen, zenbat gertaldi multzoan eta multzoarekiko atxikipenaren ideia ematen duen <span class="math inline">\(\chi^2\)</span> bere p-balioarekin.</p></li>
+<li><p>Reinert-en metodoa<br />
+Horixe da honen izarra: Helburua du testu zati multzoak zehaztea hurbiltasun lexikoan oinarrituta, antzeko testuinguruan erabiltzen direnak mundu lexiko batekoak direla ulertuta, Salviatik (2017) idatzitako manualetik laburtuta. Analisia hitzen erroan ardazten du eta taldekatzearen adierazgarritasuna zehazten du <span class="math inline">\(\chi^2\)</span>ren bitartez.<br />
+</p></li>
+<li><p>Antzekotasun analisiak<br />
+Honetan hitzak corpusean elkarrekin nola dauden harremanetan irudikatzen du.</p></li>
+<li><p>Hitz-hodeiak</p></li>
+<li><p>Azpi-corpusak sortzeko aukera</p></li>
+<li><p>Kasu guztietan forma bat aukeratzen denean testuinguruan azter daiteke nola agertzen diren berbok testuinguruan.</p></li>
+<li><p>Adibideokin, gainera, azpi-corpusak ere sor daitezeke aurrez zehaztutako analisi guztiok egin ahal izateko eta corpusaren ezaugarriak hobeto aztertzeko.
+Esate baterako, “euskera” hitza Twitterren nola aipatzen den aztertzeko orduan ikusi dut “navarra” hitzarekin askotan agertzen dela. Azpi-corpus interesgarria zatekeen “navarra” hitza dutenak aztertzea.</p></li>
+</ul>
+<div id="adibidea-eraiki." class="section level1">
+<h1>Adibidea eraiki.</h1>
+<p>Lehenengo pausua izan zen begiratzea zer azter daitekeen Iramuteq erabilita. Zelan egiten duen eta zelan aztertzen duen ulertuta.</p>
+<p>Lehenengo ahalegina: aurkitu Covid-19 gainean jendeak zer txiokatzen duen euskaraz, zelan eraikitzen den zein kontzeptu-eta aztertzeko.</p>
+<p>Eta arazo nagusi batekin egin nuen topo: hizkuntza.</p>
+<p>Iramuteqek testuak aztertzeko hiztegia behar du eta ez da egon euskarazko testurik.</p>
+<p>Beraz, <strong>euskarazko hiztegiaren eraikuntza</strong> stand-by utzita, gaztelaniaz aztertzea erabaki nuen.</p>
+<p>Bigarren ahalegina, bera ere Twitter erabilita, ea zer esaten den <em>#vascuence</em> hashtagarekin<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Basamortua. Ez dago dozenatxu bat baino.</p>
+<blockquote>
+<p>-: Hitza soilik?</p>
+</blockquote>
+<p>Urtebetean <em>vascuence</em> hitzarekin 5829 tweet… eta… eta <em>euskera</em> hartuta zer?</p>
+<blockquote>
+<p>-: 39211 tweet… Polito!</p>
+</blockquote>
+<div id="azterketaren-eraikuntza-euskera-hitza-twitterren" class="section level2">
+<h2>Azterketaren eraikuntza: <em>euskera</em> hitza Twitterren</h2>
+<div class="figure">
+<img src="images/c35088d8560cb245c80f733fdfc35485.png" style="width:100.0%" alt="" />
+<p class="caption">Berba hodei hutsa: “euskera” hitza Twitter-ren 2020tik 2021/02ra</p>
+</div>
+<p>Hemen eraikuntzaren azalpena eta hurrengo batean analisia bera.</p>
+<p>2020ko urtarrilaren 1etik 2021eko otsailaren… ez dakit ze egunetara arte, idatzitako tweet / txio guztiak jaitsi ditut; horien sailkapen arin bat egin dut euskarari buruz zer eta zelan esaten den aztertzeko.</p>
+<p>Lehenengo garbiketan testu huts bihurtu behar dira txio guztiak, emojiz-eta garbituta. Gero gaztelaniaz idatzitako txio guztiak gorde, besteak baztertzeko eta amaieran aldagaiak sortu eta etiketatu.</p>
+<p><img src="images/a831f058748b39c98ad058f610baa40b.png" style="width:100.0%" /></p>
+<p>Hizkuntzak automatikoki detektatutakoak dira, horregatik askotan txarto detektatuta daude: portugesaren ordez gehienak galegoa, frantses batzuk katalana eta katalan batzuk frantsesa, euskaratzat hartutako batzuk gaztelania eta gaztelaniatzat hartutako zenbait euskara.</p>
+<p>Uste nuen eragin zezaketela ikuskera nagusi bik:</p>
+<ul>
+<li>Gaiaz txiokatzeko joera. “euskera” aipatuta txiokatzeak bazitekeen zelan edo halan horrekiko joeraren erakustea
+<ul>
+<li>Behin</li>
+<li>Gutxitan</li>
+<li>Nahikotan</li>
+<li>…</li>
+</ul></li>
+<li>Txiokatzeko hizkuntzak:
+<ul>
+<li>Gaztelaniaz soilik</li>
+<li>Gaztelaniaz eta euskeraz</li>
+<li>Gaztelaniaz eta inglesez</li>
+<li>Gaztelaniaz, euskeraz eta inglesez</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="amaierako-kontu-bat-dimentsio-kultural-eta-politikoa" class="section level1">
+<h1>Amaierako kontu bat: dimentsio kultural eta politikoa</h1>
+<p>Izenetik bertatik, <em>IRaMuTeQ: Interface de R pour les Analyses Multidimensionnelles de Textes et de Questionnaires</em> frantsesa dariola ikusten da.<br />
+Neuk ere nahi dut gurerako!</p>
+<p>Sustengurako banaketa zerrenda dauka frantsesez ederto dabilena. Ingelesez Pierrek berak ere erantzuten du, baina zatia emankorragoa da frantsesez erabiltzea.</p>
+<p>Zerrenda horretan galderaren bat edo beste egin dut eta arin batean argitu dizkidate zalantzak; baina nabarmenena da, ikustea zenbat tokitako jendeak idazten duen frantsesez euren lanetan eraginkorrago egiteko. Ingelesa jaun eta jabe den sasoi honetan, ikusgarri hori lortzea.</p>
+<p>Amaitzeko, barruko eragiketa guztiak frantsesez izendatzen eta azaltzen ditu. Beraz, nahiz eta interfacea beste hizkuntzaren batean erabili, frantsesaren presentzia behin eta berriz somatzen da barruko eragiketetan eta sortzen dituen fitxategien izenetan.</p>
+<div id="zergatik-nabarmendu-dudan-hori" class="section level2">
+<h2>Zergatik nabarmendu dudan hori?</h2>
+<p>Euskaraz ere egin daitekeelako lan. <code>irteera.csv</code> edo <code>laburpena.pdf</code> izeneko fitxategiak sortzen dituzten nazioarteko aplikazioak egin litezke, Tolosan, Nairobin edo Seulen dabilenak erabiltzeko.</p>
+</div>
+</div>
+<div id="erreferentziak" class="section level1">
+<h1>Erreferentziak</h1>
+<p>Ratinaud, Pierre. (2014). <em>IRaMuTeQ: Interface de R pour les Analyses Multidimensionnelles de Textes et de Questionnaires</em> [Linux]. <a href="http://www.iramuteq.org" class="uri">http://www.iramuteq.org</a></p>
+<p>Reinert, A. (1983). Une méthode de classification descendante hiérarchique: Application à l’analyse lexicale par contexte. <em>Les cahiers de l’analyse des données</em>, 8<em>(2)</em>, 187–198.</p>
+<p>Salviati, M.S. (2017) <em>Manual do Aplicativo Iramuteq</em> Planaltina</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>“traola traola traola, jurjia meneko treotzaria…” <em>traola</em> beste zerbait da-eta<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
