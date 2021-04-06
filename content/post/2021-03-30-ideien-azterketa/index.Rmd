@@ -28,7 +28,7 @@ Hasteko, etiketatutako corpusa behar da; intersa duen irakurleak beste nonbait i
     + Formak
     + Formak lematizatuta
     + Formen gertaldiak
-+ *AFM* izenez agertzen den analisia, *analyse factorielle des correspondances*[1](http://www.iramuteq.org/documentation/html/copy3_of_2-5-1-3-options-supplementaires-de-lanalyse-statistique-textuelle-sur-chaque-forme). Nire begitazioa da hori MCA dela. *Multiple Correspondences Analysis* ingelesez  
++ *AFM* izenez agertzen den analisia, *analyse factorielle des correspondances*[1](http://www.iramuteq.org/documentation/html/copy3_of_2-5-1-3-options-supplementaires-de-lanalyse-statistique-textuelle-sur-chaque-forme). Nire begitazioa da hori CA dela. *Correspondences Analysis* ingelesez  
     Analisi mota horrekin faktoreak sortzen ditu norberak aurrez aukeratutako aldagaien arabera. Horrek lehenengo hurreratze baterako balio lezake.  
     Multzokatzeak identifikatzen ditu, formen artean dagoen distantziaren arabera. Multzo horien forma adierazgarrienak ere ematen ditu zutabeetan eta berba-hodeietan, hala aztertu nahi izanez gero.  
     Multzoak egiteko orduan multzoetako forma osagaiak ere eskuragai uzten ditu, forma bakoitzak zenbat gertaldi dituen, zenbat gertaldi multzoan eta multzoarekiko atxikipenaren ideia ematen duen $\chi^2$ bere p-balioarekin.

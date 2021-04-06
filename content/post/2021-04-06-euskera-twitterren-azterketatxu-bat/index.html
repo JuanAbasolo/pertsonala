@@ -1,0 +1,448 @@
+---
+title: "`Euskera` Twitterren, azterketatxu bat"
+author: Juan Abasolo
+date: '2021-04-06'
+slug: euskera-twitterren-azterketatxu-bat
+categories:
+  - testuen azterketaz
+tags:
+  - iramuteq
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p><a href="https://juanabasolo.netlify.app/2021/04/05/ideien-azterketa/">Aurreko postean</a> gainetik aztertu nuen <a href="http://www.iramuteq.org/">IRaMuTeQ</a> zer den eta zelan erabiltzen den. Oraingoan horren adibide bat erakutsi nahi dut. Irakurleak izan bitza kontuan hauek:</p>
+<ul>
+<li>Erabiltzen ikasteko ariketa garatuxea baino ez da</li>
+<li>Oraindik ez dago euskaraz zuzenean (eta ganoraz) erabiltzeko erarik, horregatik gaztelaniaz egin dut</li>
+<li>Ariketa hau egiteko Twitterreko datuak erabili ditut ausaz, Twitter jazteko <a href="https://github.com/twintproject/twint">beste aplikazio bat</a> erabiltzen ikasi bitartean.</li>
+</ul>
+<div id="euskarari-buruz-zer-txiokatu-da-azken-urtebetean-gaztelaniaz" class="section level1">
+<h1>Euskarari buruz zer txiokatu da azken urtebetean gaztelaniaz?</h1>
+<p>Abiapuntua horixe dela esan liteke. Labur eta txarto, jakina, gaztelaniaz zer esaten den aztertzeko “euskera” hitzaz gain “vascuence”, “lengua vasca”, eta “vasco” ere aztertu behar bailitzateke; eta zenbait euskaldunek “euskara” hitza ere erabiltzen dute gaztelaniaz.</p>
+<p>Lehenenengo bilaketa batzuk eginda, bistan egon da “vasco” hitza asko erabili arren, oso zaila dela automatikoki aztertzea zeri buruz ari den, “Lengua vasca”k Euskaltzaindiaren aipamenetara garamatza, “vascuence”… hori ere aztertu dut, hurrengo baterako ;-)</p>
+<p>Azkenez <em>euskera</em> berba emankorra izan zitekeela uste izan dut, maite dutenek hori erabiltzen dute, eta maite ez duten askok eta askok ere bai, Hego Euskal Herriko erderazko izen estandarra dela esango nuke, baita Espainiakoa ere. Nik gaztelaniaz <em>vasco</em>, gure etxean beti esan den moduan.</p>
+<p>Aldagai bi hartu dira kontuan sailkapena egiteko, biak egileen portaeratik eratorriak:</p>
+<ul>
+<li>Zenbat mezu bidali dituen egileak <em>euskera</em> aipatuta.<br />
+Aldagai honek bost maila ditu.<br />
+
+<ul>
+<li>50 mezu baino gehiagotan aipatzen dute <em>euskera</em>, 1170 mezu</li>
+<li>50 eta 10 mezuen artean aipatzen dute, 1740 mezu</li>
+<li>4 eta 9 mezuen artean, 2628 mezu</li>
+<li>2 edo 3 mezuen artean, 3819 mezu</li>
+<li>mezu bakarra, 7892 mezu</li>
+</ul></li>
+<li>Zein hizkuntzetan txiokatu duen <em>euskera</em> hitza aipatuta.<br />
+Aldagai honetan hiru maila ezarri dira
+<ul>
+<li>gaztelania hutsean</li>
+<li>gaztelaniaz eta euskaraz</li>
+<li>gaztelaniaz eta ingelesez<br />
+Bakar batek txiokatu du, <em>euskera</em> hitza aipatuta gaztelaniaz, euskaraz eta ingelesez, ez dugu beste kategoriarik sortu horrentzat.<br />
+Beste hizkuntzetan txiokatutako gehienek ez dute gaztelaniaz ere txiokatu.</li>
+</ul></li>
+</ul>
+<div id="lagina" class="section level2">
+<h2>Lagina</h2>
+<p>Twitterren, 2020ko urtarrilaren 1etik 2021eko otsailaren 25era bitartean, <em>euskera</em> hitza (edo <em>#euskera</em>, etiketatzat hartuta) txiokatutako mezu guztiak jaitsi ditugu metadatu guztiekin.</p>
+<ul>
+<li>39211 mezu</li>
+</ul>
+<p>Horietatik gaztelania moduan Twitterrek automatikoki sailkatutakoak baino ez dira aukeratu, errepikatuetatik edo oker jaitsitakoetatik erantsita.</p>
+<ul>
+<li>18725 mezu gaztelaniaz <em>euskara</em> aipatuta</li>
+</ul>
+<p>Jatorrizko mezuei garbiketa prozesu bat egin zaie R lengoaian idatzitako script baten bitartez, segidan kodearen gunea, aipamenak, etiketak, estekak, emojiak, tildeak eta abar garbitzeko.</p>
+<pre class="r"><code>tweetak$tgarbiak &lt;- x %&gt;% 
+  iconv(to=&quot;ASCII//TRANSLIT&quot;) %&gt;% iconv(to=&#39;UTF-8&#39;) %&gt;% 
+  tolower() %&gt;% 
+  str_replace_all(&quot;@\\w+&quot;, &#39; &#39;) %&gt;% 
+  str_replace_all(&#39;htt[p|ps]\\w+&#39;, &#39; &#39;) %&gt;% 
+  str_replace_all(&#39;[:punct:]&#39;, &#39; &#39;) %&gt;% 
+  str_remove_all(&#39;[^[:ascii:]]&#39;) %&gt;% 
+  str_replace_all(&quot;[ |\t]{2,}+&quot;, &#39; &#39;) %&gt;% 
+  str_replace_all(&quot;[ |\t]{2,}+&quot;, &#39; &#39;) %&gt;%   
+  str_remove_all(&#39;^ &#39;) %&gt;% 
+  str_remove_all(&#39; $&#39;) %&gt;% 
+  str_remove_all(&#39;^\\{.*&#39;)</code></pre>
+<p>Amaitzeko, sortutako corpusa lematizatu egiten da azterketarako, IRaMuTeQek horretarako dakarren hiztegia erabilita.</p>
+<p>Mezu guzti horietan 505888 forma identifikatu dira prozesuan, horietatik 26574 lema zehaztu dira, euretatik, 15625 behin baino ez dira agertzen.</p>
+<p>Aplikazioak edukiz hornitutakoak (<em>euskera</em>, 20572 gertaldi; <em>hablar</em>, 5618 gertaldi; <em>castellano</em>, 2848 gertaldi…), eta gehigarriak edo hutsalak (<em>el</em>, 41311 gertaldi; <em>que</em>, 20995 gertaldi… <em>yo</em>, 5705 gertaldi… ) desberdintzen ditu</p>
+<div class="figure">
+<img src="images/graph_simi_1-03.png" style="width:80.0%" alt="" />
+<p class="caption">Corpusaren antzekotasun analisiaren irudia</p>
+</div>
+<p>Goiko irudiak erakusten du, corpus osoan aztertutako berben egituretan oinarrituta, nolako antzekotasunak azaleratzen diren.</p>
+<p>Agerian da ez dagoela antzekotasun handirik hiru kasutan izan ezik:</p>
+<ul>
+<li><em>Papa</em> eta <em>Noel</em></li>
+<li><em>Tiron</em> eta <em>orejas</em></li>
+<li><em>False</em> eta <em>screen</em> eta <em>name</em> eta <em>id</em>.<br />
+Azken hori ematen du azalpen teknikoak argituko lukeela</li>
+</ul>
+</div>
+<div id="azterbidea" class="section level2">
+<h2>Azterbidea</h2>
+<p>Hori aztertzeko bide bi hartu dira.</p>
+<p>Batean <a href="https://eu.wikipedia.org/wiki/Korrespondentzia-analisi">Korrespondentzia-analisia</a> (CA, ingelesezko akronimoan) bana erabili da aldagai biekin; hau da, kontigentzi taula batean lema guztiak eta aldagaietako mailak erkatzen dira, korrezpondentziak aurkitu nahirik.</p>
+<p>Bigarren bidean, berriz, faktore anitzeko analisia erabilita, aztertzen da nola antolatzen diren testu zatiak edo mezuak. Twitterreko mezuez ari garenez, azterketa honetan testuak osorik hartu dira kontuan eta ez zatituta, Reinert-en (1983) lehenengo formulazioan agertzen zen moduan.</p>
+<p>Edukizko formak eta forma hutsalak desberdintzen ditu analisiak, era bietako formak osorik aztertzen ditu azaldutako prozesu horretan.</p>
+</div>
+<div id="azterketa" class="section level2">
+<h2>Azterketa</h2>
+<p>Twitterren zer esaten da edo zeri buruz txiokatzen dute <em>euskera</em> hitza gaztelaniaz aipatzen dutenek?</p>
+<p><em>Euskera</em> aipatuta egindako txioen azterketak segidan</p>
+<div id="txiolarien-jardunaren-araberako-ikuskera" class="section level3">
+<h3>Txiolarien jardunaren araberako ikuskera</h3>
+<p>Bi alderdiko taulako datuen azterketa bi dimentsiotako irudi batean bueltatzen du, horretan adierazten da datu guztien aldakortasunaren % 72 inguru bi dimentsiotan azal daitekeela; hori adierazteko irudi bi eskaintzen zaikigu, formen banaketarena eta aldagaiaren mailen araberakoa:</p>
+<div class="figure">
+<img src="images/euskera_prod_formak_koloretan.png" title="Mezuetako eduki-formen banaketaren planoa" style="width:90.0%" alt="" />
+<p class="caption">Koloreek dimentsioak erakusten dituzte</p>
+</div>
+<p>Eta goiko irudi horren azalpenerako, idazleen jarduna <em>euskera</em> aipatuta kontuan izanda, plano horretan non kokatzen diren idazleen tipologiak</p>
+<div class="figure">
+<img src="images/euskera_prod_egileak.png" title="Mezuen egileen tipologiaren banaketa" style="width:90.0%" alt="" />
+<p class="caption">Mezuetako formen banaketa aintzat hartuta</p>
+</div>
+<div id="interpretazio-laburra" class="section level4">
+<h4>Interpretazio laburra</h4>
+<p>Ematen du koherentea dela goian ikusten den banaketa hori aurrez erabakitako aldagaien deskribapenaz; aldakortasunaren % 72 inguru azaltzen duen irudi horretan erakusten denez, lehenengo dimentsioan koherenteki banatzen dira egileak, gutxien idazten dutenek eskuinen ikusten dira eta ezkerren gehien egiten dutenak, tarteko balioek ugaritasunarekin harremanetan dagoela ere ikusten da, mailak hauek direla:</p>
+<ol style="list-style-type: decimal">
+<li><code>X_produk_behin</code></li>
+<li><code>X_produk_gitxi</code></li>
+<li><code>X_produk_nahiko</code></li>
+<li><code>X_produk_idazleenak</code></li>
+<li><code>X_produk_esajerau</code></li>
+</ol>
+<p>Bigarren dimentsioak, berriz, aldakortasunaren % 21.9 azaltzen du eta hor ere antzematen da horrelako joera bat, baina gehien idazten dutenek ez dute erakusten beste guztietan ikusten den joera bera, kontrakoa baino. Delako ezaugarria <em>euskera</em> euren txioetan behin baino aipatu ez dutenek dutena, are markatuago ematen du dagoela gehien idazten dutenen artean.</p>
+</div>
+</div>
+<div id="txiolarien-jardunerako-hizkuntzen-araberako-azterketa" class="section level3">
+<h3>Txiolarien jardunerako hizkuntzen araberako azterketa</h3>
+<p>Hurrengo irudian ardatz biko proiekzio batean erakusten da 18725 txioen aldakortasuna “euskera” berba txioetan erabiltzeko hizkuntzaren arabera.</p>
+<div class="figure">
+<img src="images/graph_afc_1.png" style="width:90.0%" alt="" />
+<p class="caption">Lemen banaketa dimentsio bitan txiolarien hizkuntza jardunaren arabera</p>
+</div>
+<p>Hiru koloreok balio dute lema horiek aldagaiko zein aldakirekin datozen bat ikusteko. Hurrengo grafikoan ikusten da eskumaren kokatzen direla <code>x_hizk_esen</code> etiketarekin markatutakoak, hau da, <em>euskera</em> hitza erabilita gaztelaniaz gain ingelesez ere txiokatu dutenak; horiei dagozkien formak berdez nabarmentzen dira.</p>
+<p>Urdinez nabarmentzen dira <code>x_hizk_eseu</code> etiketadunek bereiziago erabilitako formak, hau da euskaraz eta gaztelaniaz txiokatu dutenek.</p>
+<p>Eta, amaitzeko, gorriz eta 0 ardatzetik oso gertu agertzen dira <code>x_hizk_es</code> etiketadunei dagozkien formak.</p>
+<div class="figure">
+<img src="images/afcf_col-01.png" style="width:90.0%" alt="" />
+<p class="caption">Txiolariek <em>euskera</em> hitzaren erabilera hizkuntza desberdinetako txioetan, banaketa</p>
+</div>
+<div id="laburki" class="section level4">
+<h4>Laburki</h4>
+<p>Goiko hirudiko kokapenak ikusita, ematen du zelanbaiteko aldea ikusten dela bigarren hizkuntza hori euskera ala ingelesa izan, baina gaztelania hutsean txiokatu dutenen kokapena ardatz bietako 0 puntutik hain urre egoteak adierazten du aldakortasunaren ikuskeran ez dagoela alde nabarmenegirik.</p>
+<p>Urdinez irudikatutako formetan nabarmendu daiteke, gainera, batzuk hurrunago kokatzen direla aldagaiaren aldakia baino. Kasu horiek euskarazko formak dira, gaztelaniazko mezuetan txertatuak.</p>
+</div>
+</div>
+<div id="testuen-arteko-erlazioak" class="section level3">
+<h3>Testuen arteko erlazioak</h3>
+<p>Beste aukera bat ematen du IRaMuTeQ aplikazioak, testu guztiak batu eta euren arteko erlazioak aurkitzen dituenak. Teknika horri erabiltzean ez da bilatu aurrez erabakitako <code>X</code> aldagaiaren araberako portaera, baizik eta diskurtsoak sortzeko erabiltzen diren testuen azterketatik abiatuta, ideien arteko erlazioak nabarmendu nahi dira, Reinert-en algoritmoan oinarrituta.</p>
+<p>Analisi hori egin ahal izateko aplikazioak berez eskaintzen dituen balioak utzi zaizkio batean izan ezik, Twitter-eko datuak izatean algoritmoak huts egin lezakeelako baldin eta tolerantzia gehitzen ez bazaio; corpusaren %5eko gutxieneko taldeak sortu behar baiditu analisia eraiketzeko.</p>
+<p>Hurrengo proiekzio honetan ikusten da nolako taldekatzeak eraiki dituen algoritmoak. Irudiko lemek sortzen dituzten hodeiak iradokitzen dituzte euskara aipatuaz Twitterren azken urte eta pikuan erabili diren diskurtsu nagusiak</p>
+<div class="figure">
+<img src="images/AFC2DL.png" title="Reinert (1983) metodoaren araberako azterketa" style="width:100.0%" alt="" />
+<p class="caption">Euskararen inguruko diskurtsoak Twitterren 2021</p>
+</div>
+<p>Hiru talde garbiak irudikatzen ditu Reinert-en araberako analisiak.<br />
+Analisi horrek sortzen dituen hiru talde diskurtsibo horiek erabilita aldakortasunaren % 100 azaltzen da.</p>
+<p>Proiekzio horretan aldez aurretik erabakitako aldagaiak eta aldakiak non kokatzen diren ere ikus dezakegu, horretarako plano horretara baliook ezartzen dira hurrengo irudian</p>
+<div class="figure">
+<img src="images/AFC2DEL.png" style="width:100.0%" alt="" />
+<p class="caption">Aurrez zehaztutako aldakien proiekzioa kalkulatutako taldekatzeetan</p>
+</div>
+<p>Lehenengo begirada batean ematen du corpusaren egitura diskurtsiboa, aurrez zehaztutako aldagaiek baino hobeto, zehazten dutela bestelako ezaugarri batzuk.</p>
+<div id="taldekatzeen-diskurtso-laginak-eta-beste" class="section level4">
+<h4>Taldekatzeen diskurtso laginak eta beste</h4>
+<p>Tarte honetan sortutako hiru talde horien azterketa egiten da, lemen artikulazioen arabera zein zenbait adibideren bitartez.</p>
+<div id="lehenengo-taldea-espainiar-estatua" class="section level5">
+<h5>Lehenengo taldea: <em>Espainiar estatua</em></h5>
+<p>3071 txiok osatzen dute, corpusaren % 17.8</p>
+<p>Talde honetan euskara bera gutxitan da gaia, sarri zerrendatze baten barruan agertzen da. Eztabaida bat antzematen da taldean zein izan behar den Espainiako estatuan hizkuntza bakoitzaren tokia.</p>
+<p>Hurrengo lemen erlazioaren irudiak balio dezake diskurtsuari antz emateko.</p>
+<div class="figure">
+<img src="images/graph_simi_1.png" style="width:80.0%" alt="" />
+<p class="caption">Lemen erlazioak <em>Espainiar Estatua</em> taldean</p>
+</div>
+<p><strong>Lemarik atxikienak</strong></p>
+<p>Taldeko lemarik adierazgarrienak, hots, <span class="math inline">\(\chi^2\)</span>rik altuena dutenak taldearekiko, hauek dira:</p>
+<ol style="list-style-type: decimal">
+<li>Catalan</li>
+<li>Gallego</li>
+<li>Galego</li>
+<li>Valenciano</li>
+<li>España</li>
+<li>Lengua</li>
+<li>Frances</li>
+<li>Inglés</li>
+<li>Español</li>
+<li>Bable</li>
+</ol>
+<p>Kasu guzti horietan gehienak talde honetan eman dira eta atxikitasuna estatistikoki adierazgarria da 0.001etik beherako errorearekin. Gizarte zientzietan 0.05 erabiltzen izan denez, nahiko eta sobera.</p>
+<p>Bestelako ikuspegia har daiteke berba-laino irudiaren azterketan; horretan tamainak taldearekiko atxikitasuna adierazten du eta taldean izandako 5 gertalditik gorako kasuak barne hartzen dira. Ez da ordena informaziorik honetan.</p>
+<div class="figure">
+<img src="images/nuage_1.png" title="Berbaren tamainak taldearekiko atxikitasuna irudikatzen" style="width:100.0%" alt="" />
+<p class="caption">Lehenengo taldeko lemen lainoa</p>
+</div>
+<p><strong>Testu laginak</strong></p>
+<p>Segidako hamar laginotan ikus daitezke lehenengo 50 txio adierazgarrienen artean aukeratutako 10 adibide.</p>
+<p>1</p>
+<blockquote>
+<p>ayer en la sexta columna ferreras presento un documental sobre las lenguas oficiales de espana castellano espanol gallego euskera y catalan el valenciano mallorqui bable y aranes y silbo gomero como dialectos</p>
+<p>– *produk_gitxi *hizk_eues</p>
+</blockquote>
+<p>2</p>
+<blockquote>
+<p>yo no entro en polemica es mas yo hablo castellano pero en espana hay mas lenguas oficiales por ejemplo el gallego el catalan el euskera etc tambien hay dialectos como puede ser el mayorquin y el valenciano un saludo yo no tengo estudios pero vivo en espana</p>
+<p>*produk_behin *hizk_es</p>
+</blockquote>
+<p>3</p>
+<blockquote>
+<p>espanol idioma castellano lengua solo hay un idioma en espana el espanol hay varias lenguas minoritarias en espana valenciano catalan gallego euskera asturiano aranes hay una lengua comun el castellano</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>4</p>
+<blockquote>
+<p>a cada uno lo q le interesa el espanol es un idioma y espana tiene la riqueza d adaptar sus lenguas x ccaa mallorquin valenciano andaluz vasco asturiano gallego extremeno catalan a1q proto euskera es prestado del latin cambiando pronunciacion idioma yo si lo creo</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>5</p>
+<blockquote>
+<p>y lo bonito que seria aprender en el colegio una base que quien quisiera pudiera desarrollar de las lenguas cooficiales ingles frances aleman italiano chino todo correcto euskera gallego catalan aranes asalto al castellano ni nos conocemos ni nos queremos</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>6</p>
+<blockquote>
+<p>a mi parecer si creo q con el ingles y espanol hay suficiente para comunicarte con todo el mundo si es por aprender lenguas simplemente en espana tenemos lenguas como el gallego euskera catalan mayorquin valenciano</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>7</p>
+<blockquote>
+<p>primeramente el espanol como lengua no existe supongo que te refieres al castellano se consideran lenguas espanolas aquellas lenguas propias que se hablan en cualquiera de los territorios que conforman el reino de espana lease catalan valenciano gallego euskera y castellano</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>8</p>
+<blockquote>
+<p>mientras los hijos de todos nuestros dirigieres estudian en colegios donde el ingles frances aleman son las lenguas vehiculares a nuestros hijos les obligan a estudiar en lenguas minoritarias sin ningun futuro como el valenciano euskera gallego o catalan ese es el drama</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>9</p>
+<blockquote>
+<p>o de el idioma se nos esta yendo de las manos vamos a ver yo no quiero que se pierdan nuestras lenguas gallego catalan euskera valenciano bable pero necesitamos un lenguaje comun para entendernos yo prefiero que sea el espanol a que sea el ingles hablar espanol no modifica lo</p>
+<p>– *produk_gitxi *hizk_es</p>
+</blockquote>
+<p>10</p>
+<blockquote>
+<p>la pagina web de la policia espanola va a estar incluida en varios idiomas entre ellos el catalan euskera gallego y valenciano tambien va a estar disponible en ingles frances aleman e italiano me sorprende que no va a estar disponible en arabe</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+</div>
+<div id="bigarren-taldea-espainiar-egoera" class="section level5">
+<h5>Bigarren taldea: <em>Espainiar egoera</em></h5>
+<p>10575 txiok osatzen dute, corpusaren % 61.31</p>
+<p>Talde honetan hego Euskal Herriko, gehienbat EAEko gaztelaniadunen hainbat eta hainbat txio ikusten dira, euskararen presentzia ez da bazterrekoa euren bizian, azterketan, Athleticeko jokalarien erabileran eta abar agertzen zaielako. Baina <em>agur</em>, <em>bihar arte</em>, <em>eskerrik asko</em> eta era horretako erabilerez gain ez da gehiegi ageri euren txioetan, sarri euskararen erabilera erasoen kontra defendatu arren.</p>
+<p>Ideion eta argudioen nondik norakoari antzemateko antzekotasunen analisi grafikoa segidan:</p>
+<div class="figure">
+<img src="images/graph_simi_1-01.png" style="width:80.0%" alt="" />
+<p class="caption">Lemen erlazioak <em>espainiar egoera</em> taldean</p>
+</div>
+<p><strong>Lemarik atxikieenak:</strong></p>
+<p>Aurreko irudion argudiatzeko bideak hurrengo lemon bitartez gauzatu da, hasieran lehenengo hamarrak zerrendatuta eta gero berba-laino formatuan adierazgarrienak.</p>
+<ol style="list-style-type: decimal">
+<li>Jugador</li>
+<li>Palabra</li>
+<li>Athletic</li>
+<li>Ir</li>
+<li>Decir</li>
+<li>Traducir</li>
+<li>Entender</li>
+<li>Examen</li>
+<li>Rival</li>
+<li>Madre</li>
+</ol>
+<p>Zerrenda horretako 20.ak ere aipatzea merezi du: <code>XD</code> , hau da, 😀 hizkiz adierazia.</p>
+<div class="figure">
+<img src="images/nuage_1-01.png" title="Berbaren tamainak taldearekiko atxikitasuna erakusten du" style="width:100.0%" alt="" />
+<p class="caption">Bigarren taldeko lemen lainoa</p>
+</div>
+<p><strong>Testu laginak</strong></p>
+<p>Ideiok irudikatzeko lehenengo ehunen arteko multzoko adibiderik onenetatik hamar adibide.</p>
+<p>1</p>
+<blockquote>
+<p>una verguenza los jugadores que son vascos del athletic hablando en euskera y tienen un himno tambien en euskera pero que va ser lo proximo que lis ninos digan ama y aita ya estan los tanques yendo con el general ortega smith a bilbao y abascal en caballo y espadon</p>
+<p>– *produk_idazleenak *hizk_es</p>
+</blockquote>
+<p>2</p>
+<blockquote>
+<p>pues de eso va el hilo del tweet origen muchos jugadores del athletic hablan euskera en casa en lezama entre amigos tienen que cambiar en el campo para que se les entienda</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>3</p>
+<blockquote>
+<p>alentar a los ninos de euskadi a que escriban en euskera me parece una buena forma de promover su cultura tan rica como el resto de culturas de este pais ahora decirles que si no lo hacen el olentzero no va a entender sus cartas me parece de hijo de la gran puta</p>
+<p>– *produk_gitxi *hizk_es</p>
+</blockquote>
+<p>4</p>
+<blockquote>
+<p>bien en casa vamos conociendo mas palabras en euskera hoy ha tocado asteartea hace unos dias fue larunbata ahi vamos con los dias de la semana luego esta bihar gaur gracias a ver pelota en la eitb</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>5</p>
+<blockquote>
+<p>la ley se cumple si no lo tengo mal entendido a ver que entiendo lo que dices pero yo te digo que si yo voy al pais vasco y me encuentro muchas cosas en euskera mi pensamiento sera aprender lo antes posible y no ponerme a echar mierda sobre los lugarenos y su lengua</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>6</p>
+<blockquote>
+<p>wtf no cambies de tema de repente a ver que me digas que un examen de gramatica de euskera o analisis de oraciones no te van a servir para nada lo entiendo pero bro la historia puede ser tranquilamente de las asignaturas que mas te van a hacer conocer como es el mundo ns</p>
+<p>– *produk_erdikoak *hizk_es</p>
+</blockquote>
+<p>7</p>
+<blockquote>
+<p>ertzainen nazional elkartasuna hostia me roto la cabeza y el idioma quien cojones fue el ideologo que le puso el nombre joder si lo van a poner en euskera que lo hagan en euskera no mezclando palabras al tuntun vaya alicates</p>
+<p>– *produk_idazleenak *hizk_eues</p>
+</blockquote>
+<p>8</p>
+<blockquote>
+<p>dicen por ahi paso de citar tweet que que mal ensenar mates en euskera y tienen razon que luego nos ponemos a contar en euskera que en cast no sabemos bueno y en euskera dicen que nos inventamos las palabras asi que todo mal y acabamos invocando a cthulhu cuando no toca</p>
+<p>– *produk_erdikoak *hizk_es</p>
+</blockquote>
+<p>9</p>
+<blockquote>
+<p>estoy hablando con una que cuando hablo en euskera mi profesor no me entiende porque es un euskera diferente del que habla el y va y me dice la chica que ella muchas veces no me entiende tampoco help pls</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>10</p>
+<blockquote>
+<p>en ocasiones anteriores hemos visto como nombres de marcas o palabras en euskera estan en nuestro dia a dia las conocemos y convivimos con ellas hoy vamos a verlo a traves de los grupos de musica de los que hemos venido hablando en los ultimos dias</p>
+<p>– *produk_idazleenak *hizk_eues</p>
+</blockquote>
+<p>Adibide horiek aukeratzeko orduan ikusi da lehenego berrogeita hamarretan nekez aurkitzen dela Chiringuito telebistako programan Athleticeko jokalariek euskara erabili izana aipatzearen ingurukoa ez denik.</p>
+</div>
+<div id="hirugarren-taldea-izan-ala-zer-izan-navfarroa" class="section level5">
+<h5>Hirugarren taldea: <em>Izan ala zer izan, Na[v|f]arr(o)a</em></h5>
+<p>3603 txiok osatzen dute, corpusaren % 20.89</p>
+<p>Talde honetako gairik nabarmenena Nafarroa da. Nafarroa Euskal Herria den ala ez, euskal herririk baden, euskara Nafarrokoa den, nafartasunaren euskaltasuna… batez ere identitatearen inguruan dihardu gaiak.</p>
+<div class="figure">
+<img src="images/graph_simi_1-02.png" style="width:80.0%" alt="" />
+<p class="caption">Lemen arteko hartuemanak <em>Izan ala zer izan</em> taldean</p>
+</div>
+<p><strong>Lemarik atxikieenak:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Navarra</li>
+<li>Siglo</li>
+<li>Pueblo</li>
+<li>Euskal</li>
+<li>Herria</li>
+<li>Zona</li>
+<li>Batua</li>
+<li>Nacionalista</li>
+<li>Imponer</li>
+<li>Reino</li>
+</ol>
+<div class="figure">
+<img src="images/nuage_1-02.png" title="Berbaren tamainak taldearekiko atxikitasuna adierazten du" style="width:100.0%" alt="" />
+<p class="caption">Hirugarren taldearen lemen lainoa</p>
+</div>
+<p><strong>Testu laginak</strong></p>
+<p>1</p>
+<blockquote>
+<p>lo que hace el desconocimiento euskal herria significa el pais del euskera aparece ya en las escrituras en el siglo xv cuando aun existia el reino de navarra historico navarra historica ocupando parte de aragon euskadi actual y el iparralde pais vasco frances</p>
+<p>– *produk_gitxi *hizk_es</p>
+</blockquote>
+<p>2</p>
+<blockquote>
+<p>se extiende muy sutilmente por lo que veo en la provincia de alava gran parte de vizcaya y en toda navarra de pamplona para abajo no habla euskera ni dios y si no fuera por el chorreo de millones y de subvens lo hablaria tanta gente como en albacete pero son euskal herria</p>
+<p>– *produk_gitxi *hizk_es</p>
+</blockquote>
+<p>3</p>
+<blockquote>
+<p>tu ideologia se basa en que por razones etnicas el euskera y la cultura comun navarra no es una nacion sino parte de otra que llamais euskal herria y que por cierto extendeis a zonas donde no hay ni euskera ni cultura vasca</p>
+<p>– *produk_esajerau *hizk_es</p>
+</blockquote>
+<p>4</p>
+<blockquote>
+<p>tropa tropa vosotros hay navarrisimos que respetamos el euskera euskal herria solo existe en la mente de los nazionalistas vascos y de sus infiltrados en navarra que no haceis otra cosa que tocar bien los cojones a la mayoria del pueblo de navarra</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>5</p>
+<blockquote>
+<p>y despues se permitio pero no tienes explicacion de por que en las castellanas guipuzcoa y vizcaya no comenzase el retroceso hasta el siglo xix o que tenian tasas mas altas de euskaldunes no podemos entonces hablar dediferencias respecto al euskera en navarra y castilla</p>
+<p>– *produk_esajerau *hizk_eues</p>
+</blockquote>
+<p>6</p>
+<blockquote>
+<p>yo creo que ud no puede ignorar la realidad de que el euskera se habla en navarra ergo es navarro y se ha hablado mucho mas en el pasado reciente y en el lejano solo en el siglo xx hemos visto fallecer a los ultimos hablantes de la variedad propia de roncal y salazar y</p>
+<p>– *produk_esajerau *hizk_es</p>
+</blockquote>
+<p>7</p>
+<blockquote>
+<p>es mas dificil porque si eres de la ribera navarra no tienes ni la opcion a matricularte en la educacion publica en modelo d en tu pueblo o en el mas cercano por que no te dejan porque no se respetan los derechos linguisticos profesores que sepan euskera hoy en dia hay de sobra</p>
+<p>– *produk_erdikoak *hizk_es</p>
+</blockquote>
+<p>8</p>
+<blockquote>
+<p>la euskal selekzioa no es solo el pais vasco se usa el termino euskal selekzioa y no euskadi selekzioa xq abarcamos navarra y el pais vasco frances tb por mucho k joda a los fachitas e ineptos se habla euskera en las 7 provincias de euskal herria</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+<p>9</p>
+<blockquote>
+<p>el paleto inutil y obsesionado dentro y fuera de cualquier zona francofona anglofona o vascofona eres tu el euskera es el idioma de decenas de generaciones en navarra millones de navarros a lo largo de su historia y sigue siendolo para decenas de miles de navarras y navarros</p>
+<p>– *produk_idazleenak *hizk_es</p>
+</blockquote>
+<p>10</p>
+<blockquote>
+<p>los que poneis vascongadas que sepais que en euskera es euskal herria tierras vascas que incluye euskadi navarra euskadi ccaa</p>
+<p>– *produk_behin *hizk_es</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="ondorioak" class="section level1">
+<h1>Ondorioak</h1>
+<div id="euskera-gaztelaniaz-begiratuta" class="section level2">
+<h2><em>Euskera</em> gaztelaniaz begiratuta</h2>
+<p>Hamaika teknika eta ikuskeratatik aztertu zitekeen erabili den corpusa. Gure kasuan, aukeratu dugun ikuskera sailkapen automatikokoa izan da eta corpusa osatu dugu eskuragai egon diren txio guztiekin; uste izatekoa da bestelako irizpideek bestelako emaitzak sor zitezkeela (eta hau lar ez luzatzearren erakutsi gabeko bestelako azterketek hala erakutsi digute). Azterketa xeheagoek Twitterren garatu diren eztabaida batzuk bana zitzakeen, esate baterako.</p>
+<p>Txiolarien jardunaren ikuskeratik begiratuta, ematen du neurri bateraino txiolariak zenbat eta gehiago txiokatzen duen era bateko edo bestelako joerak hartzen direla, norabide koherentean zabaltzen direnak. Baina puntu batetik aurrera, ordea beste era bateko diskurtsu erabiltzeko joera ere badago. Txiolari horiek dira 50 txio baino gehiagotan euskara aipatu dutenak.</p>
+<p>Txiokatzeko hizkuntzen araberako hasierako irizpidetik ez dugu jaso emaitza adierazgarririk</p>
+<p>Euskararen inguruan hiru gune nagusi aurkitu ditugu gaztelaniazko diskurtsuetan Twitterren 2020an:</p>
+<ul>
+<li><p>Espainia zelakoa den edo izan behar lukeen</p></li>
+<li><p>Euskarak (gaztelaniazko) gizartean duen edo ez duen tokia</p></li>
+<li><p>Identitate eraikuntza, batez ere euskara eta nafar identitatearen eraikuntza eta eztabaida. Talde honetan jarduten dute, gehienbat, euskara gaitzat hartuta ari izaten diren txiolari emankorrenek.</p></li>
+</ul>
+<p>Hasierako antzekotasunen analisiak ez digu erakutsi diskurtsu egituraz informaziorik apenas. Reinerten araberako sailkapena eginda, berriz, egitura logikoen gaineko informazio argigarria azaleratu da antzekotasun analisietan.</p>
+</div>
+<div id="mugak" class="section level2">
+<h2>Mugak</h2>
+<p>Aldagaien aukeraketa eta zehaztapena ez da izan zuzena hizkuntzaren ingurukoa, <em>euskera</em> hitza hartu dugu aztergai, baina oso litekeena da erabiltzaile askok euskarazko txioak idatzi arren <em>euskera</em> ez erabiltzea horietan, eta are gutxiago ingelesez, nahiz eta gaia aipatu. Edo beste hamaika gaien inguruan ere txiokatu zezakeen txiolari horrek, euskararik aipatu ere egin barik.</p>
+<p>Oso litekeena da eraikuntza oker horrek eragitea aldagaiaren eragin-ezari.</p>
+</div>
+<div id="ikuskera-teknikoan" class="section level2">
+<h2>Ikuskera teknikoan</h2>
+<p>R sistema erabiltzeko interfacea den neurrian, proiekzio batzuk egiteko informazio adierazgarria ikus liteke <em>biplot</em> izeneko grafikoak sortuko balitu, edota norberak sortzeko bidea erraz baleude.</p>
+<p>Nahiz eta fitxategi guztiak bistan uzten dituen, egindako analisi guztien fitxategi guztiak arakatu daitezke-eta, horien edukia ez da gardena. Dokumentazio eta foroetan azterka ibiltzera derrigortzen dute erabiltzailea.</p>
+<div id="euskara" class="section level4">
+<h4>Euskara</h4>
+<p>IRaMuTeQ-en oinarrizko instalazioan gaur iterfacea frantsesez, ingelesez, portugesez, gaztelaniaz eta italieraz eskaintzen da. Analisirako ere hizkuntza horietako hiztegiak ditu; horiei gehitu behar zaizkie beste hiru, <a href="http://www.iramuteq.org/dictionnaires">webgunean eskura daitezkeenak</a>, nederlandera, norvegiera bat eta greziera.</p>
+<p>Euskal inguruan lanerako tresnatzat euskaraz erabiltzeko hutsunea dugu, euskaraz sortutako testuen azterketarako.</p>
+<p>Hori sortzeko ahaleginari ekin behar diot, hurrengo posten batean komentatuko dut.</p>
+</div>
+</div>
+</div>
+<div id="erreferentziak" class="section level1">
+<h1>Erreferentziak</h1>
+<p>Poldi, Fracesco, &amp; Zacharias, Cody. (2021). <em>TWINT - Twitter Intelligence Tool</em> (Version 2) [Python]. TWINT Project. <a href="https://github.com/twintproject/twint" class="uri">https://github.com/twintproject/twint</a> (Original work published 2017)</p>
+<p>Ratinaud, Pierre. (2014). <em>IRaMuTeQ: Interface de R pour les Analyses Multidimensionnelles de Textes et de Questionnaires</em> [Linux]. <a href="http://www.iramuteq.org" class="uri">http://www.iramuteq.org</a></p>
+<p>Reinert, A. (1983). Une méthode de classification descendante hiérarchique: Application à l’analyse lexicale par contexte. <em>Les cahiers de l’analyse des données</em>, <em>8</em>(2), 187–198.</p>
+</div>
