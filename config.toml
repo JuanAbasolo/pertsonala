@@ -19,7 +19,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     weight = 3
 [[menu.main]]
     name = "EUDIA"
-    url = "http://eudia.ehu.es/eu/sarrera/"
+    url = "http://eudia.ehu.eus/eu/sarrera/"
     weight = 2
 
 [params]
@@ -35,7 +35,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     MathJaxVersion = "2.7.1"
 
     [params.logo]
-    url = "logo.jpg"
+    url = "logoV2.jpg"
     width = 50
     height = 50
     alt = ""

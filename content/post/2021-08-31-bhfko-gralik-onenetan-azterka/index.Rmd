@@ -10,9 +10,11 @@ tags:
   - ikerketa
 ---
 
+Benetan ikerketa-hondarra gaurkoa.
+
 Holakoren batean hemen agertuko behar lukeen proiektu baterako lantxu bat egin dut: 
 
-+ Bilboko Hezkuntza Fakultateko ikasleek egindako GrAL argitaratuen^[[Hemen](https://addi.ehu.es/handle/10810/2050/recent-submissions) aztergarri] *jaizketa*
++ Bilboko Hezkuntza Fakultateko ikasleek egindako GrAL argitaratuen^[[Hemen](https://addi.ehu.es/handle/10810/2050/recent-submissions) ADDI biltegiko Bilboko Hezkuntza Fakultateko lan akademiko argitaratuak aztergarri] *jazketa*
 + Denen oinarrizko informazioa batu eta gorde:
     + URLa
     + Izenburua
@@ -449,12 +451,8 @@ wd %>%
 
 ```
 
-
-Berben laino horrek erakusten du tamaina handiagoz gehiagotan erabilitako berba eta txikiago gutxiagotan erabilitakoak. 3tan baino gutxiagotan aurkitutako guztiak baztertu dira. Horrek zer esan nahi du?
-
-Ba, gurean errealitate elebiduna dagoela eta euskararen erabilera gaztelaniakoari gailendu egiten zaiola nabarmen... lan akademikoetan. Zoritxarrez nire klaseetan ez dut hori igarri.
-
-Jakina, berben laino horretan banatzen dira zentzu bakarra duten hainbat berba, ez dago-eta lematizazio lanik eginda.
+Berben laino horrek erakusten du tamaina handiagoz gehiagotan erabilitako berba eta txikiago gutxiagotan erabilitakoak. 3tan baino gutxiagotan aurkitutako guztiak baztertu dira. 
+Berben laino horretan banatzen dira zentzu bakarra duten hainbat berba, ez dago-eta lematizazio lanik eginda.
 
 Argi hurrengo taulan:
 
@@ -462,8 +460,14 @@ Argi hurrengo taulan:
 require('stringr')
 wd %>% 
     filter(str_detect(word, 'pro[i|y]e[c|k]t')) %>% 
-    knitr::kable(caption = 'Proiektu kontzeptuaren agerrera GrAL-en izenburuetan')
+    knitr::kable(caption = '*Proiektu* kontzeptuaren agerrera GrAL-en izenburuetan')
 ```
+
+Orduan, ideien errepresentazioari ezin badiogu behar den moduan begiratu, zer esan nahi du iruditxu horrek?
+
+Ba, gurean errealitate elebiduna dagoela eta euskararen erabilera gaztelaniakoari gailendu egiten zaiola nabarmen... lan akademikoetan. Zoritxarrez nire klaseetan ez dut hori igarri.
+
+
 
 ---
 
