@@ -1,20 +1,29 @@
 ---
 title: BHFko GrALik onenetan azterka
-author: Juan
+author: Juan Abasolo
 date: '2021-08-31'
-slug: bhfko-gralik-onenetan-azterka
 categories:
   - datuka
 tags:
-  - r
   - ikerketa
+  - r
+slug: bhfko-gralik-onenetan-azterka
 ---
+
+```{r setup, include=FALSE}
+# Add a common class name for every chunks
+knitr::opts_chunk$set(
+  echo = FALSE)
+library(dplyr)
+require('stringr')
+```
 
 Benetan ikerketa-hondarra gaurkoa.
 
 Holakoren batean hemen agertuko behar lukeen proiektu baterako lantxu bat egin dut: 
 
 + Bilboko Hezkuntza Fakultateko ikasleek egindako GrAL argitaratuen^[[Hemen](https://addi.ehu.es/handle/10810/2050/recent-submissions) ADDI biltegiko Bilboko Hezkuntza Fakultateko lan akademiko argitaratuak aztergarri] *jazketa*
+
 + Denen oinarrizko informazioa batu eta gorde:
     + URLa
     + Izenburua
@@ -25,14 +34,13 @@ Holakoren batean hemen agertuko behar lukeen proiektu baterako lantxu bat egin d
     
 Sailean batu ditut datuok, hau da, GrAL zein MAL, Haur edo Lehen Hezkuntza zein Gizarte Hezkuntzan edo Psikodidaktika masterra... Datuak ez daude ondoegi sailkatuta, beraz.
 
-Ba, kapritxoz azterketa bi egin ditut, bata, izenei begiratuta eta bestea izenburuari.
+Kapritxoz azterketa bi egin ditut: bata, izenei begiratuta eta bestea izenburuari.
 
 # Izenak
 
-2015 urtetik 2021ra bitartean argitaratutako 374 lanenen egileen izen-abizenak banatu eta soilik izenak batu nahi izan ditut, nola banatzen diren aztertzeko. Zertarako? Ba, nire talde handietan ikasleei erakusteko zergatik kostatzen zaidan gehiago izenak gogoratzea bestelako kontu batzuk baino. 191 izen agertzen dira
+Nola banatzen diren eta ugarienak zein diren ikusteko, 2015 urtetik 2021ra bitartean argitaratutako 374 lanenen egileen izen-abizenak banatu ditut, soilik izenen gaineko azterketa egiteko gero. Zertarako? Ba, nire talde handietan ikasleei erakusteko zergatik kostatzen zaidan gehiago izenak gogoratzea bestelako kontu batzuk baino. 191 izen agertzen dira
 
-```{r izenak, echo=FALSE, message=FALSE}
-library(dplyr)
+```{r izenak, echo=FALSE, message=FALSE, eval=FALSE}
 structure(c(Ane = 16L, Leire = 15L, Nerea = 14L, Ainhoa = 9L, 
             Maitane = 9L, Irati = 7L, Jone = 7L, Olatz = 6L, Patricia = 6L, 
             Aitziber = 5L, Amaia = 5L, Andrea = 5L, Garazi = 5L, Itxaso = 5L, 
@@ -57,7 +65,14 @@ arrows(x0=c(17, 23, 24)+4, x1=c(17, 23, 24)+4,
        length = 0.1, angle = 30, lwd = 2)
 ```
 
-Jakin dut nik gizonezkoak urriak direna nire klaseetan. Badakit azterketa hau ez dela sistematikoa lan egileak gizonezko, andrezko edo zer diren jakiteko ere... baina aldea deigarri egin zait. Eta deigarri *Iñigo* izatea lehenengoa!
+![Maizen aurkitutako izenak lan akademiko nabarmenetan](images/izenak-1.png){width=95%}
+
+Jakin dut nik gizonezkoak urriak direna nire klaseetan. Ikasle nintzela ere hala zen-eta. 
+Eta bai, badakit azterketa hau ez dela sistematikoa lanen egileak gizonezko, andrezko edo zer diren jakiteko ere... baina aldea deigarri egin zait.
+
+Mutilok! Non eta zertan ari gara?
+
+Gizonezko izenetan lehenengoa *Iñigo* izatea ere deigarri egin zait.
 
 # Izenburuak
 
@@ -440,16 +455,18 @@ wd <- structure(list(word = c("hezkuntzan", "lehen", "haur", "educación",
                                                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
                                                 1, 1, 1)), row.names = c(NA, -1519L), class = "data.frame")
 
-wd %>% 
-    filter(freq>2) %>% 
-    ggplot(data = . , 
-       aes(label = word, size = freq, col = as.character(freq))) +
-    geom_text_wordcloud(rm_outside = TRUE, max_steps = 1,
-                        grid_size = 1, eccentricity = .9)+
-    scale_size_area(max_size = 14)+
-    theme_void()
+# wd %>% 
+#     filter(freq>2) %>% 
+#     ggplot(data = . , 
+#        aes(label = word, size = freq, col = as.character(freq))) +
+#     geom_text_wordcloud(rm_outside = TRUE, max_steps = 1,
+#                         grid_size = 1, eccentricity = .9)+
+#     scale_size_area(max_size = 14)+
+#     theme_void()
 
 ```
+
+![Lan akademiko onenen izenburuetan maizen erabilitako berbak](images/wordclouda-1.png){width=95%}
 
 Berben laino horrek erakusten du tamaina handiagoz gehiagotan erabilitako berba eta txikiago gutxiagotan erabilitakoak. 3tan baino gutxiagotan aurkitutako guztiak baztertu dira. 
 Berben laino horretan banatzen dira zentzu bakarra duten hainbat berba, ez dago-eta lematizazio lanik eginda.
@@ -457,7 +474,7 @@ Berben laino horretan banatzen dira zentzu bakarra duten hainbat berba, ez dago-
 Argi hurrengo taulan:
 
 ```{r taula, echo=FALSE, message=FALSE}
-require('stringr')
+
 wd %>% 
     filter(str_detect(word, 'pro[i|y]e[c|k]t')) %>% 
     knitr::kable(caption = '*Proiektu* kontzeptuaren agerrera GrAL-en izenburuetan')
@@ -465,10 +482,10 @@ wd %>%
 
 Orduan, ideien errepresentazioari ezin badiogu behar den moduan begiratu, zer esan nahi du iruditxu horrek?
 
-Ba, gurean errealitate elebiduna dagoela eta euskararen erabilera gaztelaniakoari gailendu egiten zaiola nabarmen... lan akademikoetan. Zoritxarrez nire klaseetan ez dut hori igarri.
+Ba, gurean errealitate elebiduna dagoela eta euskararen erabilera gaztelaniakoari gailendu egiten zaiola nabarmen... lan akademikoetan. Zoritxarrez nire klaseetan ez dut horren trazarik igarri.
 
 
 
 ---
 
-Hasierako burutazioa Bilboko Hezkuntza Fakultateko lanak aztertzeaz gain Gasteizkoa eta Donostikoak aztertzea ere bazegoen, baina Gasteizen^[[Hemen](https://addi.ehu.es/handle/10810/2066/recent-submissions) Hezkuntza eta Kirol Fakultateko lan akademiko argitaratuak] lehengo IVEFekoen eragin nagusiak asko urruntzen du lana hezkuntzatik. Donostiakoek^[[Hemen](https://addi.ehu.es/handle/10810/2076/recent-submissions) ADDI biltegiko Hezkuntza, Filosofia eta Antropologia Fakultateko lan akademikoak], berriz, beste nonbait argitaratuko dutela uste dut.
+Hasierako burutazioa Bilboko Hezkuntza Fakultateko lanak aztertzeaz gain Gasteizkoa eta Donostikoak aztertzea ere bazen, baina Gasteizen^[[Hemen](https://addi.ehu.es/handle/10810/2066/recent-submissions) Hezkuntza eta Kirol Fakultateko lan akademiko argitaratuak] lehengo IVEFekoen eragin nagusiak asko urruntzen du lana hezkuntzatik. Donostiakoek^[[Hemen](https://addi.ehu.es/handle/10810/2076/recent-submissions) ADDI biltegiko Hezkuntza, Filosofia eta Antropologia Fakultateko lan akademikoak], berriz, beste nonbait argitaratuko dutela uste dut 8 baino ez dira-eta ADDIn.

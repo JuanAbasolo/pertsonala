@@ -81,7 +81,7 @@ Beraz, ikerketarako aukera bistan da.
 
 Etherpad-eko pad batean idatzitakoa jaitsi eta analizatu neuk idatzitako IDAT sriptarekin.
 
-![IDAT scripta ezkerrean eta eskuman `.etherpad` fitxategia](/post/2020-12-29-idat-aurkezten_files/etherpad-eta-idat-Katen.png){ height=400px}
+![IDAT scripta ezkerrean eta eskuman `.etherpad` fitxategia](/post/2020-12-29-idat-aurkezten_files/etherpad-eta-idat-Katen.png){height=400px}
 
 ## Helburua
 
@@ -105,7 +105,7 @@ Segitzen du. Gero bueltatuko naiz zatitxu horren sorkuntzara, orain prozesuaren 
 
 Hurrengo irudian ikusten da nola pauso bakoitzarekin tipeatutakoaren kopurua igotzen den (lerro beltzaz), nola sortzen ari den testuaren luzera egokitzen den (lerro gorriz) eta nola hausnartzeko beta hartzen duen, idazketari ekin aurretik, (triangeluak).
 
-![10 urteko haur baten testuaren ekoizpena, egunerokoa](/post/2020-12-29-idat-aurkezten_files/Prozesua-nonor104-chunk-7-5.png){ height=600px}
+![10 urteko haur baten testuaren ekoizpena, egunerokoa](/post/2020-12-29-idat-aurkezten_files/Prozesua-nonor104-chunk-7-5.png){ height=100%}
 
 Marra gorriak, gorago esan dudan moduan, idatzitako testuaren luzeraren berri ematen du; horrek esan nahi du hasierako mendi itxurako tontor bi horiek guk ikusten ez ditugun testu batzuk direala. Idatzi egin direla eta ezabatu gero, autozentzuraren bat eginaz, edo testuaren egokitzapen hutsa eginaz.
 
