@@ -19,11 +19,11 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     weight = 3
 [[menu.main]]
     name = "EUDIA"
-    url = "https://www.ehu.eus/eudia"
+    url = "http://eudia.ehu.es/eu/sarrera/"
     weight = 2
 
 [params]
-    description = "Juan Abasoloren webgune pertsonala"
+    description = "Juan Abasolo-ren laneko webgunea"
 
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.11.0"
