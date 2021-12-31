@@ -23,8 +23,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     weight = 2
 
 [params]
-    description = "Juan Abasolo-ren laneko webgunea"
-
+    description = "Juan Abasolo-ren laneko webgunea berton aurkitu daitezke egindako zenbai ikerketaren zatitxuak"
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.11.0"
     highlightjsCDN = "//cdn.bootcss.com"
