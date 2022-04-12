@@ -3,7 +3,7 @@ languageCode = "eu"
 title = "Ikerketa hondarrak"
 theme = "hugo-lithium"
 googleAnalytics = ""
-disqusShortname = ""
+disqusShortname = "ikerketa-hondarrak"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
@@ -34,7 +34,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     MathJaxVersion = "2.7.1"
 
     [params.logo]
-    url = "logoV2.jpg"
+    url = "logoV3.jpg"
     width = 50
     height = 50
     alt = ""
