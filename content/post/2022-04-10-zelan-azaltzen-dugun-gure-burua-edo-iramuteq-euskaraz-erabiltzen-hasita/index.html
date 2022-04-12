@@ -1,0 +1,2157 @@
+---
+title: 'Zelan azaltzen dugun gure burua...'
+author: Juan
+date: '2022-04-10'
+slug: zelan-azaltzen-dugun-gure-burua-edo-iramuteq-euskaraz-erabiltzen-hasita
+draft: false
+categories:
+  - testuen azterketaz
+  - proiektua
+tags:
+  - iramuteq
+  - ikerketa
+  - r
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
+<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+
+
+<p><strong>…edo <em>Iramuteq euskaraz erabiltzen hasita</em></strong></p>
+<p>Lehengo astean aurkeztu genuen, azkenik, Iramuteq-erako euskarazko lexikoa (post honen amaieran daude diapositibak). Horren aitzakiaz, aurkezpen horretan erakutsi genuen analisi bat aztergai dakargu hona. Sakonxeago, ez sakonegi. Zelan edo halan esateko, emaitzaren lau alderdi nagusietan dimentsio bat azaltzen da hemendik haurrera:</p>
+<p>Honela egituratu dut testua: hasieran metodologiaz ohartxuren bat; gero, corpusaren deskribapena; hurrengo, tartea egindako sailkapenaren laburpena, emaitzen lagin batzuekin, klaseko mota bat, sailkapenaren azpi atalaren bukaeran ezaugarri kualitatiboen banaketa ere azaltzen da; azken atalean aurkitutako muga batzuk aipatzen dira eta erreferentziak. Eranskintzat, lehengo eguneko aurkezpena</p>
+<p><em><strong>Irakurle!</strong> Begira zer agertu den corpus hau aztertuta!</em></p>
+<div id="metodologiaz" class="section level2">
+<h2>Metodologiaz</h2>
+<p>Corpusa aztertzeko <a href="http://www.iramuteq.org/">Iramuteq<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></a> (Ratinaud, 2009) erabili dugu, Beheranzko Sailkatze Hierarkikoa erabilita (CHD, <em>Classification Hierarchique Descendante</em>).</p>
+<p>Oinarrizko hipotesia hau da: corpusaren baitako diskurtsoa matematikoki modeliza daitekeela. Corpusa esanahi-unitateetan bana daitekeela eta unitate horretako elementu lexikal bakoitzak bere testuinguruak definitzen duela. Horra iritsita, testuinguru klaseak identifika litezke, lexiko jakin batek zehaztuta; baldin eta unitateen (esaldien) elementuak (lexikoa) taldekatzen baditugu.</p>
+<p><em>Zelan taldekatu, baina?</em> Horra On Reinerten ekarpena: dimentsio anitzeko teknikak erabilita: gorago aipatutako CHD hori; oinarritzat presentzia/absentzia matrize erraldoia du, zutabeetan lexiko unitate bakoitza eta lerroetan testu unitate bakoitza.</p>
+<p>❓ 😐</p>
+<div id="corpusa" class="section level3">
+<h3>Corpusa</h3>
+<p><strong>Corpus bat</strong>ek diskurtso baten hegal batzuk osatuko duelako ustean, corpus bat batu behar da: UPV/EHUko Haur Hezkuntzako Graduan eta Lehen Hezkuntzako Graduan eskolak ematen dituztenek euren burua unibertsitatearen aurrean azaltzeko idatzitakoa.</p>
+<p>UPV/EHUko Haur Hezkuntza edo Lehen Hezkuntza graduetan klaseak ematen ditugunoi pasa den urtean eskatu ziguten gure azalpen fitxa bat osatzea. <a href="https://www.ehu.eus/eu/lehen-hezkuntzako-gradua-bizkaia/irakasleak?p_redirect=fichaPDI&amp;p_idp=351472">Hemen</a> nirea 😯</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:corpusa">Table 1: </span>Irakasleria hezkuntza formaleko graduetan
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Bilbo
+</th>
+<th style="text-align:right;">
+Donostia
+</th>
+<th style="text-align:right;">
+Gasteiz
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+denera
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+deskribatuak
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+</tbody>
+</table>
+<p>Aurreko taula horretan ikusten da irakasle guztiok ez dugula bete eskatutako hori, baina erdiak baino gehiago egin duenez, nahikotzat hartu beharko.</p>
+<p>Denera irakasle eta ikertzaile kontratua duten UPV/EHUko 171 deskribapen hartu eta Iramuteq horri eskatu diogu corpus horren barruan dauden <em>ikuskerak</em> identifikatzea. Zehatzago eta hobeto esanda, eskatu diogu lexikoaren erabileraren araberako sailkapena egitea.</p>
+</div>
+</div>
+<div id="sailkapena" class="section level2">
+<h2>Sailkapena</h2>
+<p>Hona lehenengo sailkapena, Reinertek asmatutako ALCESTE metodoa erabilita (Reinert, 1990).</p>
+<div class="figure">
+<img src="images/dendrogramme_1.png" style="width:100.0%" alt="" />
+<p class="caption">Dendrograma eta klase bakoitzeko lexiko adierazgarriena</p>
+</div>
+<p>Eta hori 🆙 zelan interpretatu behar da?</p>
+<p>Ba, lexiko multzo bakoitzak berori erabilita iradokitzen den mundu-lexikal bati buruz egiten digu berba. Horrela, gorriz agertzen denak gure irakaskuntza-alderdiaz idatzi dugunari buruz dirautsagula ematen du.
+Izan ere, hor ditugun hitz batzuk beste multzoetan baino nabarmen gehiago agertzen dira multzo horretan. Atxikipen horren balio kuantitatibotzat Iramuteqek ematen dizkigu <span class="math inline">\(\chi^2\)</span>aren balioa eta horri dagokion p-balioa.</p>
+<div id="lehenengo-klaseaz-eta-lexiko-adierazgarria" class="section level3">
+<h3>Lehenengo klaseaz… eta lexiko adierazgarria</h3>
+<p>Segidan lehenengo eremu edo klase horri dagozkion hitzak aurkezten ditugu gordinik, hau da, garbiketarik egin gabe.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:lehenengokoBerbak">Table 2: </span>Lehenengo klaseko lemak
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+lema
+</th>
+<th style="text-align:right;">
+ji_karratua
+</th>
+<th style="text-align:right;">
+p.balioa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+irakasle
+</td>
+<td style="text-align:right;">
+255.255
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sail
+</td>
+<td style="text-align:right;">
+207.802
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fakultate
+</td>
+<td style="text-align:right;">
+203.690
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+didaktika
+</td>
+<td style="text-align:right;">
+161.341
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+egun
+</td>
+<td style="text-align:right;">
+81.522
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eskola
+</td>
+<td style="text-align:right;">
+75.913
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antolakuntza
+</td>
+<td style="text-align:right;">
+67.003
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gradu
+</td>
+<td style="text-align:right;">
+66.599
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gaur
+</td>
+<td style="text-align:right;">
+63.520
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hezkuntza
+</td>
+<td style="text-align:right;">
+59.800
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plastika
+</td>
+<td style="text-align:right;">
+44.245
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antropologia
+</td>
+<td style="text-align:right;">
+43.342
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eman
+</td>
+<td style="text-align:right;">
+38.005
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kirol
+</td>
+<td style="text-align:right;">
+37.845
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+agregatua
+</td>
+<td style="text-align:right;">
+37.502
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adierazpen
+</td>
+<td style="text-align:right;">
+36.221
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+atxiki
+</td>
+<td style="text-align:right;">
+32.264
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+koordinatzaile
+</td>
+<td style="text-align:right;">
+31.272
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+irakasgai
+</td>
+<td style="text-align:right;">
+30.073
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bilakaera
+</td>
+<td style="text-align:right;">
+28.570
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gorputz
+</td>
+<td style="text-align:right;">
+26.756
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ikasturte
+</td>
+<td style="text-align:right;">
+26.302
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+musika
+</td>
+<td style="text-align:right;">
+26.237
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+irakatsi
+</td>
+<td style="text-align:right;">
+24.973
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+filosofia
+</td>
+<td style="text-align:right;">
+21.550
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+klase
+</td>
+<td style="text-align:right;">
+19.705
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zuzendariorde
+</td>
+<td style="text-align:right;">
+17.499
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+idazkari
+</td>
+<td style="text-align:right;">
+15.981
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zuzendari
+</td>
+<td style="text-align:right;">
+13.971
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dekanordea
+</td>
+<td style="text-align:right;">
+13.100
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+atal
+</td>
+<td style="text-align:right;">
+13.100
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+departamentu
+</td>
+<td style="text-align:right;">
+12.556
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+literatura
+</td>
+<td style="text-align:right;">
+12.550
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+urte
+</td>
+<td style="text-align:right;">
+12.187
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+agregatu
+</td>
+<td style="text-align:right;">
+10.906
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015etik
+</td>
+<td style="text-align:right;">
+10.906
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zientzien
+</td>
+<td style="text-align:right;">
+10.902
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aurrera
+</td>
+<td style="text-align:right;">
+10.456
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+geroztik
+</td>
+<td style="text-align:right;">
+10.127
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+haur
+</td>
+<td style="text-align:right;">
+10.124
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+titular
+</td>
+<td style="text-align:right;">
+8.734
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kurtso
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+elkartu
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+asignatura
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ordezkapen
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lehenago
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+elektroniko
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+aktore
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008tik
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007tik
+</td>
+<td style="text-align:right;">
+8.717
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+magisteritza
+</td>
+<td style="text-align:right;">
+7.648
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+udal
+</td>
+<td style="text-align:right;">
+7.498
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antolatu
+</td>
+<td style="text-align:right;">
+7.498
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zerbitzu
+</td>
+<td style="text-align:right;">
+7.498
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ibili
+</td>
+<td style="text-align:right;">
+7.498
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+akademiko
+</td>
+<td style="text-align:right;">
+7.213
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+amaiera
+</td>
+<td style="text-align:right;">
+7.053
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+esperimental
+</td>
+<td style="text-align:right;">
+6.937
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+graduaren
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kreditu
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kontratudun
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hefa
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ekain
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dekano
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+akademia
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014tik
+</td>
+<td style="text-align:right;">
+6.532
+</td>
+<td style="text-align:right;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jardun
+</td>
+<td style="text-align:right;">
+6.143
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+matematika
+</td>
+<td style="text-align:right;">
+5.958
+</td>
+<td style="text-align:right;">
+0.015
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lan
+</td>
+<td style="text-align:right;">
+5.197
+</td>
+<td style="text-align:right;">
+0.023
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gizarte
+</td>
+<td style="text-align:right;">
+4.097
+</td>
+<td style="text-align:right;">
+0.043
+</td>
+</tr>
+</tbody>
+</table>
+<p>Bistan da lexiko horrek lan egoeraz eta dozentziaz hitz egiten digula; baina zerrenda horretan badira elementu batzuk arrotzak ere ematen dutenak; deigarri egiten dira hurrengoak, behinik behin: urteak, <em>lehenago</em>, <em>eman</em>, <em>ibili</em>…</p>
+</div>
+<div id="bigarren-klaseaz-eta-testu-adibideak" class="section level3">
+<h3>Bigarren klaseaz… eta testu adibideak</h3>
+<p>Laburki esan dezakegu dendrograma azpiko berbba zerrendak ikusita bigarren eremua, berdezko agertzen dena, formakuntzari dagokiola. Berbok horri buruz ari dira:
+<em>doktore, lizentziatu, master, unibertsitate, lizentziadun, deustu, filologi, diplomatu, psikodidaktika, pedagogi, herri, euskal, <strong>of</strong>, zientzia, doktoretza, berariazko, psikologia, ikasketa, graduatu…</em></p>
+<p>Berba zerrendez gain, corpusean esaldirik adierazgarrienak ere aurkitzen ditu, lexikoan oinarrituta beti ere. Bigarren eremu honekin segituta, hauek dira lehenengo laurak, letra lodiak Iramuteqek markatuak, letra etzana nirea:</p>
+<blockquote>
+<p><strong>pedagogian lizentziatua</strong> naiz <strong>pedagogia</strong> terapeutikoko espezialitatea upv ehu 1996 <strong>psikopedagogian lizentziatua</strong> upv ehu 2002 haur hezkuntzan <strong>diplomatua</strong> mondragon <strong>unibertsitatean</strong> 2008 sexologian aditua alcalako <strong>unibertsitatean</strong> 2005 <strong>psikodidaktika</strong> eta hezkuntzaren <strong>psikologian masterra</strong> dut 2010 eta <strong>psikodidaktikan</strong> <strong>doktorea</strong> naiz <strong>nazioarteko aipamenarekin</strong> 2015</p>
+</blockquote>
+<blockquote>
+<p>filosofia eta hezkuntza <strong>zientzietan lizentziatua</strong> hezkuntza <strong>berezian</strong> eta <strong>orientazio</strong> espezialitateetan 1989 salamanca <strong>unibertsitatean</strong> eta <strong>pedagogia doktorea</strong> eta 1998 y <strong>master en educación</strong> especial 1991 deustobilbao <strong>unibertsitatean</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>psikologian lizentziatua</strong> da <strong>deustuko unibertsitatean</strong> 1998 <strong>psikopedagogian lizentziatua</strong> uneden 2004 eta <strong>psikologian doktorea euskal herriko unibertsitatean</strong> upv ehu 2002</p>
+</blockquote>
+<blockquote>
+<p><em>Urlia Abizenduna</em> 1972 <strong>euskal filologian lizentziatua</strong> da eta <strong>euskal herriko unibertsitatean</strong> literatura konparatuan eta literatur <strong>ikasketetan doktorea</strong></p>
+</blockquote>
+</div>
+<div id="hirugarren-eta-laugarren-klaseak-eta-planoan-irudikatzea" class="section level3">
+<h3>Hirugarren eta laugarren klaseak… eta planoan irudikatzea</h3>
+<p>Besteak beste, beste bi ere sumatzen dira, antzerako diskurtsoaz berba egiteko modu desberdinak.</p>
+<p>Beste eremu bi ere identifikatu ditu eta interesekoa da ikustea nola banatzen dituen lema hauen agerrera dimentsio bitan:</p>
+<div class="figure">
+<img src="images/AFC2DL.png" style="width:100.0%" alt="" />
+<p class="caption">Lexiko adierazgarriaren banaketa dimentsio bitan</p>
+</div>
+<p>Goiko grafiko horrek islatzen du corpusaren %78ko aldakortasuna, hor gorriz eta berdez behe eta goi agertzen dira azaldutako klaseok, biak eskumako alderdian.</p>
+<p>Ezkerrean multzo bakar baten moduan ikusten dira ikerkuntzarekin lotutako lemak. Horien hurbileko azterketak erakusten ditu ikerkuntzaren alderdi kontrajarri bi: ikertzailea eta bere taldea eta ikertzailea eta ikertua. Hirugarren klasea urdin argiz eta laugarrena morez</p>
+<p>Taldeez:</p>
+<blockquote>
+<p>2011 eta 2019 bitartean ias research centre for life mind and society ikerketa taldeko kide izan da bertan eusko jaurlaritzak eta minecok finantzatutako ikerketa proiektuetan parte hartu duelarik</p>
+</blockquote>
+<p>Eta ikertuaz:</p>
+<blockquote>
+<p>ikastegiko kudeaketa karguetan erakutsitako inplikazioak eta esperientziak azken urteotako ikerketa lana metodologia aktiboen erabileraren zentratzea ekarri du eta bereziki pentsamendu kritikoaren ikerketa lerroak jorratzea</p>
+</blockquote>
+<div id="eta-berba-hodeia" class="section level4">
+<h4>… eta berba-hodeia</h4>
+<div class="figure">
+<img src="images/nuage_1-bloga.png" style="width:80.0%" alt="" />
+<p class="caption">Laugarren klaseko berba hodeia</p>
+</div>
+</div>
+<div id="eta-antiprofilak" class="section level4">
+<h4>… eta antiprofilak</h4>
+<p>Beste kontu batzuen berri ere ematen digu CHD analisiak; <em>antiprofilak</em>.</p>
+<p>Laugarren klasetik aldendu barik, azterketa lexikoaren beste ezaugarri bat nabarmenduko dugu.<br />
+Koka gaitezen: Azterketa lexikoak klaseen osagaiak zehazten ditu, hori esanda egon da. Paraleloki, corpusean agertu bai baina klasean ez agertzeko joera duten elementuak ere zehazten ditu. Zerrenda horretan 4. klasean hurrengoak ez agertzeko joera dute:</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:antiprofila">Table 3: </span>Laugarren klasearen “anti-profila”
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+lema
+</th>
+<th style="text-align:right;">
+ji_kar
+</th>
+<th style="text-align:right;">
+p.balioa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+unibertsitate
+</td>
+<td style="text-align:right;">
+-68.13
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+irakasle
+</td>
+<td style="text-align:right;">
+-49.91
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sail
+</td>
+<td style="text-align:right;">
+-45.94
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fakultate
+</td>
+<td style="text-align:right;">
+-38.79
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+master
+</td>
+<td style="text-align:right;">
+-28.04
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lizentziatu
+</td>
+<td style="text-align:right;">
+-24.26
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doktore
+</td>
+<td style="text-align:right;">
+-23.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kide
+</td>
+<td style="text-align:right;">
+-21.50
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+didaktika
+</td>
+<td style="text-align:right;">
+-21.09
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+talde
+</td>
+<td style="text-align:right;">
+-15.21
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+psikologia
+</td>
+<td style="text-align:right;">
+-14.88
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gradu
+</td>
+<td style="text-align:right;">
+-13.31
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+euskal
+</td>
+<td style="text-align:right;">
+-12.41
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+filosofia
+</td>
+<td style="text-align:right;">
+-12.36
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+herri
+</td>
+<td style="text-align:right;">
+-12.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antolakuntza
+</td>
+<td style="text-align:right;">
+-11.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zientzia
+</td>
+<td style="text-align:right;">
+-10.70
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jaurlaritza
+</td>
+<td style="text-align:right;">
+-8.52
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lizentziadun
+</td>
+<td style="text-align:right;">
+-8.52
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+eusko
+</td>
+<td style="text-align:right;">
+-8.52
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+deustu
+</td>
+<td style="text-align:right;">
+-8.52
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+koordinatzaile
+</td>
+<td style="text-align:right;">
+-8.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+egun
+</td>
+<td style="text-align:right;">
+-8.09
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+psikodidaktika
+</td>
+<td style="text-align:right;">
+-7.39
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+magisteritza
+</td>
+<td style="text-align:right;">
+-7.39
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+atxiki
+</td>
+<td style="text-align:right;">
+-7.39
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plastika
+</td>
+<td style="text-align:right;">
+-7.39
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kirol
+</td>
+<td style="text-align:right;">
+-7.07
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+filologi
+</td>
+<td style="text-align:right;">
+-7.01
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+diplomatu
+</td>
+<td style="text-align:right;">
+-7.01
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antropologia
+</td>
+<td style="text-align:right;">
+-6.70
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gaur
+</td>
+<td style="text-align:right;">
+-6.64
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pedagogi
+</td>
+<td style="text-align:right;">
+-6.26
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+agregatua
+</td>
+<td style="text-align:right;">
+-6.26
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zuzendari
+</td>
+<td style="text-align:right;">
+-5.60
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+of
+</td>
+<td style="text-align:right;">
+-5.51
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gorputz
+</td>
+<td style="text-align:right;">
+-5.35
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+departamentu
+</td>
+<td style="text-align:right;">
+-4.77
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bilakaera
+</td>
+<td style="text-align:right;">
+-4.77
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+batzorde
+</td>
+<td style="text-align:right;">
+-4.40
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ikerlari
+</td>
+<td style="text-align:right;">
+-4.40
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ederr
+</td>
+<td style="text-align:right;">
+-4.40
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ingeles
+</td>
+<td style="text-align:right;">
+-4.15
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lortu
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+doktoretza
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+titular
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+teoria
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+derrigorrezko
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+berariazko
+</td>
+<td style="text-align:right;">
+-4.03
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+en
+</td>
+<td style="text-align:right;">
+-3.86
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nazioarteko
+</td>
+<td style="text-align:right;">
+-3.86
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+</tbody>
+</table>
+<p>Laugarren klase horretako antiprofiletan argi eta garbi ikus ditzakegu bigarren klaseko elementuak (<em>master</em>, <em>lizentziatu</em>, <em>doktore</em>), alderantzizko koadrantean irudikatu da bigarren klase hori; hala eta guztiz ere, beste bi klasetakorik ez dela falta ere bistan da (<em>irakasle</em>, <em>didaktika</em> -1. klasekoak-; <em>kide</em>, <em>talde</em>, 3. klasekoak)</p>
+<p>Horietan elementu bat nabarmentzekoa izan daiteke <em>psikodidaktika</em>. Asko nabarmentzen da 2. klasean, horko masterra edo doktoratua egin dutelako askok. Baina, kontrara, ikerketa lerroari dagokion laugarren klase honetan antirpofiletan agertzen da; beraz, oso gutxik aipatzen dugu ikerketa eremu legez, antza.</p>
+</div>
+</div>
+<div id="etiketak-ezaugarri-kualitatibo-batzuen-banaketaz." class="section level3">
+<h3>Etiketak, ezaugarri kualitatibo batzuen banaketaz.</h3>
+<p>Analizatzeko corpuseko elementuak etiketa ditzakegu gure ikergaiaren arabera. Azterketa xume honetan etiketa deskribatzaile automatiko batzuk baino ez ditugu erabili:</p>
+<ul>
+<li>Gradua, zein gradutan ematen ditu eskolak; eb: <code>gradua_lh</code></li>
+<li>Campusa, zein campusetan ematen dituen eskolak; eb: <code>campus_bilbo</code></li>
+<li>Arloa, zein sailetan edo arlotan egiten duen lan; eb: <code>arloa_Musika_adierazpenaren_Didaktika</code></li>
+<li>Nor, bakoitzaren abizenaren eta izenaren lehenengo hiru letrak: <code>nor_ABA_JUA</code>, neu, hain zuzen.</li>
+</ul>
+<p>Analisia lexikoaren banaketan oinarritzen da; beraz, etiketek ez dute hartzen parte CHDren eraikuntzan, baina bai da aztertzen zelan banatzen diren CHDk zehaztutako klase horietan. Hhurrengo irudian ikus dezakegu nola banatzen diren etiketok, baldin eta klase batekiko <span class="math inline">\(\chi^2\)</span> balioaren p-balioa 0.1 baino baxuagoa bada (gogoan izan 0.05etik behera hartzen dugula adierazgarritzat).</p>
+<div class="figure">
+<img src="images/AFC2DEL.png" style="width:100.0%" alt="" />
+<p class="caption">Etketen banaketa CHD-ren planoan</p>
+</div>
+<p>Eta hor zer ikusten dugun pentsatu duzu?</p>
+<p>Idatzi sail batzuetan klase bat besteen gainetik nabarmentzen dela ikusten dugu. Argi eta garbi norbanakoen etiketak gehiago nabarmentzen dira besteen gainean. Eta zenbat eta zabalagoa izan barne hartzen duen ekarpen kopurua, <code>0,0</code> koordenadetatik hurbilago egoteak bereizmen kalitate baxuagoa duela ere adierazten digu</p>
+<ol style="list-style-type: decimal">
+<li>klasea, gorrizko markatua:<br />
+Gradua: <code>LH</code>. Planoaren erditik oso hurbil eta tamaina p-balio altua. Gehixeago erabiltzen da klase horri dagokion lexikoa besteena baino. Baina denetarik erabiliko dela pentsatzekoa da (eta hala da)
+Arloa: <code>Musika Adierazpenaren Didaktika</code>. Letraren tamaina handiagoak adierazten du klasearekiko atxikimendu handiagoa duela bertako lexikoak, baina planoko kokapenak ere laugarren klasearekiko hurbiltasuna adierazten du.
+Nor: <code>URR-ITZ</code>, <code>KOR-JON</code> Bistan da etiketa hori duten irakasle-ikertzaileek lexiko horrekiko atxikimendu handia dutela, bai letraren tamainak <span class="math inline">\(\chi^2\)</span>aren balio handia adierazten duelako, baita ere kokapenagatik</li>
+<li>klasea, berdezko markatua:
+Arloa: <code>Euskal Filologia</code> da klase horretan nabarmentzen den arlo bakarra. Kokapenak 3. klasetiko hurbiltasuna ere adierazten du.
+Nor: <code>MEJ-GAI</code> eta <code>ALO-REB</code></li>
+<li>klasea, urdin argiz markatua:<br />
+Gradua: <code>HH</code>
+Arloa: <code>Plastika Adierazpenaren Didaktika</code>
+Nor: <code>GAR-URT</code> eta <code>APE-MAI</code></li>
+<li>klasea, morez markatua:<br />
+Arloa: <code>Matematikaren Didaktika</code>
+Nor: <code>CAM-TER</code> eta <code>ANA-JON</code></li>
+</ol>
+<p>Aipatzeke ez dadila geratu antiprofilen kalkuluan ere sartzen direla etiketok; beraz, azterketan dena delako etiketak zein klasetan duen presentziarik baxuena ere ikusgai dago:</p>
+<p>Esate baterako, laugarren klasean HHko graduan ari diren irakasleek lexiko-atxikimendu baxua erakutsi dutela ere ikusten da.</p>
+</div>
+</div>
+<div id="mugetan" class="section level2">
+<h2>Mugetan</h2>
+<p>Euskarazko hiztegi edo lexikoari berari begirakoak dira hurrengook.</p>
+<p>Iramuteqek estatistiko deskribatzaile batzuk ematen ditu, analisiei ekin aurretik aztertu eta hobeto prestatzeko analisirako parametroak, esate baterako, erabilgarri izan daiteke informazio hori.</p>
+<p>Denera aztertutako testu unitateak 1329 dira, 20238 gertaldi identifikatzen dira eta formak eurak 3918 dira.</p>
+<p>Horrez gainera <em>hapax</em> izenez identifikatzen ditu. <em>Hapax</em>ak dira behin baino gehiagotan agertzen ez diren elementuak eta sailkapen honetan 2374 dira.</p>
+<p>Hurrengo taulan horren lagin bat dago, elementu batzuei buruzko hausnarketa bideratzeko aitzakiatzat.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:hapax">Table 4: </span>Behin aurkitutakoak
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+hapax
+</th>
+<th style="text-align:left;">
+upos
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+abian
+</td>
+<td style="text-align:left;">
+adv
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+abierta
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+abisal
+</td>
+<td style="text-align:left;">
+pro_per
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+abuztu
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+académico
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+ace
+</td>
+<td style="text-align:left;">
+pro_per
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+acercamiento
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+acontecimiento
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+acquisiti
+</td>
+<td style="text-align:left;">
+DET
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+activamente
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+actividad
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+activo
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+actual
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+adelaide
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+adelaidekin
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+adelaiden
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+17
+</td>
+<td style="text-align:left;">
+además
+</td>
+<td style="text-align:left;">
+adj
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:left;">
+adi
+</td>
+<td style="text-align:left;">
+adv
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+19
+</td>
+<td style="text-align:left;">
+adibide
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20
+</td>
+<td style="text-align:left;">
+adierazpemaren
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:left;">
+adingabe
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+22
+</td>
+<td style="text-align:left;">
+adolescentes
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+23
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:left;">
+…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:left;">
+aitortuan
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25
+</td>
+<td style="text-align:left;">
+aitortuta
+</td>
+<td style="text-align:left;">
+ver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+26
+</td>
+<td style="text-align:left;">
+aizpuru
+</td>
+<td style="text-align:left;">
+pro_per
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:left;">
+akademiaantolakuntzako
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:left;">
+akademikoafilosofian
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+29
+</td>
+<td style="text-align:left;">
+akademikoafrantses
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30
+</td>
+<td style="text-align:left;">
+akmeka
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+31
+</td>
+<td style="text-align:left;">
+akonpainamendu
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:left;">
+akreditatu
+</td>
+<td style="text-align:left;">
+ver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:left;">
+akreditatua
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+34
+</td>
+<td style="text-align:left;">
+akreditatuta
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+35
+</td>
+<td style="text-align:left;">
+akreditatutako
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:left;">
+akreditatzen
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+37
+</td>
+<td style="text-align:left;">
+akreditazioahizkuntztitulu
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+38
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:left;">
+…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+argentina
+</td>
+<td style="text-align:left;">
+pro_per
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+argirtaratu
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41
+</td>
+<td style="text-align:left;">
+argitaletxearen
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42
+</td>
+<td style="text-align:left;">
+argitaragabe
+</td>
+<td style="text-align:left;">
+adj
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+43
+</td>
+<td style="text-align:left;">
+argitaralpenak
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+44
+</td>
+<td style="text-align:left;">
+argitarat
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:left;">
+arguiñano
+</td>
+<td style="text-align:left;">
+pro_per
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+46
+</td>
+<td style="text-align:left;">
+argumentazio
+</td>
+<td style="text-align:left;">
+nom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:left;">
+argumentaziorako
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+aribidean
+</td>
+<td style="text-align:left;">
+nr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+49
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:left;">
+…
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Euskaraz egon behar lukeen hainbat testu gaztelaniaz idatzia da, bistan denez; horrek eragiten du gaztelaniazko forma guztiak banan banan aztertzea eta horra goiko zerrenda horretako hainbaten azalpena.</p></li>
+<li><p>Lexikoak ondo sailkatu gabeko formak. 32tik 36rainoko forma guztiak, esate baterako <em>akredita</em> lemaren baitan har litezke; baina lexikoan ez daudenez, horien pisua desagertu egiten da analisian. Esan dezakegu akreditazioak gure kasuan garrantzia duen arren, analisiak ez diola eutsi.</p></li>
+<li><p><input type="checkbox" disabled="" />
+Lexikoan elementu berriak sartzeko bidea aztertu behar da</p></li>
+</ul>
+</div>
+<div id="erreferentziak" class="section level1">
+<h1>Erreferentziak</h1>
+<p>Ratinaud, P., &amp; Déjean, S. (2009). IRaMuTeQ: implémentation de la méthode ALCESTE d’analyse de texte dans un logiciel libre. <em>Modélisation appliquée aux sciences humaines et sociales MASHS</em>, 8–9.</p>
+<p>Reinert, M. (1990). Alceste une méthodologie d’analyse des données textuelles et une application: Aurelia De Gerard De Nerval. <em>Bulletin of Sociological Methodology/Bulletin de Méthodologie Sociologique</em>, 26(<em>1</em>), 24–54. <a href="https://doi.org/10/cbhfwp" class="uri">https://doi.org/10/cbhfwp</a></p>
+<hr />
+</div>
+<div id="erankinak" class="section level1">
+<h1>Erankinak</h1>
+<p>Lehengo eguneko aurkezpena eta hurrengo pausu batzuk</p>
+<iframe src="https://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/" width="672" height="400px">
+</iframe>
+<div id="tintontzian-eta-hurrengoetarako" class="section level2">
+<h2>Tintontzian eta hurrengoetarako</h2>
+<p>Hemen sailkapen bakarra erakusten da, adierazgarrientzat hartu duguna. Baina sailkapen xeheago batzuk ere egin dira eta emaitza interesgarriak (?) ere aurkitu dira hor.</p>
+<p>Blogeko mezu honetan analisi baten alderdi batzuk erakutsi dira, zatika. Baina oraindik erakusteke dago Iramuteq euskaraz erabiltzeko lexikoa bera, eraikuntza prozesua, hobekuntzarako proposamena… Beste baterako.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>Interface de R pour l’Analyse Multidimentionel des Textes et Questionaires</em>; hots, testu eta galdetegien dimentsio anitzeko analisia egiteko Rrako interface-a<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
