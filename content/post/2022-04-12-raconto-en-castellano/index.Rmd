@@ -3,7 +3,6 @@ title: Raconto en castellano
 author: Juan Abasolo
 date: '2022-04-14'
 slug: raconto-en-castellano
-draft: false
 categories: []
 tags:
   - ikerketa
