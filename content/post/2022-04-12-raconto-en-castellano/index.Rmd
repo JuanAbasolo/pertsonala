@@ -1,0 +1,70 @@
+---
+title: Raconto en castellano
+author: Juan Abasolo
+date: '2022-04-14'
+slug: raconto-en-castellano
+draft: false
+categories: []
+tags:
+  - ikerketa
+---
+
+Este decimoctavo post de Jueves Santo lo dedico a un raconto en castellano, con escusa de mi participación en [RAICES](https://www.argentina.gob.ar/ciencia/raices), la Red de Argentinos/as Investigadores/as y Científicos/as en el Exterior. En ese amacarse entre ser emigrante e inmigrante, ahora escribo como emigrante.
+
+Mi campo de investigación se penduleó entre las características de la segunda lengua adquirida en la edad adulta, de lo que diserté en la [tesis doctoral](https://addi.ehu.es/handle/10810/25306), hasta las [técnicas de investigación en la dialectometría](https://www.youtube.com/watch?v=tNxHQDLh2nM), que me apasionó desde que la descubrí.
+
+En ese ir y venir, me acerqué también a algún rincón de la [textometría](https://juanabasolo.netlify.app/2021/04/06/euskera-twitterren-azterketatxu-bat/), al análisis de las [características de la prosodia](https://www.ub.edu/journalofexperimentalphonetics/pdf-articles/XXIX-06-Etxebarria.pdf) y a la construcción del [texto escrito](https://youtu.be/m-Ee4W_FG-Y).
+
+Pero [siempre](https://www.euskalkultura.eus/espanol/noticias/argentinan-euskaraz-cumple-20-anos-y-feva-convoca-a-participar-en-las-actividades-a-celebrarse-en-el-marco-del-aniversario "Argentinan euskaraz 20 urte"), todo mi trabajo, lo hice en vasco y el objeto de estudio es algún aspecto de la lengua vasca.
+
+-   Sobre adquisición del vasco como segunda lengua fue, entonces, la tesis. Y el [blog](https://euskara2h.wordpress.com/2017/12/07/dificultades-alrededor-del-verbo-conjugado-en-idioma-vasco/ "Post en castellano") que la acompañó.
+
+-   Sobre algunos aspectos de la dialectometría del vasco o en vasco
+
+    -   [Mapas](https://juanabasolo.netlify.app/2019/03/04/justuri-iurtzuri-mapa/) de datos lingüísticos
+
+    -   Evaluación de [metodos de lectura](https://juanabasolo.netlify.app/2018/09/19/lematizazio-prozesua-erraztu-nahirik/) de la distancia lingüística
+
+    -   Estudio sobre la [variabilidad](https://juanabasolo.netlify.app/2018/10/11/barne-aldagarritasunari-begira/) de las respuestas en un atlas
+
+    -   Aplicaciones del escalamiento multidimensional [[+](https://juanabasolo.netlify.app/2019/05/18/dialektometria-3d/)], el análisis de correspondencias múltiples [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)] o ámbos [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)]
+
+-   Análisis del proceso de producción del texto escrito y [aplicación de software](https://juanabasolo.netlify.app/2020/12/29/idat-aurkezten/) para este objeto.
+
+-   [Textometría de corpus en euskera](https://juanabasolo.netlify.app/2022/04/10/zelan-azaltzen-dugun-gure-burua-edo-iramuteq-euskaraz-erabiltzen-hasita/) y el previo [desarrollo del léxico](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/) para realizarlo
+
+Por propia pasión del acto investigativo, lo reconozco, nunca hice de mí un hábil publicador. Pesa un rato más lo publicado en vasco que en otras lenguas. Eso, fruto del equilibrio entre las pasiones, las acreditaciones, el tiempo para el trabajo docente, el ser padre y marido. Esta es mi listita de publicaciones y presentaciones que no hice en vasco (los de colores del gráfico).
+
+<p align="center">
+
+![Resumen grafico de difusión científica](images/Difusion.png){width="80%"}
+
+</p>
+
+## Difusión en lenguas indoeuropeas
+
+<small>Para incluir las que están en vasco, en [la página de Zotero](https://www.zotero.org/juanabasolo/), por ejemplo.</small>
+
+Abasolo, J. (2019, ekainak 26). *Analisi Statistiche Dei Dati Geo(ed Socio)linguistici*. Progetto di analisi dialettometrica sviluppado dall'Università del Paese Basco, Atlante Linguistico Italiano, Torino. <https://eudia-ehu.github.io/aurkezpenak/1907TorinoALI/#/>
+
+Abasolo, J., Eguskiza, N., & Unamuno, L. (2020, azaroak 13). *Características cuantitativas del proceso de escritura en bilingüísmo diglósico: L1 y L2 en la formación docente*. I Congreso Paraguayo de Lingüística Aplicada / Paraguái Amandaje 1ha Ñe'ẽkuaaty Jeporuregua, Asuncion, Paraguai. <https://youtu.be/m-Ee4W_FG-Y>
+
+Abasolo, J., Eguskiza, N., & Unamuno, L. (2021). Características cuantitativas del proceso de escritura en contexto diglósico: Futuro profesorado bilingüe. *ÑEMITỸRÃ*, *3*(1), 10--24. <https://doi.org/10.47133/NEMITYRA2021102>
+
+Abasolo, J., Etxebarria, A., Iglesias, A., & Romero, A. (2019, junio 4). *Diferencias en la motivación y en el estilo de aprendizaje en la creación del podcast por el alumnado universitario: Resultados significativos del análisis de encuestas*. Metodologías activas en Educación - Hezkuntza Kongresua, Leioa. <https://eudia-ehu.github.io/aurkezpenak/1906HK>
+
+Abasolo, J., Iglesias, A., & Etxebarria, A. (2019c, noviembre 27). *Influencia del euskera estándar en el habla de dos generaciones del valle de Arratia: Alfabetizada y no alfabetizada* [Nazioarteko kongresua]. SEDLLen XX. Nazioarteko Kongresua, Leioa. <https://eudia-ehu.github.io/aurkezpenak/1911SEDLL/#/>
+
+Aurrekoetxea, G., Abasolo, J., & Videgain, X. (2021). Corrélation entre la différenciation linguistique et la distance géographique en basque. In M. Nevaci, I. Floarea, & I.-M. Farcas (Arg.), *Ex Oriente Lux in Honorem Nicolae Saramandu*. Edizioni dell'Orso.
+
+Eguskiza, N., Abasolo, J., Etxebarria, A., & Iglesias, A. (2021). Sensibilidad intercultural de los jóvenes bilingües vascos: Algunos aspectos a trabajar en el sistema educativo vasco. *Contextos Educativos. Revista de Educación*, *27*, 137--152. <https://doi.org/10/gjpmv8>
+
+Etxebarria, A., Abasolo, J., Eguskiza, N., & Iglesias, A. (2020). Características de la competencia prosódica de los jóvenes bilingües vascos en la narración de un cuento. *Estudios de Fonética Experimental*, *29*, 35--54.
+
+Iglesias, A., Abasolo, J., Etxebarria, A., & Ensunza, A. (2020). Influencia del euskera estándar entre dos generaciones, alfabetizada y no alfabetizada, del valle de Arratia. *Huarte de San Juan. Filología y Didáctica de la Lengua*, *20*(20), 107--126. <https://doi.org/10.48035/rhsj-fd.20.5>
+
+Iglesias, A., Etxebarria, A., & Abasolo, J. (2020, azaroak 13). *Presentación del EAPI, atlas interactivo, atlas interactivo de la prosodia de la lengua vasca.* I Congreso Paraguayo de Lingüística Aplicada / Paraguái Amandaje 1ha Ñe'ẽkuaaty Jeporuregua, Asuncion, Paraguai. <https://youtu.be/VAJkHuslhOs>
+
+Iglesias, A., Etxebarria, A., & Abasolo, J. (2021). Atlas interactivo de la prosodia del Vasco/Euskararen atlas prosodiko interaktiboa, EAPI. *ÑEMITỸRÃ*, *3*(1), 113--126. <https://doi.org/10.47133/NEMITYRA2021110>
+
+Unamuno, L., Abasolo, J., & Aurrekoetxea, G. (2022, apirilak 13). *Beyond the new classification of Basque dialects* [Poster]. 11th International Conference on Language Variation in Europe - ICLaVE\|11, Viena, Austria. <https://pretalx.dioe.at/iclave11/talk/review/Y9BDVQTKKRRATAWXLWZTCPVKBNYRB7HA>
