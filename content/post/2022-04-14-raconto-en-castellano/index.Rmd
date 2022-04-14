@@ -16,23 +16,23 @@ En ese ir y venir, me acerqué también a algún rincón de la [textometría](ht
 
 Pero [siempre](https://www.euskalkultura.eus/espanol/noticias/argentinan-euskaraz-cumple-20-anos-y-feva-convoca-a-participar-en-las-actividades-a-celebrarse-en-el-marco-del-aniversario "Argentinan euskaraz 20 urte"), todo mi trabajo, lo hice en vasco y el objeto de estudio es algún aspecto de la lengua vasca.
 
-- Sobre adquisición del vasco como segunda lengua fue, entonces, la tesis. Y el [blog](https://euskara2h.wordpress.com/2017/12/07/dificultades-alrededor-del-verbo-conjugado-en-idioma-vasco/ "Post en castellano") que la acompañó.
+-   Sobre adquisición del vasco como segunda lengua fue, entonces, la tesis. Y el [blog](https://euskara2h.wordpress.com/2017/12/07/dificultades-alrededor-del-verbo-conjugado-en-idioma-vasco/ "Post en castellano") que la acompañó.
 
-- Sobre algunos aspectos de la dialectometría del vasco o en vasco
+-   Sobre algunos aspectos de la dialectometría del vasco o en vasco
 
-    - [Mapas](https://juanabasolo.netlify.app/2019/03/04/justuri-iurtzuri-mapa/) de datos lingüísticos
+    -   [Mapas](https://juanabasolo.netlify.app/2019/03/04/justuri-iurtzuri-mapa/) de datos lingüísticos
 
-    - Evaluación de [metodos de lectura](https://juanabasolo.netlify.app/2018/09/19/lematizazio-prozesua-erraztu-nahirik/) de la distancia lingüística
+    -   Evaluación de [metodos de lectura](https://juanabasolo.netlify.app/2018/09/19/lematizazio-prozesua-erraztu-nahirik/) de la distancia lingüística
 
-    - Estudio sobre la [variabilidad](https://juanabasolo.netlify.app/2018/10/11/barne-aldagarritasunari-begira/) de las respuestas en un atlas
+    -   Estudio sobre la [variabilidad](https://juanabasolo.netlify.app/2018/10/11/barne-aldagarritasunari-begira/) de las respuestas en un atlas
 
-    - Aplicaciones del escalamiento multidimensional [[+](https://juanabasolo.netlify.app/2019/05/18/dialektometria-3d/)], el análisis de correspondencias múltiples [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)] o ámbos [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)]
+    -   Aplicaciones del escalamiento multidimensional [[+](https://juanabasolo.netlify.app/2019/05/18/dialektometria-3d/)], el análisis de correspondencias múltiples [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)] o ámbos [[+](https://juanabasolo.netlify.app/2019/05/29/3d-aurrez-aurrez-aurre-mds-vs-mca/)]
 
-- Análisis del proceso de producción del texto escrito y [aplicación de software](https://juanabasolo.netlify.app/2020/12/29/idat-aurkezten/) para este objeto.
+-   Análisis del proceso de producción del texto escrito y [aplicación de software](https://juanabasolo.netlify.app/2020/12/29/idat-aurkezten/) para este objeto.
 
-- [Textometría de corpus en euskera](https://juanabasolo.netlify.app/2022/04/10/zelan-azaltzen-dugun-gure-burua-edo-iramuteq-euskaraz-erabiltzen-hasita/) y el previo [desarrollo del léxico](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/) para realizarlo
+-   [Textometría de corpus en euskera](https://juanabasolo.netlify.app/2022/04/10/zelan-azaltzen-dugun-gure-burua-edo-iramuteq-euskaraz-erabiltzen-hasita/) y el previo [desarrollo del léxico](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/) para realizarlo
 
-Por propia pasión del acto investigativo, lo reconozco, nunca hice de mí un hábil publicador. Pesa un rato más lo publicado en vasco que en otras lenguas. Eso, fruto del equilibrio entre las pasiones, las acreditaciones, el tiempo para el trabajo docente, el ser padre y marido. Esta es mi listita de publicaciones y presentaciones que no hice en vasco (los de colores del gráfico).
+Por propia pasión del acto investigativo, lo reconozco, nunca hice de mí un hábil publicador. Pesa un rato más lo publicado en vasco que en otras lenguas. Eso, fruto del equilibrio entre las pasiones, las acreditaciones, el tiempo para el trabajo docente, el ser padre y marido. Esta es mi listita de publicaciones y presentaciones que no hice en vasco (los de colores del gráfico) y en las que participé de alguna manera.
 
 <p align="center">
 
@@ -49,6 +49,8 @@ Abasolo, J. (2019, ekainak 26). *Analisi Statistiche Dei Dati Geo(ed Socio)lingu
 Abasolo, J., Eguskiza, N., & Unamuno, L. (2020, azaroak 13). *Características cuantitativas del proceso de escritura en bilingüísmo diglósico: L1 y L2 en la formación docente*. I Congreso Paraguayo de Lingüística Aplicada / Paraguái Amandaje 1ha Ñe'ẽkuaaty Jeporuregua, Asuncion, Paraguai. <https://youtu.be/m-Ee4W_FG-Y>
 
 Abasolo, J., Eguskiza, N., & Unamuno, L. (2021). Características cuantitativas del proceso de escritura en contexto diglósico: Futuro profesorado bilingüe. *ÑEMITỸRÃ*, *3*(1), 10--24. <https://doi.org/10.47133/NEMITYRA2021102>
+
+Abasolo, J., & Ensunza, A. (2021, noviembre 11). *Acercamiento desde la lengua Vasca al estudio del variacionismo linguistico cuantitivista* [Ponencia]. II Congreso Paraguayo de Lingüística Aplicada (CONPLA), Asuncion, Paraguai. <https://www.youtube.com/watch?v=tNxHQDLh2nM>
 
 Abasolo, J., Etxebarria, A., Iglesias, A., & Romero, A. (2019, junio 4). *Diferencias en la motivación y en el estilo de aprendizaje en la creación del podcast por el alumnado universitario: Resultados significativos del análisis de encuestas*. Metodologías activas en Educación - Hezkuntza Kongresua, Leioa. <https://eudia-ehu.github.io/aurkezpenak/1906HK>
 
