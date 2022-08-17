@@ -81,7 +81,7 @@ Horien gainetik eta azpitik zenbait balio aurkitzen badira ere, kalkuluek sortut
 Adibidetzat hurrengoak ematen ditut:
 
 -   Oinarrizko grabazioa: 8 segundu pasako azalpena, 48 urteko gizonezko batek emandakoa.  
-    <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz-peli_konta(LatitudeTaBoya3).wav" type="audio/wav"> </audio></html> [+](/audioak/prosodiaz202208/48u-giz-peli_konta.wav)
+    <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz-peli_konta.wav" type="audio/wav"> </audio></html> [+](/audioak/prosodiaz202208/48u-giz-peli_konta.wav)
 
 -   Grabazio horren *F~0~*ren lehenengo kalkuluan Praatek berreraikitako intonazioa (adi agertzen diren soinu aguduenei)  
     <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz_um-Praateko_parametroak.wav" type="audio/wav"> </audio></html> 
