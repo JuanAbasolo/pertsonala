@@ -1,0 +1,511 @@
+---
+title: Oinarrizko frekuentzia egokiro detektatzeko bide automatikoa
+author: Juan Abasolo
+date: '2022-08-17'
+slug: oinarrizko-frekuentzia-egokiro-detektatzeko-bide-automatikoa
+categories:
+  - prosodia
+tags:
+  - ikerketa
+  - r
+  - automatizatu
+bibliography: [erreferentziak.bib] 
+csl: apa7-euV0.csl
+link-citations: true
+draft: false
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Zarratualdian (Covid-19, 2020… gogoan?) Praat <span class="citation">(<a href="#ref-boersma2001" role="doc-biblioref">Boersma &amp; Weenink, 2001</a>)</span> erabiltzen ikasten nenbilen, zehazki oinarrizko frekuentzia -<em>F<sub>0</sub></em>- kalkulatzen, marrazten, aztertzen. Horretan nabilela, konturatu nintzen sarri huts egiten zuela berez ateratzen den kalkuluak. Musika eta akustikako eskolatik etorrita, <em>harmonikoen araberako emaitza ematen zuela</em> esango nuen.</p>
+<p>Script batzuetan aztertuta konturatu nintzen, gainera, emaitzak ez zirela berberak nik pantailan ikus nitzakeenak eta script-ek sortzen zituztenak. Zentzua hartu zuen <span class="citation">Correa (<a href="#ref-correa2015" role="doc-biblioref">2015</a>)</span> liburuan irakurritakoak, hau da, andrazkoa ala gizonezkoa izan parametro batzuk aldatu beharra dagoela… baina hori ere, segun zelako ahotsa duen, andrazkoak oso grabe hitz egin dezakeelako eta… <strong>Eta hau zelan automatizatu?</strong></p>
+<p>Han biztu zitzaidan kandelatxoa eta lehenengo hipotesia sortu:</p>
+<p><strong>H<sub>1</sub></strong>: Baliteke eraren bat egotea errorea modelizatu, parametroak egokitu eta errorez garbi kalkulatzeko.</p>
+<p>Horrela, lagin batzuk aztertzeari ekin nion; horretarako, Correaren liburuan proposatutako heinen beherengo eta gorengo balioak hartuta kalkuluak egin eta banaketa plotak egin nituen:</p>
+<blockquote>
+<p>Pitch range (Hz): con el rango se define el valor mínimo y máximo de F<sub>0</sub>. El valor por defecto es 75Hz-500Hz; para voces femeninas el rango recomendado por los autores del programa es 100Hz–500Hz y para voces masculinas 75Hz-300Hz. En todo caso, estos valores son de referencia y deben modificarse de acuerdo con las características de cada hablante. De lo contrario, el programa generará una curva melódica errónea.</p>
+<p>– J.A. Correa (2015:34)</p>
+</blockquote>
+<div id="errobera-asmatu-nahirik" class="section level2">
+<h2>Errobera asmatu nahirik</h2>
+<p>Irudien azterketan nabilela, azterketa bilbiografikoari ere ekin nion, elementuak zein ziren ulertuta. Eta hortxe konturatu nintzen errobera asmatu nahirik nenbilela. De Looze eta Hirst-ek <span class="citation">(<a href="#ref-delooze2008" role="doc-biblioref">2008</a>)</span> Praaterako plugin batean irtenbide bat proposatua zuten, Evin eta lagunek <span class="citation">(<a href="#ref-evin2018" role="doc-biblioref">2018</a>)</span> Argentinako hizkeretarako beste bat proposatu zuten eta Zhang eta lagunek <span class="citation">(<a href="#ref-zhang2018" role="doc-biblioref">2018</a>)</span> aurkeztua zuten bat erraz ulertzen eta errepikatzen.</p>
+<p>Denen irtenbidea, parametroak apur bat aldatu arren, berdintsua da:</p>
+<ol style="list-style-type: decimal">
+<li>Hein zabal eta egonkor batean kalkulatu F<sub>0</sub> erroreduna</li>
+<li>Kalkulu horien banaketa ezaugarrien arabera zehaztu hurrengo kalkuluak egiteko heinerako parametroak</li>
+<li>Parametro berriekin berriz kalkulatu F<sub>0</sub> modelatua.</li>
+</ol>
+<p>Azken horrek ez luke errorerik izan beharko.</p>
+</div>
+<div id="r-n-programatu" class="section level2">
+<h2>R-n programatu</h2>
+<p>R eta Praat elkarrekin erabiltzeko hainbat pakete garatu da, ezaugarri batzuk edo beste batzuk erabiltzeko. Honetan hasi nintzenean <code>PraatR</code> , <code>rPraat</code> eta <code>textgRide</code> zeuden CRANeko biltegietan; gaur badira gehiago ere, besteak beste, <code>speackr</code>, <code>phonfieldwork</code>, <code>visvow</code>, <code>soundgen</code> eta beste. Garatzeari utzi zaion arren, denen artean erabiltzen erraz xamar egin zitzaidan <code>PraatR</code> paketea <span class="citation">(<a href="#ref-albin2014" role="doc-biblioref">Albin, 2014</a>)</span>, Praateko <a href="http://www.aaronalbin.com/praatr/commands.html">komandu ugari</a> erabiltzeko aukera ematen du, parametroak ere landuta. Gaur berriro aukeratu behar banu, agian, besteren bat aurkitzea ematen du zentzuzkoena, baina ez nuke jakingo zein. Esan behar da, baina, PraatR paketea astiroago prozesatzen duela rPraat paketeak baino <span class="citation">(<a href="#ref-boril2016" role="doc-biblioref">Bořil &amp; Skarnitzl, 2016</a>)</span>, baina emaitzak errazago egiten direla erakusten.</p>
+<p>Pakete horrek Praateri egin behar duena agintzen dio programa horretako scriptek egingo luketen antzera. Horrek suposatzen du, besteak beste, nahitaezkoa dela audioak zein karpetatan dauden zehaztuta, horraxe <em>working directory</em> mugitzea, gero norberanera bueltatzeko. Horrez gainera, elementuak Rk eskuratzeko Praatek fitxategiak sortu behar ditu eta fitxategi horiek irakurri behar dira kalkulu berriak egiteko.</p>
+</div>
+<div id="analisi-bat-edo-batzuk" class="section level2">
+<h2>Analisi bat edo batzuk</h2>
+<p>Gorago aipatutako irizpideei segituta EAPIko <span class="citation">(<a href="#ref-iglesias2021" role="doc-biblioref">Iglesias et al., 2021</a>)</span> lagin batzuk hartu nituen hasieran. Emaitza estandarizatuak lortu nituen (ez ditut hemen erakutsiko) baina interesgarria begitandu zitzaidan etxean egindako grabaketa oso desberdin batzuk sistema honekin tratatzea. Segidan horiek</p>
+<div id="laginaren-ezaugarriak" class="section level3">
+<h3>Laginaren ezaugarriak</h3>
+<p>Informatzaileak denak familiakoak dira.</p>
+<ul>
+<li>2 urteko umea</li>
+<li>3 urteko umea</li>
+<li>4 urteko umea</li>
+<li>8 urteko umea</li>
+<li>40 urteko andrea</li>
+<li>48 urteko gizona</li>
+<li>100 urteko andrea</li>
+</ul>
+<p>Eta laginak, luzeraren arabera, multzo bitan ulertu behar dira. Batzuk “luzeak” 10 eta 100 segundu arteko hiru eta bederatzi 3 eta 8 segundu artekoak. Hizkuntzari dagokionez, bizkaiko euskaraz edo gaztelako gaztelaniaz daude.</p>
+</div>
+</div>
+<div id="emaitzak" class="section level2">
+<h2>Emaitzak</h2>
+<p>Lehenengo kalkuluak egin nituen irakurgaietan aurkitutako parametroen arabera, 50Hz eta 750Hz artean egin dira kalkuluak (Praatek lehenetsita dakartzan balioak 75Hz eta 500Hz dira). Horien emaitzetan nabarmendu ditut desbiderapen estandarren araberako distantziak(1, urdinez; 2, grisez; 3, berdez) eta batazbestekoa (gorriz); horiei gehitu diet beltzez Evin eta bestek <span class="citation">(<a href="#ref-evin2018" role="doc-biblioref">2018</a>)</span> proposatutakoa:</p>
+<p><span class="math display">\[behekomuga = q1\times 0.75\]</span></p>
+<p><span class="math display">\[goikomuga = q3\times 1.5\]</span></p>
+<p>Begizko azterketak ikus daiteke balioen multzo handia dagoela ehun balioen inguruan eta askoz kopuru baxuagoan beste balio batzuk 450Hzetik gora. Multzo nagusiko balioek argi mugatzen dute marra beltzek; horrek diosku kasu honetan trinkotasuna ondoen erakusten duen muga Evin-ek eta Argentinako intonaziorako proposatutakoa dela.
+Horien gainetik eta azpitik zenbait balio aurkitzen badira ere, kalkuluek sortutako outliertzat hartu behar dira eta ezegokiak oinarrizko frekuentzia adierazteko.</p>
+<div class="figure">
+<img src="images/indizea3.png" style="width:80.0%;height:100.0%" alt="" />
+<p class="caption">F<sub>0</sub>ko kalkuluen balioen banaketa</p>
+</div>
+<p>Adibidetzat hurrengoak ematen ditut:</p>
+<ul>
+<li>Oinarrizko grabazioa: 8 segundu pasako azalpena, 48 urteko gizonezko batek emandakoa.<br />
+
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/48u-giz-peli_konta(LatitudeTaBoya3).wav" type="audio/wav">
+</audio>
+</html></li>
+<li>Grabazio horren <em>F<sub>0</sub></em>ren lehenengo kalkuluan Praatek berreraikitako intonazioa (adi agertzen diren soinu aguduenei)<br />
+
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/48u-giz_um-Praateko_parametroak.wav" type="audio/wav">
+</audio>
+</html></li>
+<li>Grabazio horren F0ren detekzio egokituan oinarrituta, Praatek berreraikitako intonazioa (nik zuzentzat hartuko neukena)<br />
+
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/48u-giz_um-parametro_egokituakak.wav" type="audio/wav">
+</audio>
+</html></li>
+</ul>
+<p>Hurrengo irudian ikus daitezke parametroak zehazteko lehenengo kalkuluen araberako <em>F<sub>0</sub></em>ko behin behineko emaitzak. Gorriz nabarmenduta, kalkulu egokitutik kanpo geratutako balioak.</p>
+<div class="figure">
+<img src="images/indizea1.png" style="width:80.0%" alt="" />
+<p class="caption">Oinarriak zehazteko kalkuluen araberako emaitzak</p>
+</div>
+<p>Azkenik parametro egokituekin sortutako irudia, aurreko irudiaren eskala gordeta.</p>
+<p><img src="images/indizea2.png" style="width:80.0%" alt="Oinarrizko frekuentziaren kalkulu egokitua" />]</p>
+<p>Kalkulu guzti horien laburpen irudia sortu dut, begizko analisia egin ahal izateko. Horien emaitza lagin luzeagoen kasuan hurrengo irudietan beltzez erakutsitakoa da:</p>
+<p><img src="images/indizea-l1.png" style="width:32.0%" />
+<img src="images/indizea-l2.png" style="width:32.0%" />
+<img src="images/indizea-l3.png" style="width:32.0%" /></p>
+<p><em>Laburpen irudien azalpena</em>: Grisez erakusten dira oinarrizko kalkuluen araberako datuak; parametro egokituak marra paralelo eta grisen bitartez erakusten dira, heinak, gehieneko eta gutxieeneko balioak gorriz erakusten dira hasierako pausuko kalkuluetan eta urdinez kalkulu egokituen kasuan.</p>
+<div id="lagin-laburrak" class="section level3">
+<h3>Lagin laburrak</h3>
+<p>Laginak denboran laburrak direnean ez da hain argi igartzen alderik emaitzetan, behintzat kalkuluok egiteko erabilitako audioen analisian. Hori ikus daiteke bederatzi laginon dentsitate grafikoetan, zeintzutan ia ez den ikusten gehiengotik aldentzen den baliorik.</p>
+<div class="figure">
+<img src="images/indizea.png" style="width:80.0%" alt="" />
+<p class="caption">Lagin laburren <em>F<sub>0</sub></em>ren dentsitateak</p>
+</div>
+<p>Laburpen irudi bi ere ekarri ditugu hona, gehien eta gutxien aldentzen diren kalkuluenak.</p>
+<p>Alderik nabarmenena hiru urte eta hamar hileko haurraren kantuaren grabazioak erakutsi du:</p>
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/3u10h-HatorHator.wav" type="audio/wav">
+</audio>
+</html>
+<p><img src="images/indizea4.png" style="width:80.0%" /></p>
+<p>Alderik ez dute erakutsi, berriz beste bik, bi urteko ume baten azalpenak eta ehun urteko emakume baten erantzunak.</p>
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/2u4h-Eske_dauka_txokolatea.wav" type="audio/wav">
+</audio>
+</html>
+<div class="figure">
+<img src="images/indizea5.png" style="width:80.0%" alt="" />
+<p class="caption">Urte biko umeak amaren musuak deskribatuaz</p>
+</div>
+<html>
+<audio controls>
+<source src="audioak/prosodiaz202208/100u-Pues_estar_aquí_donde_pille.wav" type="audio/wav">
+</audio>
+</html>
+<div class="figure">
+<img src="images/indizea6.png" style="width:80.0%" alt="" />
+<p class="caption">Ehun urteko andreak zer egingo duen azaltzen dio ilobari</p>
+</div>
+</div>
+</div>
+<div id="ondorio-batzuk" class="section level2">
+<h2>Ondorio batzuk</h2>
+<p>Bistan denez, grabazioak banan-banan ebaluatzen jakinda eta hala eginda, hobeto zehatz daitezke oinarrizko frekuentzia kalkulatzeko parametroak.</p>
+<p>Era berean, lagin handiak edo kopuru handiak aztertzeko, oinarrizko frekuentzia kalkulatzeko bide konplexuagoa erabili behar da lehenetsitako parametroak erabilera hutsetik harago. Bide posible eta egingarria proposatu zuten De Loozek eta lagunek (2008) lehenen eta gero Evin eta bestek (2018) eta Zhang eta bestek (2018), honetan bide horren Rrako implementazioak pareko balioak sortzen dituela ikusi da.</p>
+<div id="ekarpen-posibleren-bat" class="section level3">
+<h3>Ekarpen posibleren bat</h3>
+<p>TextGrideetan silabak, berbak eta abar zehaztuta dauden kasuetan, horien arabera oinarrizko frekuentziaren portaeraren eskuratze automatikoa gara daiteke eta baita etiketazioaren araberako analisiak egiteko aukera ere zabaldu da.</p>
+</div>
+</div>
+<div id="scriptak" class="section level2">
+<h2>Scriptak</h2>
+<p><em>F<sub>0</sub></em> kalkulu egokituak Rn egiteko.</p>
+<p><small></p>
+<pre class="r"><code>## Praat R-tik erabilita oinarrizko frekuentzia egokiro kalkulatzeko scripta.
+##
+## Egilea: juan.abasolo@ehu.eus
+
+## 2022/03/20
+##
+
+
+# Paketeak -------------------------------------------
+
+library(PraatR)
+library(stringr)
+
+## Prestaketa
+
+hasierako.wd &lt;- getwd()
+
+
+karpetak &lt;- c(#&quot;/home/urlia/karpeta/&quot;#,
+              &#39;/home/urlia/beste_karpeta_bat/&#39;
+)
+
+if(str_detect(karpetak,&#39; &#39;)) {
+    cat(&#39;Espazio hutsek izenetan huts eragiten diote scriptari\n
+    izenean edo karpeten izenetan espazio hutsak detektatu dira\n
+          ZUZENDU izenak eta hasi berriro.\n\n
+          Oharra: Ohiturazkoa da espazioen ordez &quot;_&quot; idaztea&#39;)
+}
+    
+# Prozesamendua -----------------------------------------------------
+
+par(mfrow = c(2, 1))
+
+for(taldea in karpetak){
+    
+    print(taldea)
+    
+    KarpetaHelburua &lt;- taldea
+    
+    # Funtzino hau erabilten da dana dalako karpetan dagozan fitxategiak
+    # Praat-en kudeatu ahal izateko
+    FullBidea &lt;- function(FitxategiIzena) {
+        return(paste(KarpetaHelburua, FitxategiIzena, sep = &quot;&quot;))
+    }
+    
+    # PraatR-gaz ibilteko bihar dan sistemi
+    setwd(KarpetaHelburua)
+    # list.files()
+    fitxategiak &lt;- grep(&#39;.wav&#39;, list.files(), value = T)
+    
+    for(i in 1:length(fitxategiak)){
+        OraingoFitxategiIzena &lt;- c(fitxategiak)[i]
+        kodea &lt;- sub(OraingoFitxategiIzena, pattern = &#39;.wav&#39;, replacement = &#39;&#39;)
+        print(OraingoFitxategiIzena)
+        
+        WaveBidea &lt;- FullBidea(OraingoFitxategiIzena)
+        
+        ### KONTUZ!!! HONEK FITXATEGIAK SORTZEN DITUZ raw KARPETAN
+        ###
+        ### 
+        PitchBidea &lt;- sub(WaveBidea, pattern = &quot;.wav&quot;, replacement = &quot;.Pitch&quot;)
+        PitchTierBidea &lt;- sub(WaveBidea, pattern = &quot;.wav&quot;, replacement = &quot;.PitchTier&quot;)
+        TextGridBidea &lt;- sub(WaveBidea, pattern = &quot;.wav&quot;, replacement = &quot;.TextGrid&quot;)
+        TableBidea &lt;- sub(WaveBidea, pattern = &quot;.wav&quot;, replacement = &quot;.Table&quot;)
+        
+        ## F0
+        ## Parametroak kalkulatzeko
+        PitchArgumentsA &lt;- list(0.0, 60, 750) # Looze &amp; Hirst, 2008)
+        # PitchArgumentsA &lt;- list(0.0, 70, 550) # Argentinakoak (Evin et al, 2018) 
+
+        praat(&quot;To Pitch...&quot;, 
+              arguments = PitchArgumentsA, 
+              input = WaveBidea, 
+              output = PitchBidea, 
+              overwrite = TRUE)
+        praat(&quot;Down to PitchTier&quot;, 
+              input = PitchBidea, 
+              output = PitchTierBidea, 
+              overwrite = TRUE, 
+              filetype = &quot;headerless spreadsheet&quot;)
+        PitchTierDataA &lt;- read.table(PitchTierBidea, 
+                                     col.names = c(&quot;Time&quot;, &quot;F0&quot;))
+        
+        Time &lt;- PitchTierDataA$Time
+        F0A &lt;- PitchTierDataA$F0
+        
+        muga.behe &lt;- unname(quantile(F0A, probs = 0.25 ))* 0.75
+        muga.goi &lt;- unname(quantile(F0A, probs = 0.75))*1.5
+        
+        # Parametro barriakin
+        PitchArgumentsB &lt;- list(0.04,  # Neure egokitzapena Looze &amp; Hirst, 2008)
+                                muga.behe, 
+                                muga.goi)
+        praat(&quot;To Pitch...&quot;, 
+              arguments = PitchArgumentsB, 
+              input = WaveBidea, 
+              output = PitchBidea, 
+              overwrite = TRUE)
+        praat(&quot;Down to PitchTier&quot;, 
+              input = PitchBidea, 
+              output = PitchTierBidea, 
+              overwrite = TRUE, 
+              filetype = &quot;headerless spreadsheet&quot;)
+        PitchTierDataB &lt;- read.table(PitchTierBidea, 
+                                     col.names = c(&quot;Time&quot;, &quot;F0&quot;))
+        TimeB &lt;- PitchTierDataB$Time
+        F0B &lt;- PitchTierDataB$F0  
+        
+        ## TextGrid Tablera
+        TableArgumentuak &lt;- list(TRUE, # Include line number
+                                 6, # Time decimals
+                                 TRUE, # Include tier names
+                                 FALSE) # Include empty intervals
+        if(file.exists(TextGridBidea)){
+            praat(&quot;Down to Table...&quot;,
+              arguments = TableArgumentuak,
+              input = TextGridBidea,
+              output = TableBidea,
+              filetype = &quot;tab-separated&quot;,
+              overwrite = TRUE) 
+        }
+        assign(paste0(&#39;dfpitch.&#39;, kodea), PitchTierDataB)
+    }
+}</code></pre>
+<p></small></p>
+<p>Azterketa grafikorako:</p>
+<p><small></p>
+<pre class="r"><code>## Ikusizko analisiak egiteko scripta (aurreko scriptaren barruan txertatzekoa)
+
+        ## Azterketa grafikoa ===================================
+        ## Sartu soinu datuak -----------------------------------
+        
+        ## Lehenengoaren dentsitate plota
+        
+        plot(density(F0A))
+        abline(v = mean(F0A), col = 2)
+        abline(v = mean(F0A)+sd(F0A), col = 4, lty = 2)
+        abline(v = mean(F0A)-sd(F0A), col = 4, lty = 2)
+        abline(v = mean(F0A)+sd(F0A)*2, col = 8, lty = 2)
+        abline(v = mean(F0A)-sd(F0A)*2, col = 8, lty = 2)  
+        abline(v = mean(F0A)+sd(F0A)*3, col = 3, lty = 2)
+        abline(v = mean(F0A)-sd(F0A)*3, col = 3, lty = 2)
+        abline(v = quantile(F0A, probs = c(0.25, 0.75)) * c(0.75, 1.5), 
+               col = 1, 
+               lty = 2, cex = 0.5)
+        
+        ## Irudikatu Praat-eko parametroakin --------------------
+        
+        ## Sortu irudia, lehenengo kalkuluen pitch uneak
+        plot(x = Time, 
+             y = F0A, 
+             pch = 16, 
+             xlab = &quot;Denbora (s)&quot;, 
+             ylab = &quot;F0 (Hz)&quot;, 
+             las = 1, 
+             main = paste(gsub(OraingoFitxategiIzena, 
+                               pattern = &#39;\\....$&#39;, 
+                               replacement =&#39;&#39;), 
+                          &#39;Pitch:&#39;, 
+                          PitchArgumentsB[[1]],
+                          round(PitchArgumentsB[[2]]),
+                          round(PitchArgumentsB[[3]])), 
+             cex = 0.7,
+             col = 8,
+             ylim = c(PitchArgumentsA[[2]], max(F0A)*1.1),
+             xlim = c(min(Time)-(max(Time)-min(Time))/5, 
+                      max(Time)+(max(Time)-min(Time))/3))
+        ## Batu marra grix bategaz, ondo ikusteko
+        lines(x = Time, 
+              y = F0A, 
+              pch = 16, 
+              col = 8)
+        ## Nabarmendu zein une detektau dituan gorengo eta beherengo
+        points(y = c(max(F0A), min(F0A)), 
+               x = c(PitchTierDataA[PitchTierDataA[,2]==(max(F0A)), &quot;Time&quot;],
+                     PitchTierDataA[PitchTierDataA[,2]==(min(F0A)), &quot;Time&quot;]), 
+               cex = 2, col = 2)
+        text(y = c(max(F0A)-35, 
+                   min(F0A)+35), 
+             x = c(PitchTierDataA[PitchTierDataA[,2]==(max(F0A)), &quot;Time&quot;]+0.1,
+                   PitchTierDataA[PitchTierDataA[,2]==(min(F0A)), &quot;Time&quot;]+0.1), 
+             labels = c(paste(round(max(F0A), 3), &#39;Hz&#39;),
+                        paste(round(min(F0A), 3), &#39;Hz&#39;)), 
+             col = 2)
+        ## Lehenengo kalkulun batazbestekoa
+        abline(h = mean(F0A), col = 2, lty = 2)
+        text(max(Time)+max(Time)/5, 
+             mean(F0A)+15, 
+             labels = bquote(bar(x)*&quot;:&quot; ~.(paste(round(mean(F0A), 3), &#39;Hz&#39;))),
+             col = 2, cex = 0.7)
+        ## Lehenengo kalkulun heina
+        segments(x0 = min(Time)-(max(Time)-min(Time))/6, y0=min(F0A),
+                 x1 = min(Time)-(max(Time)-min(Time))/6, y1 = max(F0A),
+                 col = 2,
+                 lty = 2)
+        text(x = min(Time), 
+             y = max(F0A)+20, 
+             labels = paste(&#39;heina&#39;, round(max(F0A)-min(F0A), 3), &#39;Hz&#39;),
+             col = 2, 
+             cex = 0.7) 
+        
+        ## Kalkulu barrion parametroak (goiko eta beheko mugak zehaztu)
+        abline(h = c(muga.behe, muga.goi), 
+               col = 8, 
+               lty = 3)
+        text(x = max(Time),
+             y = c(muga.goi+20, muga.behe-20),
+             labels = c(paste(&#39;Goiko muga = q0.75x1.5 = &#39;, round(muga.goi)),
+                        paste(&#39;Beheko muga = q25x0.75 = &#39;, round(muga.behe))),
+             col = 8,
+             cex = 0.7)
+        
+        ## Kalkulu barrijagaz --
+        points(x = TimeB, 
+               y = F0B, 
+               pch = 16, 
+               cex = 0.4,
+               col = 1)
+        lines(x = TimeB, 
+              y = F0B, 
+              cex = 0.3,
+              col = 1)
+        ## Max eta min nabarmentu
+        points(y = c(max(F0B), min(F0B)), 
+               x = c(PitchTierDataB[PitchTierDataB[,2]==(max(F0B)), &quot;Time&quot;],
+                     PitchTierDataB[PitchTierDataB[,2]==(min(F0B)), &quot;Time&quot;]), 
+               cex = 2, 
+               col = 4)
+        text(y = c(max(F0B)+25, 
+                   min(F0B)-25), 
+             x = c(PitchTierDataB[PitchTierDataB[,2]==(max(F0B)), &quot;Time&quot;]+0.1,
+                   PitchTierDataB[PitchTierDataB[,2]==(min(F0B)), &quot;Time&quot;]+0.1), 
+             labels = c(paste(round(max(F0B), 3), &#39;Hz&#39;),
+                        paste(round(min(F0B), 3), &#39;Hz&#39;)), 
+             col = 4)
+        
+        ## Batazbesteku
+        abline(h = mean(F0B), col = 4, lty = 2)
+        text(max(Time)+max(Time)/5, 
+             mean(F0B)-20, 
+             labels = bquote(bar(x)*&quot;:&quot; ~.(paste(round(mean(F0B), 3), &#39;Hz&#39;))),
+             col = 4, 
+             cex = 0.7)
+        
+        ## Heina
+        segments(x0 = min(TimeB)-(max(Time)-min(Time))/10, y0 = min(F0B),
+                 x1 = min(TimeB)-(max(Time)-min(Time))/10, y1 = max(F0B),
+                 col = 4,
+                 lty = 2)
+        text(x = min(TimeB), 
+             y = min(F0B)-20, 
+             labels = paste(&#39;heina&#39;, round(max(F0B)-min(F0B), 3), &#39;Hz&#39;),
+             col = 4, 
+             cex = 0.7)
+        
+        ## ggplot
+        
+        p1 &lt;- data.frame(F0A, Time) |&gt; 
+            ggplot(aes(F0A)) +
+            geom_density() +
+            geom_vline(xintercept=c(mean(F0A)-sd(F0A)*3,
+                                    mean(F0A)-sd(F0A)*2,
+                                    mean(F0A)-sd(F0A), 
+                                    mean(F0A),
+                                    mean(F0A)+sd(F0A)*3,
+                                    mean(F0A)+sd(F0A)*2,
+                                    mean(F0A)+sd(F0A),
+                                    quantile(F0A, probs = c(0.25, 0.75)) * c(0.75, 1.5)),
+                       color = c(4, 8, 3, 2, 3, 8, 4, 1, 1), lty = 3)+
+            theme_classic() +
+            labs(title = &#39;Lehenengo kalkuluen emaitzen dentsitatea&#39;,
+                 subtitle = OraingoFitxategiIzena)
+        print(p1)
+        
+        p2 &lt;- data.frame(F0A, Time) |&gt; 
+            mutate(kanpo = ifelse(F0A&gt;=quantile(F0A, probs = 0.25)*0.75&amp;
+                                      F0A&lt;=quantile(F0A, probs = 0.75)*1.5, 
+                                  yes = &#39;ez&#39;, 
+                                  no = &#39;bai&#39;) |&gt; 
+                       as.factor())  |&gt; 
+            ggplot(aes(Time, F0A, color = kanpo)) +
+            geom_line(color = 8) +
+            geom_point() +
+            scale_color_manual(values = c(&quot;ez&quot; = &quot;black&quot;, &quot;bai&quot; = &quot;red&quot;)) +
+            geom_hline(yintercept=c(mean(F0A)-sd(F0A)*3,
+                                    mean(F0A)-sd(F0A)*2,
+                                    mean(F0A)-sd(F0A), 
+                                    mean(F0A),
+                                    mean(F0A)+sd(F0A)*3,
+                                    mean(F0A)+sd(F0A)*2,
+                                    mean(F0A)+sd(F0A),
+                                    quantile(F0A, probs = c(0.25, 0.75)) * c(0.75, 1.5)),
+                       color = c(4, 8, 3, 2, 3, 8, 4, 1, 1), lty = 3)+
+            theme_bw() +
+            labs(title = &#39;Parametroak zehazteko kalkuluen pitch balioak&#39;,
+                 subtitle = OraingoFitxategiIzena) +
+            ylab(&#39;F0ren behin behineko kalkulua&#39;) +
+            xlab(&#39;Denbora&#39;)
+        print(p2)
+        
+        p3 &lt;- data.frame(F0B, TimeB) |&gt; 
+            ggplot(aes(TimeB, F0B)) +
+            geom_line(color = 8) +
+            geom_point() +
+            geom_hline(yintercept=c(mean(F0A)-sd(F0A)*3,
+                                    mean(F0A)-sd(F0A)*2,
+                                    mean(F0A)-sd(F0A), 
+                                    mean(F0A),
+                                    mean(F0A)+sd(F0A)*3,
+                                    mean(F0A)+sd(F0A)*2,
+                                    mean(F0A)+sd(F0A),
+                                    quantile(F0A, probs = c(0.25, 0.75)) * c(0.75, 1.5)),
+                       color = c(4, 8, 3, 2, 3, 8, 4, 1, 1), lty = 3)+
+            theme_bw() +
+            labs(title = &#39;Behin betiko kalkuluen pitch balioak&#39;,
+                 subtitle = OraingoFitxategiIzena) +
+            ylab(&#39;F0 egokitua&#39;) +
+            xlab(&#39;Denbora&#39;)
+        print(p3)
+</code></pre>
+<p></small></p>
+<hr />
+<div id="erreferentziak" class="section level3 unnumbered">
+<h3>Erreferentziak</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-albin2014" class="csl-entry">
+Albin, A. (2014). PraatR: An architecture for controlling the phonetics software <span>"</span>praat<span>"</span> with the r programming language. <em>Journal of the Acoustical Society of America</em>, <em>135</em>(4), 2198. <a href="https://doi.org/ggkjz5">https://doi.org/ggkjz5</a>
+</div>
+<div id="ref-boersma2001" class="csl-entry">
+Boersma, P., &amp; Weenink, D. (2001). Praat, a system for doing phonetics by computer. <em>Glot International</em>, <em>5</em>, 341–345. <a href="http://www.fon.hum.uva.nl/paul/papers/speakUnspeakPraat_glot2001.pdf">http://www.fon.hum.uva.nl/paul/papers/speakUnspeakPraat_glot2001.pdf</a>
+</div>
+<div id="ref-boril2016" class="csl-entry">
+Bořil, T., &amp; Skarnitzl, R. (2016). <em>Tools rPraat and mPraat</em> (P. Sojka, A. Horák, I. Kopeček, &amp; K. Pala, Eds.; pp. 367–374). Springer International Publishing. <a href="https://doi.org/ggc7w6">https://doi.org/ggc7w6</a>
+</div>
+<div id="ref-correa2015" class="csl-entry">
+Correa, J. A. (2015). <em>Manual de análisis acústico del habla con praat</em>. Instituto Caro y Cuervo.
+</div>
+<div id="ref-delooze2008" class="csl-entry">
+De Looze, C., &amp; Hirst, D. (2008). Detecting changes in key and range for the automatic modelling and coding of intonation. <em>Speech Prosody</em>, 4.
+</div>
+<div id="ref-evin2018" class="csl-entry">
+Evin, D., Cossio-Mercado, C., Torres, H. M., Gurlekian, J., &amp; Mixdorff, H. (2018). <em>Speech Prosody 2018</em>. 680–684. <a href="https://doi.org/ggqbn5">https://doi.org/ggqbn5</a>
+</div>
+<div id="ref-iglesias2021" class="csl-entry">
+Iglesias, A., Etxebarria, A., &amp; Naia Eguskiza. (2021). Euskararen Atlas Prosodiko Interaktiboa (EAPI). <em>Huarte de San Juan. Filología y Didáctica de la Lengua</em>, <em>21</em>, 227–241. <a href="https://doi.org/10.48035/rhsj-fd.21.10">https://doi.org/10.48035/rhsj-fd.21.10</a>
+</div>
+<div id="ref-zhang2018" class="csl-entry">
+Zhang, Q., Cao, C., Li, T., Xie, Y., &amp; Zhang, J. (2018). <em>2018 14th IEEE international conference on signal processing (ICSP)</em>. 939–943. <a href="https://doi.org/ggqn2r">https://doi.org/ggqn2r</a>
+</div>
+</div>
+</div>
+</div>
