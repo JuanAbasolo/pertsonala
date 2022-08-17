@@ -84,10 +84,10 @@ Adibidetzat hurrengoak ematen ditut:
     <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz-peli_konta(LatitudeTaBoya3).wav" type="audio/wav"> </audio></html> [+](/audioak/prosodiaz202208/48u-giz-peli_konta.wav)
 
 -   Grabazio horren *F~0~*ren lehenengo kalkuluan Praatek berreraikitako intonazioa (adi agertzen diren soinu aguduenei)  
-    <html> <audio controls>   <source src="audioak/prosodiaz202208/48u-giz_um-Praateko_parametroak.wav" type="audio/wav"> </audio></html> 
+    <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz_um-Praateko_parametroak.wav" type="audio/wav"> </audio></html> 
     
 -   Grabazio horren F0ren detekzio egokituan oinarrituta, Praatek berreraikitako intonazioa (nik zuzentzat hartuko neukena)  
-    <html> <audio controls>   <source src="audioak/prosodiaz202208/48u-giz_um-parametro_egokituakak.wav" type="audio/wav"> </audio></html> 
+    <html> <audio controls>   <source src="/audioak/prosodiaz202208/48u-giz_um-parametro_egokituakak.wav" type="audio/wav"> </audio></html> 
 
 Hurrengo irudian ikus daitezke parametroak zehazteko lehenengo kalkuluen araberako *F~0~*ko behin behineko emaitzak. Gorriz nabarmenduta, kalkulu egokitutik kanpo geratutako balioak.
 
@@ -115,15 +115,15 @@ Laburpen irudi bi ere ekarri ditugu hona, gehien eta gutxien aldentzen diren kal
 
 Alderik nabarmenena hiru urte eta hamar hileko haurraren kantuaren grabazioak erakutsi du:
 
-<html> <audio controls>   <source src="audioak/prosodiaz202208/3u10h-HatorHator.wav" type="audio/wav"> </audio></html> 
+<html> <audio controls>   <source src="/audioak/prosodiaz202208/3u10h-HatorHator.wav" type="audio/wav"> </audio></html> 
 ![](images/indizea4.png){width=80%}
 
 Alderik ez dute erakutsi, berriz beste bik, bi urteko ume baten azalpenak eta ehun urteko emakume baten erantzunak.
 
-<html> <audio controls>   <source src="audioak/prosodiaz202208/2u4h-Eske_dauka_txokolatea.wav" type="audio/wav"> </audio></html> 
+<html> <audio controls>   <source src="/audioak/prosodiaz202208/2u4h-Eske_dauka_txokolatea.wav" type="audio/wav"> </audio></html> 
 ![Urte biko umeak amaren musuak deskribatuaz](images/indizea5.png){width=80%} 
 
-<html> <audio controls>  <source src="audioak/prosodiaz202208/100u-Pues_estar_aquí_donde_pille.wav" type="audio/wav"> </audio></html> 
+<html> <audio controls>  <source src="/audioak/prosodiaz202208/100u-Pues_estar_aquí_donde_pille.wav" type="audio/wav"> </audio></html> 
 ![Ehun urteko andreak zer egingo duen azaltzen dio ilobari](images/indizea6.png){width=80%} 
 
 ## Ondorio batzuk
