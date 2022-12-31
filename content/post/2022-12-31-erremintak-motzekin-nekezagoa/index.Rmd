@@ -1,0 +1,462 @@
+---
+title: Erreminta motzekin nekezagoa da lana
+author: Juan
+date: '2022-12-31'
+slug: nekezagoa-da-erremintak-zorroztu-barik
+categories:
+  - testuen azterketaz
+tags:
+  - r
+  - ikerketa
+draft: false
+---
+
+```{r setup, include=FALSE}
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(echo=FALSE, 
+                      warning=FALSE,
+                      message=FALSE)
+```
+
+Eman dezagun orain modan dauden erreminta batzuk erabili nahi ditugula, esate baterako ChatGPT. Gaztelaniaz elegante:
+
+> /ask ¿Qué fueron las invasiones inglesas de Buenos Aires?
+
+Telegrameko https://t.me/OpenAiChat_bot -ek hau erantzun dit:
+
+> Las invasiones inglesas de Buenos Aires fueron dos importantes asedios llevados a cabo por las fuerzas británicas durante el siglo XIX para apoderarse de la ciudad argentina. Estos hechos tuvieron lugar en 1806 y 1807, respectivamente, con el objetivo de capturar la plaza principal y lograr una notoria influencia comercial. Las invasiones terminaron con un fracaso para los británicos pero tuvieron un gran impacto para los habitantes de Buenos Aires al provocar la destrucción del casco urbano y generar graves problemas sociales y económicos.
+
+Baina euskaraz zerbait galdetuta... erantzunak ez du pareko kalitaterik:
+
+> /ask Zergatik da garrantzitsua Gernikako aritz hura?
+
+Haren *euskarazko* erantzuna:
+
+> Gernika aritza garrantzitsuak izan daiteke historikoki, eta Gernikan bizi diren kanpainan aurrera ateratzen duen helburua dago. Oso garrantzitsu asko diren itxuska egiturak dituzte hainbat sorkuntza local eta kulturalek uste izanez. Markoanto-reen jauregi bera, Donibane Lohize antzinako fueloakoak eta San Pedro Antiguo gazteluak barne, beste batzuen lana emititu behar dute Gernikarak bere tradizioak teklatu. Gainera, beste erabilera historikoak ditu, emango apurtze esanguratsu ofizialea conciertuetara eta evenimentuetara gonbidatuta egunez egun. Baina horretaz gain, hainbat kultura geografiko barrualdean sortutako tradizioei buruzko informazio garbiagotzeko aldaketa esanguratsua sortzeko elementua da Gernika Arritzatik.
+
+Nik ingelesez ganoraz jakin ez arren, hizkuntza horretan galdetu diot hurrengoa:
+
+> /ask Why is not good the ChatGPT performance in Basque language?
+
+> Although the ChatGPT system has seen success with some natural language processing tasks, it is not well-suited to Basque. One of the primary causes is due to the fact that Basque is a more complicated language than those with which ChatGPT was designed to work; its unique grammar and syntax are unlike those used for languages such as English or Spanish, making it difficult for the system to comprehend. Additionally, Basque does not have corpus data available in abundance like other languages - meaning there are fewer resources available from which ChatGPT can learn from and draw on for successful conversation.
+
+Argi dago. e-uskaraz zereginik badaukagu. Nik, motibazio handia eta jakintza urri, euskarazko jarduna aztertu nahi dut ea zeregin interesgarririk aurkitzen diodan nire grina aztertzaileari:
+
+Euskaraz idatzizko testuak aztertzeko beste hizkuntza batzuetan erabiltzen diren tresna berberak erabili ditut. Zehazki honetan [Quanteda](https://quanteda.io/).
+
+## Testuaren azterketa automatikoa gaiari antzemateko
+
+Corpus eleanitz bat ezagutzen dut euskararekin batera beste hamaika hizkuntza dituena, horixe berori erabili dut azterketan. 
+
+Testu osoa hartu dut bost hizkuntzatan eta aztertu: euskara, ingelesa, gaztelania, frantsesa eta italiera. Testu horren klabea hau da: **UDHR**. Ea zer ikus daitekeen testu horretaz:
+
+Hemen aurkezten dudan ariketa seguruenera oinarrizkoena izango da, berbak kontatzea eta kontaketa horretan oinarrituta nondik norakoa antzematea:
+
+```{r}
+library(quanteda)
+require(quanteda.corpora)
+require(quanteda.textstats)
+require(quanteda.textplots)
+require(ggplot2)
+```
+
+
+
+```{r}
+data_corpus_udhr |> 
+    summary() |> 
+    tail() |> knitr::kable()
+```
+
+```{r}
+corp1 <- data_corpus_udhr[c('eus', 'eng', 'spa', 'fra', 'ita')]
+corp1 |> 
+    summary() |> 
+    tail() |> knitr::kable(caption = 'Corpusaren ezaugarri batzuk')
+```
+
+Ingelesa ez dut-eta ondoegi ulertzen, esanahiaren araberako alderaketetarako, italiera hobetsiko dut batean edo bestean.
+
+### Itzulpenen alderaketa
+
+Bost hizkuntzetako itzulpenei maila kuantitatiboan begiratzen zaio hurrengo irudian; zenbat forma erabiltzen diren testu horretan. Alderaketa bat egiten da, ea zenbat forma desberdin erabiltzen diren versus zenbat forma behar diren denera.
+
+```{r}
+corp1 |> summary() |> 
+    ggplot(aes(Tokens, Types, 
+               # color = Sentences, 
+               label = ISO)) +
+    geom_label() +
+    labs(title = 'UDHR corpuseko alderaketa, erabilitako formen arabera', 
+         subtitle = 'zenbat token Vs zenbat token bakar') +
+    xlab('Tokens (zenbat berba denera)') +
+    ylab('Types (zenbat forma desberdin)') +
+    theme_minimal()
+```
+
+Bistan da, euskara nahikoa desberdina da. Denera forma gutxiago behar dira UDHR izeneko testu hori emateko beste laurek baino. Bestalde, formak euren artean anitzagoak dira beste hizkuntzen aldean.
+
+### Lexikoari so
+
+Corpus osoari begiratu nahirik, berbarik (formarik) errepikatuenak zein diren kontuan izanda grafiko bat egiten da hurrengoan, berbaren tamainak corpusean duen presentziaren pisua adierazten du:
+
+```{r}
+col <- sapply(seq(0.1, 1, 0.1), function(x) adjustcolor("#1F78B4", x))
+corp1 |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textplot_wordcloud(rotation = 0.25, 
+                       color =
+                           rev(RColorBrewer::brewer.pal(10, "RdBu")))
+```
+
+Lehenengo begirada batean, aurreko irudi horretatik antzeman daitezke kontu bi:
+
+1. Berba asko sobran daudela ganoraz aztertzeko:
+*a, de, la, and, eta, y, to, à, et, di...*.
+2. Nonbait, *eskubidea, derecho, right, droit, diritto* ardatz bat izan daitekeela. Eta *pertsona, persona, perssonne* ere beste ardatz bat izan daiteke.
+
+Lehenengo arazo horri oratzeko *stopword*ak erabiltzen dira[^1]. Hizkuntza bakoitzerako sortuak diren esannahi gabeko hitzen zerrendak dira, honelako azterketetan informazioa gehitu baino oztopatzen duten berbak, alegia.
+
+[^1]: **stopword** hori bat edo batean aurkitu dut "hitz hutsak" forman. Gaztelaniaz ere *palabras vacias*. Berez, ez nago seguru argi dagoen, *berba hutsak* esanda, *hutsik dauden berbak* ulertzen den. Gainera, ez dakit hutsik dauden benetan. *stopword* inperialistarekin geratu naiz artikulutxu honetan.
+
+### Lexikoari, hizkuntzaka so
+
+Segidan, hizkuntzarik hizkuntza aurkezten dira hogei formarik erabilienak, ezkerrean *stopword* horiek kendu gabe eta eskuinean horiek kenduta.
+
+Horrek lagundu behar luke testuaren nondik norakoaz konturatzen.
+
+#### Euskara
+
+```{r}
+# Euskera
+eu0 <- corp1 |> corpus_subset(ISO == 'eus') |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+eu1 <- corp1 |> corpus_subset(ISO == 'eus') |> 
+    tokens(remove_punct = TRUE) |> 
+    tokens_remove(pattern = stopwords('eu', source = 'stopwords-iso')) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+gridExtra::grid.arrange(eu0, eu1, nrow = 1)
+```
+
+Azterketa honetan argi dago ezkerreko irudiko berbek informazio sakonagoa eskaintzen dutela. Baliteke, gainera, argi xamar irudikatzea zertaz diharduen testuak.
+
+Baina begiratu dezagun beste hizkuntzetan ere ea zer ikus dezakegun.
+
+#### Ingelesez
+
+```{r}
+en0 <- corp1 |> corpus_subset(ISO == 'eng') |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+en1 <- corp1 |> corpus_subset(ISO == 'eng') |> 
+    tokens(remove_punct = TRUE) |> 
+    tokens_remove(pattern = stopwords('en', source = 'stopwords-iso')) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+gridExtra::grid.arrange(en0, en1, nrow = 1)
+```
+
+Lehenengo begirada batean, askoz mamitsuago ikusten da eskumaldeko irudiko informazioa.
+
+Eta besteetan?
+
+#### Gaztelaniaz
+
+```{r}
+es0 <- corp1 |> corpus_subset(ISO == 'spa') |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+es1 <- corp1 |> corpus_subset(ISO == 'spa') |> 
+    tokens(remove_punct = TRUE) |> 
+    tokens_remove(pattern = stopwords('es', source = 'stopwords-iso')) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+gridExtra::grid.arrange(es0, es1, nrow = 1)
+```
+
+
+#### Frantsesez
+
+```{r}
+fr0 <- corp1 |> corpus_subset(ISO == 'fra') |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+fr1 <- corp1 |> corpus_subset(ISO == 'fra') |> 
+    tokens(remove_punct = TRUE) |> 
+    tokens_remove(pattern = stopwords('fr', source = 'stopwords-iso')) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+gridExtra::grid.arrange(fr0, fr1, nrow = 1)
+```
+
+
+#### Italieraz
+
+```{r}
+fr0 <- corp1 |> corpus_subset(ISO == 'ita') |> 
+    tokens(remove_punct = TRUE) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+fr1 <- corp1 |> corpus_subset(ISO == 'ita') |> 
+    tokens(remove_punct = TRUE) |> 
+    tokens_remove(pattern = stopwords('it', source = 'stopwords-iso')) |> 
+    dfm() |> 
+    textstat_frequency(n = 20) |> 
+  ggplot(aes(x = reorder(feature, frequency), 
+             y = frequency)) +
+  geom_point() +
+  coord_flip() +
+  labs(x = NULL, y = "Kopurua") +
+  theme_minimal()
+
+gridExtra::grid.arrange(fr0, fr1, nrow = 1)
+```
+
+Euskara ez diren beste hizkuntza guztietan, argiago interpreta daiteke informazioa euskaraz baino.
+
+Hori ikusi izanak eta hizkuntza indoeuropear preposizio askodunak aukeratu izanak lehenengo hipotesi batera eraman nau:
+
+**H~1~**: Hizkuntzen ezaugarri morfologikoek baldintzatzen dute.
+
+Ah! Badaezpada, testua hau da: https://www.un.org/en/about-us/universal-declaration-of-human-rights . Gorago aipatutako `quanteda` paketetako batek hainbat hizkuntzatan dakar hau erabilita: `quanteda.corpora::data_corpus_udhr()`
+
+## Ezaugarri morfologikoek baldintzatzen ote duten
+
+```{r}
+## Datuak sartu
+df_hizk <- structure(list(Language = c("Afrikaans", "Arabic", "Armenian", 
+"Azerbaijani", "Basque", "Bengali", "Breton", "Bulgarian", "Catalan", 
+"Chinese", "Croatian", "Czech", "Danish", "Dutch", "English", 
+"Esperanto", "Estonian", "Finnish", "French", "Galician", "German", 
+"Greek", "Greek (ancient)", "Gujarati", "Hausa", "Hebrew", "Hindi", 
+"Hungarian", "Indonesian", "Irish", "Italian", "Japanese", "Kazakh", 
+"Korean", "Kurdish", "Latin", "Lithuanian", "Latvian", "Malay", 
+"Marathi", "Nepali", "Norwegian", "Persian", "Polish", "Portuguese", 
+"Romanian", "Russian", "Slovak", "Slovenian", "Somali", "Southern Sotho", 
+"Spanish", "Swahili", "Swedish", "Thai", "Tagalog", "Tajik", 
+"Turkish", "Ukrainian", "Urdu", "Vietnamese", "Yoruba", "Zulu"
+), code_sw = c("af", "ar", "hy", "az", "eu", "bn", "br", "bg", 
+"ca", "zh", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", 
+"gl", "de", "el", "grc", "gu", "ha", "he", "hi", "hu", "id", 
+"ga", "it", "ja", "kk", "ko", "ku", "la", "lt", "lv", "ms", "mr", 
+"mr", "no", "fa", "pl", "pt", "ro", "ru", "sk", "sl", "so", "st", 
+"es", "sw", "sv", "th", "tl", "tg", "tr", "uk", "ur", "vi", "yo", 
+"zu"), `stopwords-iso` = c(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 
+1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+1, 1, 0, 1, 1, 1, 1, 1, 1), code_iso639 = c("afr", "ara", "arm", 
+"aze", "eus", "ben", "bre", "bul", "cat", "chi", "hrv", "cze", 
+"dan", "dut", "eng", "epo", "est", "fin", "fra", "glg", "ger", 
+"gre", "grc", "guj", "hau", "heb", "hin", "hun", "ind", "gle", 
+"ita", "jpn", "kaz", "kor", "kur", "lat", "lit", "lav", "mal", 
+"mar", "nep", "nor", "per", "pol", "por", "rom", "rus", "slo", 
+"slv", "som", "sot", "spa", "swa", "swe", "tai", "tgl", "tgk", 
+"tur", "ukr", "urd", "vie", "tor", "zul"), code_iso639alt = c(NA, 
+NA, "hye", NA, "baq", NA, NA, NA, NA, "zho", NA, "ces", NA, "nld", 
+NA, NA, NA, NA, "fre", NA, "deu", "ell", NA, NA, NA, NA, NA, 
+NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "fas", 
+NA, NA, NA, NA, "slk", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 
+NA, NA, NA, NA, NA), indoeu = c(1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 
+1, 1, 1, 1, 1, NA, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 
+1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 
+1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0), baztertu = c(0, 0, 0, 0, 
+0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 
+1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0), estatukoa = c(1, 
+1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 
+0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 
+1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0)), row.names = c(NA, 
+-63L), spec = structure(list(cols = list(Language = structure(list(), class = c("collector_character", 
+"collector")), code_sw = structure(list(), class = c("collector_character", 
+"collector")), `stopwords-iso` = structure(list(), class = c("collector_double", 
+"collector")), code_iso639 = structure(list(), class = c("collector_character", 
+"collector")), code_iso639alt = structure(list(), class = c("collector_character", 
+"collector")), indoeu = structure(list(), class = c("collector_double", 
+"collector")), baztertu = structure(list(), class = c("collector_double", 
+"collector")), estatukoa = structure(list(), class = c("collector_double", 
+"collector"))), default = structure(list(), class = c("collector_guess", 
+"collector")), delim = ","), class = "col_spec"), class = c("spec_tbl_df", 
+"tbl_df", "tbl", "data.frame"))
+
+berbakuntzak.aukeran <- docnames(data_corpus_udhr)
+berbakuntzak <- df_hizk$code_iso639[df_hizk$code_iso639 %in% berbakuntzak.aukeran]
+
+corp <- data_corpus_udhr[berbakuntzak]
+df.udhr <- summary(corp)
+
+df.udhr$nchar <- nchar(corp)
+```
+
+Gorago bost hizkuntzarekin sortutako antzerako alderaketa da hurrengoa: Zenbat forma guztira eta zenbat forma bakar behar diren testu horretarako hizkuntza bakoitzean. Honetan, baina, alderatzen diren hizkuntzak dira *stopword*ak ematen dituzten guztiak.
+
+```{r}
+ggdudh <- df.udhr %>%
+  ggplot(aes(x = Tokens, y = Types, label = Name)) +
+  geom_point(color = 'red') +
+    geom_text(hjust=0.3, vjust=-0.7) +
+  # geom_label_repel(nudge_y = 10, size = 3) +
+  labs(title = 'Formak kopurua orotara eta forma bakarren arteko erlazioa',
+       subtitle = 'Hizkuntza batzuen aukeraketa',
+       caption = 'Datuak: Giza Eskubideen Deklarazioa') +
+  xlab('Zenbat forma denera') +
+  ylab('Zenbat forma bakar') +
+    theme_minimal()
+ggdudh
+```
+
+Azterketa honetan ezaugarrien arteko korrelazioa dagoela antzematen da: zenbat eta forma desberdin gehiago izan, orduan eta forma gutxiago behar direla, alegia. Matematikoki honela aipa daiteke:
+
+$$r_s = -0.552*** $$
+*p-balioa = 0.0001023*
+
+```{r}
+# cor.test(df.udhr$Types, df.udhr$Tokens, method = 'spearman')
+```
+
+Aldagaien artean, beraz, korrelazio ertain eta handien artekoa dago, efektuaren tamaina zeren arabera kalkulatzen den.
+
+### *Stopword* kopurua eta forma kopuruen artean korrelaziorik ote dago?
+
+```{r}
+f.zemat.forma <- function(x) stopwords::stopwords(x, source = 'stopwords-iso') |> length()
+
+# Sortu df barrija stopwordsISO daukazanakin eta zenbatu zemat dixen
+x <- df_hizk |> 
+    dplyr::filter(`stopwords-iso`!=0,
+           baztertu==0)
+
+for(i in x$code_sw){
+    x[which(x$code_sw==i), 'zmt_sw'] <- f.zemat.forma(i)
+}
+x$ISO <- x$code_iso639
+berbakuntzak <- x$code_iso639[x$code_iso639 %in% berbakuntzak.aukeran]
+
+
+corp <- data_corpus_udhr[berbakuntzak]
+df.udhr <- summary(corp)
+df.udhr$nchar <- nchar(corp)
+
+df.udhr <- merge(df.udhr, x[, c("zmt_sw", "ISO", "estatukoa")], by = 'ISO')
+```
+
+Korrelazioak aldagaien azalpen linguistikoak eta stopword kopuruen artean kalkulatuta, ez dugu aurkitu emaitza esanguratsurik (*r~s~ = 0.053*, p-balioa = 0.77 eta *r~s~ = 0.0179*, p-balioa = 0.92).
+
+```{r}
+# cor.test(df.udhr$Tokens, df.udhr$zmt_sw, method = 'spearman')
+```
+
+Eta irudian, bestelako sailkapenen bat egon litekeela ere ematen du:
+
+```{r}
+df.udhr |> 
+    ggplot(aes(zmt_sw, Tokens, label = Name)) +
+    geom_point(color = 'red') +  
+    geom_text(hjust=0.3, vjust=-0.7) + 
+    theme_minimal()
+```
+Hungariera ere, euskararen antzera, hizkuntza eranskaria da, ingelesa ez. Horiek dira forma gehien dituztenak. Hirugarren postuan finlandiera, euskararen antzera eranskaria hori ere. Bestalde, euskara zulu, sotho, afrikaans eta beste hizkuntza batzuekin batera dago.  
+
+Azalpenak bestelako aldagaia behar du:
+
+## Morfologiak ez du azaltzen, politikak?
+
+```{r}
+# wilcox.test(data = df.udhr, zmt_sw~factor(estatukoa))
+```
+
+Politikak errazago. Multzo bi egin dira, estatua duten hizkuntzak eta estaturik gabekoak.
+
+```{r}
+df.udhr |> 
+    ggplot(aes(factor(estatukoa), zmt_sw, label = Name)) +
+    geom_boxplot() +
+    geom_jitter(position = position_jitter(seed = 1), color = 'red') + 
+    geom_text(hjust=0.3, vjust=0.7, position = position_jitter(seed = 1)) +
+    theme_minimal() +
+    xlab('Estatuko hizkuntza') +
+    ylab('Zenbat stop word lexikoan') +
+    scale_x_discrete(labels=c('ez', 'bai')) +
+    labs(title = 'Berba kopurua "Stopwords ISO" bilduman',
+         subtitle = 'Hizkuntzak estatuko hizkuntza den ala ez alderatuta',
+         caption = 'Datuak: https://github.com/stopwords-iso/')
+```
+
+Aurreko konparaketan katalana, nahiz eta Andorrako hizkuntza ofiziala izan, ez dut jaso estatuko hizkuntzatzat. Hindia, nahiz eta Indiako hegoaldean ez izan ohiko hizkuntza, estatuduntzat hartu da. Tagalo/filipino hizkuntzaren inguruko gatazkak kontuan izanda, hori ere ez dut hala jaso. Amaitzeko, Irlandako galesa ere ez dut estatuduntzat jaso, han ere ingelesa lehenesten delakoan.
+
+Estatistikoki esanguratsua da aurkitutako aldea. Wilcoxon-Mann-Withney testa erabilita, *W = 31\*\*\** ematen du p-balioa = 0.00038 dela.
+
+Agerian dago banaketa bitar hori baino sakonago azter litekeela. Baina, hainbat egiteko dagoenez, akaso, interesgarriagoa da euskarazko *stopword* eraginkorragoak sortzea.
+
+---
+
+Urte barri g on!

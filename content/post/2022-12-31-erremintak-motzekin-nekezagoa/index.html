@@ -1,0 +1,293 @@
+---
+title: Erreminta motzekin nekezagoa da lana
+author: Juan
+date: '2022-12-31'
+slug: nekezagoa-da-erremintak-zorroztu-barik
+categories:
+  - testuen azterketaz
+tags:
+  - r
+  - ikerketa
+draft: false
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Eman dezagun orain modan dauden erreminta batzuk erabili nahi ditugula, esate baterako ChatGPT. Gaztelaniaz elegante:</p>
+<blockquote>
+<p>/ask ¿Qué fueron las invasiones inglesas de Buenos Aires?</p>
+</blockquote>
+<p>Telegrameko <a href="https://t.me/OpenAiChat_bot" class="uri">https://t.me/OpenAiChat_bot</a> -ek hau erantzun dit:</p>
+<blockquote>
+<p>Las invasiones inglesas de Buenos Aires fueron dos importantes asedios llevados a cabo por las fuerzas británicas durante el siglo XIX para apoderarse de la ciudad argentina. Estos hechos tuvieron lugar en 1806 y 1807, respectivamente, con el objetivo de capturar la plaza principal y lograr una notoria influencia comercial. Las invasiones terminaron con un fracaso para los británicos pero tuvieron un gran impacto para los habitantes de Buenos Aires al provocar la destrucción del casco urbano y generar graves problemas sociales y económicos.</p>
+</blockquote>
+<p>Baina euskaraz zerbait galdetuta… erantzunak ez du pareko kalitaterik:</p>
+<blockquote>
+<p>/ask Zergatik da garrantzitsua Gernikako aritz hura?</p>
+</blockquote>
+<p>Haren <em>euskarazko</em> erantzuna:</p>
+<blockquote>
+<p>Gernika aritza garrantzitsuak izan daiteke historikoki, eta Gernikan bizi diren kanpainan aurrera ateratzen duen helburua dago. Oso garrantzitsu asko diren itxuska egiturak dituzte hainbat sorkuntza local eta kulturalek uste izanez. Markoanto-reen jauregi bera, Donibane Lohize antzinako fueloakoak eta San Pedro Antiguo gazteluak barne, beste batzuen lana emititu behar dute Gernikarak bere tradizioak teklatu. Gainera, beste erabilera historikoak ditu, emango apurtze esanguratsu ofizialea conciertuetara eta evenimentuetara gonbidatuta egunez egun. Baina horretaz gain, hainbat kultura geografiko barrualdean sortutako tradizioei buruzko informazio garbiagotzeko aldaketa esanguratsua sortzeko elementua da Gernika Arritzatik.</p>
+</blockquote>
+<p>Nik ingelesez ganoraz jakin ez arren, hizkuntza horretan galdetu diot hurrengoa:</p>
+<blockquote>
+<p>/ask Why is not good the ChatGPT performance in Basque language?</p>
+</blockquote>
+<blockquote>
+<p>Although the ChatGPT system has seen success with some natural language processing tasks, it is not well-suited to Basque. One of the primary causes is due to the fact that Basque is a more complicated language than those with which ChatGPT was designed to work; its unique grammar and syntax are unlike those used for languages such as English or Spanish, making it difficult for the system to comprehend. Additionally, Basque does not have corpus data available in abundance like other languages - meaning there are fewer resources available from which ChatGPT can learn from and draw on for successful conversation.</p>
+</blockquote>
+<p>Argi dago. e-uskaraz zereginik badaukagu. Nik, motibazio handia eta jakintza urri, euskarazko jarduna aztertu nahi dut ea zeregin interesgarririk aurkitzen diodan nire grina aztertzaileari:</p>
+<p>Euskaraz idatzizko testuak aztertzeko beste hizkuntza batzuetan erabiltzen diren tresna berberak erabili ditut. Zehazki honetan <a href="https://quanteda.io/">Quanteda</a>.</p>
+<div id="testuaren-azterketa-automatikoa-gaiari-antzemateko" class="section level2">
+<h2>Testuaren azterketa automatikoa gaiari antzemateko</h2>
+<p>Corpus eleanitz bat ezagutzen dut euskararekin batera beste hamaika hizkuntza dituena, horixe berori erabili dut azterketan.</p>
+<p>Testu osoa hartu dut bost hizkuntzatan eta aztertu: euskara, ingelesa, gaztelania, frantsesa eta italiera. Testu horren klabea hau da: <strong>UDHR</strong>. Ea zer ikus daitekeen testu horretaz:</p>
+<p>Hemen aurkezten dudan ariketa seguruenera oinarrizkoena izango da, berbak kontatzea eta kontaketa horretan oinarrituta nondik norakoa antzematea:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 1: </span>Corpusaren ezaugarri batzuk</caption>
+<colgroup>
+<col width="5%" />
+<col width="6%" />
+<col width="8%" />
+<col width="9%" />
+<col width="13%" />
+<col width="5%" />
+<col width="30%" />
+<col width="5%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Text</th>
+<th align="right">Types</th>
+<th align="right">Tokens</th>
+<th align="right">Sentences</th>
+<th align="left">Key</th>
+<th align="left">Name</th>
+<th align="left">ISO</th>
+<th align="left">Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">95</td>
+<td align="left">cos</td>
+<td align="right">591</td>
+<td align="right">2171</td>
+<td align="right">61</td>
+<td align="left">cos</td>
+<td align="left">Corsican</td>
+<td align="left">cos</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="even">
+<td align="left">96</td>
+<td align="left">cot</td>
+<td align="right">747</td>
+<td align="right">1823</td>
+<td align="right">160</td>
+<td align="left">cot</td>
+<td align="left">Caquinte</td>
+<td align="left">cot</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="odd">
+<td align="left">97</td>
+<td align="left">cpu</td>
+<td align="right">934</td>
+<td align="right">2851</td>
+<td align="right">185</td>
+<td align="left">cpu</td>
+<td align="left">Ashéninka, Pichis</td>
+<td align="left">cpu</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="even">
+<td align="left">98</td>
+<td align="left">crh</td>
+<td align="right">715</td>
+<td align="right">1578</td>
+<td align="right">32</td>
+<td align="left">crh</td>
+<td align="left">Crimean Tatar</td>
+<td align="left">crh</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="odd">
+<td align="left">99</td>
+<td align="left">crs</td>
+<td align="right">518</td>
+<td align="right">1981</td>
+<td align="right">63</td>
+<td align="left">crs</td>
+<td align="left">Seselwa Creole French</td>
+<td align="left">crs</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="even">
+<td align="left">100</td>
+<td align="left">csa</td>
+<td align="right">452</td>
+<td align="right">2270</td>
+<td align="right">100</td>
+<td align="left">csa</td>
+<td align="left">Chinantec, Chiltepec</td>
+<td align="left">csa</td>
+<td align="left">ltr</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Text</th>
+<th align="right">Types</th>
+<th align="right">Tokens</th>
+<th align="right">Sentences</th>
+<th align="left">Key</th>
+<th align="left">Name</th>
+<th align="left">ISO</th>
+<th align="left">Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">eus</td>
+<td align="right">726</td>
+<td align="right">1602</td>
+<td align="right">62</td>
+<td align="left">eus</td>
+<td align="left">Basque</td>
+<td align="left">eus</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="even">
+<td align="left">eng</td>
+<td align="right">555</td>
+<td align="right">1901</td>
+<td align="right">61</td>
+<td align="left">eng</td>
+<td align="left">English</td>
+<td align="left">eng</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="odd">
+<td align="left">spa</td>
+<td align="right">615</td>
+<td align="right">2098</td>
+<td align="right">58</td>
+<td align="left">spa</td>
+<td align="left">Spanish</td>
+<td align="left">spa</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="even">
+<td align="left">fra</td>
+<td align="right">670</td>
+<td align="right">2120</td>
+<td align="right">61</td>
+<td align="left">fra</td>
+<td align="left">French</td>
+<td align="left">fra</td>
+<td align="left">ltr</td>
+</tr>
+<tr class="odd">
+<td align="left">ita</td>
+<td align="right">651</td>
+<td align="right">1980</td>
+<td align="right">61</td>
+<td align="left">ita</td>
+<td align="left">Italian</td>
+<td align="left">ita</td>
+<td align="left">ltr</td>
+</tr>
+</tbody>
+</table>
+<p>Ingelesa ez dut-eta ondoegi ulertzen, esanahiaren araberako alderaketetarako, italiera hobetsiko dut batean edo bestean.</p>
+<div id="itzulpenen-alderaketa" class="section level3">
+<h3>Itzulpenen alderaketa</h3>
+<p>Bost hizkuntzetako itzulpenei maila kuantitatiboan begiratzen zaio hurrengo irudian; zenbat forma erabiltzen diren testu horretan. Alderaketa bat egiten da, ea zenbat forma desberdin erabiltzen diren versus zenbat forma behar diren denera.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Bistan da, euskara nahikoa desberdina da. Denera forma gutxiago behar dira UDHR izeneko testu hori emateko beste laurek baino. Bestalde, formak euren artean anitzagoak dira beste hizkuntzen aldean.</p>
+</div>
+<div id="lexikoari-so" class="section level3">
+<h3>Lexikoari so</h3>
+<p>Corpus osoari begiratu nahirik, berbarik (formarik) errepikatuenak zein diren kontuan izanda grafiko bat egiten da hurrengoan, berbaren tamainak corpusean duen presentziaren pisua adierazten du:</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Lehenengo begirada batean, aurreko irudi horretatik antzeman daitezke kontu bi:</p>
+<ol style="list-style-type: decimal">
+<li>Berba asko sobran daudela ganoraz aztertzeko:
+<em>a, de, la, and, eta, y, to, à, et, di…</em>.</li>
+<li>Nonbait, <em>eskubidea, derecho, right, droit, diritto</em> ardatz bat izan daitekeela. Eta <em>pertsona, persona, perssonne</em> ere beste ardatz bat izan daiteke.</li>
+</ol>
+<p>Lehenengo arazo horri oratzeko <em>stopword</em>ak erabiltzen dira<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Hizkuntza bakoitzerako sortuak diren esannahi gabeko hitzen zerrendak dira, honelako azterketetan informazioa gehitu baino oztopatzen duten berbak, alegia.</p>
+</div>
+<div id="lexikoari-hizkuntzaka-so" class="section level3">
+<h3>Lexikoari, hizkuntzaka so</h3>
+<p>Segidan, hizkuntzarik hizkuntza aurkezten dira hogei formarik erabilienak, ezkerrean <em>stopword</em> horiek kendu gabe eta eskuinean horiek kenduta.</p>
+<p>Horrek lagundu behar luke testuaren nondik norakoaz konturatzen.</p>
+<div id="euskara" class="section level4">
+<h4>Euskara</h4>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Azterketa honetan argi dago ezkerreko irudiko berbek informazio sakonagoa eskaintzen dutela. Baliteke, gainera, argi xamar irudikatzea zertaz diharduen testuak.</p>
+<p>Baina begiratu dezagun beste hizkuntzetan ere ea zer ikus dezakegun.</p>
+</div>
+<div id="ingelesez" class="section level4">
+<h4>Ingelesez</h4>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Lehenengo begirada batean, askoz mamitsuago ikusten da eskumaldeko irudiko informazioa.</p>
+<p>Eta besteetan?</p>
+</div>
+<div id="gaztelaniaz" class="section level4">
+<h4>Gaztelaniaz</h4>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="frantsesez" class="section level4">
+<h4>Frantsesez</h4>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="italieraz" class="section level4">
+<h4>Italieraz</h4>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Euskara ez diren beste hizkuntza guztietan, argiago interpreta daiteke informazioa euskaraz baino.</p>
+<p>Hori ikusi izanak eta hizkuntza indoeuropear preposizio askodunak aukeratu izanak lehenengo hipotesi batera eraman nau:</p>
+<p><strong>H<sub>1</sub></strong>: Hizkuntzen ezaugarri morfologikoek baldintzatzen dute.</p>
+<p>Ah! Badaezpada, testua hau da: <a href="https://www.un.org/en/about-us/universal-declaration-of-human-rights" class="uri">https://www.un.org/en/about-us/universal-declaration-of-human-rights</a> . Gorago aipatutako <code>quanteda</code> paketetako batek hainbat hizkuntzatan dakar hau erabilita: <code>quanteda.corpora::data_corpus_udhr()</code></p>
+</div>
+</div>
+</div>
+<div id="ezaugarri-morfologikoek-baldintzatzen-ote-duten" class="section level2">
+<h2>Ezaugarri morfologikoek baldintzatzen ote duten</h2>
+<p>Gorago bost hizkuntzarekin sortutako antzerako alderaketa da hurrengoa: Zenbat forma guztira eta zenbat forma bakar behar diren testu horretarako hizkuntza bakoitzean. Honetan, baina, alderatzen diren hizkuntzak dira <em>stopword</em>ak ematen dituzten guztiak.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Azterketa honetan ezaugarrien arteko korrelazioa dagoela antzematen da: zenbat eta forma desberdin gehiago izan, orduan eta forma gutxiago behar direla, alegia. Matematikoki honela aipa daiteke:</p>
+<p><span class="math display">\[r_s = -0.552*** \]</span>
+<em>p-balioa = 0.0001023</em></p>
+<p>Aldagaien artean, beraz, korrelazio ertain eta handien artekoa dago, efektuaren tamaina zeren arabera kalkulatzen den.</p>
+<div id="stopword-kopurua-eta-forma-kopuruen-artean-korrelaziorik-ote-dago" class="section level3">
+<h3><em>Stopword</em> kopurua eta forma kopuruen artean korrelaziorik ote dago?</h3>
+<p>Korrelazioak aldagaien azalpen linguistikoak eta stopword kopuruen artean kalkulatuta, ez dugu aurkitu emaitza esanguratsurik (<em>r<sub>s</sub> = 0.053</em>, p-balioa = 0.77 eta <em>r<sub>s</sub> = 0.0179</em>, p-balioa = 0.92).</p>
+<p>Eta irudian, bestelako sailkapenen bat egon litekeela ere ematen du:</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+Hungariera ere, euskararen antzera, hizkuntza eranskaria da, ingelesa ez. Horiek dira forma gehien dituztenak. Hirugarren postuan finlandiera, euskararen antzera eranskaria hori ere. Bestalde, euskara zulu, sotho, afrikaans eta beste hizkuntza batzuekin batera dago.</p>
+<p>Azalpenak bestelako aldagaia behar du:</p>
+</div>
+</div>
+<div id="morfologiak-ez-du-azaltzen-politikak" class="section level2">
+<h2>Morfologiak ez du azaltzen, politikak?</h2>
+<p>Politikak errazago. Multzo bi egin dira, estatua duten hizkuntzak eta estaturik gabekoak.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Aurreko konparaketan katalana, nahiz eta Andorrako hizkuntza ofiziala izan, ez dut jaso estatuko hizkuntzatzat. Hindia, nahiz eta Indiako hegoaldean ez izan ohiko hizkuntza, estatuduntzat hartu da. Tagalo/filipino hizkuntzaren inguruko gatazkak kontuan izanda, hori ere ez dut hala jaso. Amaitzeko, Irlandako galesa ere ez dut estatuduntzat jaso, han ere ingelesa lehenesten delakoan.</p>
+<p>Estatistikoki esanguratsua da aurkitutako aldea. Wilcoxon-Mann-Withney testa erabilita, <em>W = 31***</em> ematen du p-balioa = 0.00038 dela.</p>
+<p>Agerian dago banaketa bitar hori baino sakonago azter litekeela. Baina, hainbat egiteko dagoenez, akaso, interesgarriagoa da euskarazko <em>stopword</em> eraginkorragoak sortzea.</p>
+<hr />
+<p>Urte barri g on!</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p><strong>stopword</strong> hori bat edo batean aurkitu dut “hitz hutsak” forman. Gaztelaniaz ere <em>palabras vacias</em>. Berez, ez nago seguru argi dagoen, <em>berba hutsak</em> esanda, <em>hutsik dauden berbak</em> ulertzen den. Gainera, ez dakit hutsik dauden benetan. <em>stopword</em> inperialistarekin geratu naiz artikulutxu honetan.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
