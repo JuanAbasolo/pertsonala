@@ -1,0 +1,131 @@
+---
+title: Talde lanen banakako jardunari begiratuaz
+author: Juan Abasolo
+date: '2023-08-10'
+slug: talde-lanen-banakako-jardunari-begiratuaz
+categories:
+  - datuka
+  - prosodia
+  - testuen azterketaz
+tags:
+  - automatizatu
+  - idazketa
+  - r
+bibliography: references.bib
+csl: apa7-euV0.csl
+link-citations: true
+---
+
+
+
+<p>Jo eta kean ibili naiz <span class="citation">(<a href="#ref-abasoloIdazketaAztertzekoTresna2018">Abasolo et al., 2018</a>, <a href="#ref-abasoloOnlinekoIdazkuntzaProzesua2020">2020</a>; <a href="#ref-abasoloCaracteristicasCuantitativasProceso2021">Abasolo et al., 2021</a>)</span> eta dagoeneko lortu dut R paketea idaztea, IDAT izenduna eta argitalpenen bat egindakoan publiko egiteko asmoz.</p>
+<p>Momentuz praktikak egiten nabil, oraingoan aurton argitaratu dugun artikulu bateko <span class="citation">(<a href="#ref-abasoloIDATTaldeLaneko2023">Abasolo &amp; Eguskiza, 2023</a>)</span> irudiak berreraginaz.</p>
+<p>Horretan aztertzen dogu idazkuntza prozesuaz zer ikusten den talde lanean, Etherpadeko<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> pad bateko fitxategia analizatuta.</p>
+<p>Hurrengook ikusten dira lan honetan:</p>
+<ul>
+<li>Nork zenbat idatzi duen (zenbat karaktere gehitu eta zenbat kendu)</li>
+<li>Talde lanaren egituraketa tenporala.</li>
+<li>Idazketa prozesuan nola banatzen den hausnarketako denbora zer egiteko</li>
+<li>Talde lanean eraikitako testuan nola kolpetzen zaion testuaren osotasunari</li>
+<li>… eta testuaren <strong><em>topografia</em></strong>.</li>
+</ul>
+<div id="ezaugarri-batzuk" class="section level2">
+<h2>Ezaugarri batzuk</h2>
+<p>Sei parte hartzaileko talde batek testu koherente bat ekoitzi behar zuen; horretako bost egun zuten. Taldea aurreko urteetan elkarrekin jardundakoa zen; beraz, rol edo paperen esleipena eginda dagoela pentsatzekoa da.</p>
+<p>Sei egileen izenak ezabatu eta anonimizatu dira horretarako IDAT 0.1.0ko funtzio aproposa erabilita. Egileen esleitu zaizkien kodeak hauek dira:</p>
+<ul>
+<li><em>E-1</em>, <em>E-2</em>, <em>E-4</em>, <em>E-5</em>, <em>E-6</em> eta <em>E-7</em>. Irakurleak kontuan izan dezala <em>E-3</em> erabiltzailerik ez dagoela.</li>
+</ul>
+</div>
+<div id="nork-zenbat-idatzi" class="section level2">
+<h2>Nork zenbat idatzi</h2>
+<p>Lehenengo irudi honek sei egileetariko bakoitzak egindako ekarpen kopurua irudikatzen du. Zenbat idatzi duen eta zenbat testu ezabatu duen ikusten da.</p>
+<p>Kontuan izan behar da aparteko beste nonbait idatzitakoa ekarri den momentua, hau da “kopiatu eta itsatsi” jarduetakoa, pausu bakartzat hartzen duela. Berdin, ezabatutako testua luzea zein laburra izan, ezabaketa kopurua islatzen da, ez ezabatutakoaren tamaina eta gehitze ekintzak, ez gehitutakoaren tamaina.</p>
+<p><img src="staticunnamed-chunk-1-1.png" width="672" /></p>
+<p>Hemen bistan dago, pad horretan behintzat, <em>E-7</em> etiketadun egileak beste guztiek baino gutxiago landu dutela testua. <em>E-5</em> etiketadunak, berriz, ezabatu du gehien. Eta lan gehien <em>E-2</em>k egin duela ere nabarmena da.</p>
+<p>Horrek zalantza batzuk sort ditzake; besteak beste, zer gehitu den, zer kendu den, noiz kendu den… eta abar.</p>
+</div>
+<div id="talde-lanaren-egituraketa-tenporala" class="section level2">
+<h2>Talde lanaren egituraketa tenporala</h2>
+<p>Esanda dago lana egiteko 5 egun zutela. Hori nola kudeatu da? Egitekoa jaso eta segidan kolpe zaio? Azken ordurako utzi da? Bost egunean zehar landu da?</p>
+<p>Hurrengo irudiak ematen du informazio hori:</p>
+<p><img src="staticunnamed-chunk-2-1.png" width="672" /></p>
+<p>Hor ikusten denez irailaren 10aren gau edo iluntzean zerbait egin zen eta irailaren hamalauko iluntzean ere beste zerbait. Hala ere, lanaren garapen osoa irailaren 13ko goizerantz egin zela ematen du.</p>
+<p>Baina zelan egin zen hori? Nork?</p>
+<p><img src="staticunnamed-chunk-3-1.png" width="672" /></p>
+<p>Hor zehaztasun handiz ikusten da talde lanean egin zela lana, baina <em>E-2</em> etiketadunak egin zituela azken ezabaketa batzuk (lanaren tamainak behera egiten du nabarmen, horren jardunaren ondorioz 11:40 inguruan).</p>
+</div>
+<div id="idazketa-prozesuan-zelan-banatzen-den-hausnarketako-denbora-zer-egiteko" class="section level2">
+<h2>Idazketa prozesuan zelan banatzen den hausnarketako denbora zer egiteko</h2>
+<p>Hori erakusteko eraiki da hurrengo grafikoa. Horretan ekintza guztien lagin bat aukeratu da; segundu bi eta minutu bateko etenen ondoren egin beharrekoa.</p>
+<p>Pentsatzekoa da (eta teoriak halan dio, <span class="citation">Kaufer et al. (<a href="#ref-kauferComposingWrittenSentences1986">1986</a>)</span>) segundu bitik gorako etenak islatzen dutela testutik distantzia bat, testuaren eraikuntzan segitzeko. Suposatzen da hogei segundutik gora eta minutu batetik beherakoek testuaren egituraketaren inguruko jardunetarako erabiltzen direla; baina egileek ez dute aho batez hala baieztatzen <span class="citation">(<a href="#ref-hayesIdentifyingOrganizationWriting1980">Hayes &amp; Flower, 1980</a>; <a href="#ref-hayesNaturePlanningWriting1996">Hayes &amp; Nash, 1996</a>; <a href="#ref-kauferComposingWrittenSentences1986">Kaufer et al., 1986</a>; <a href="#ref-kelloggWorkingMemoryWritten2013">Kellogg et al., 2013</a>; <a href="#ref-meulemansGeneralizabilityPauseTimes2022">Meulemans et al., 2022</a>)</span>.</p>
+<p><img src="staticunnamed-chunk-4-1.png" width="672" /></p>
+<p>Irudian beltzez irudikatzen dira gehitze ekintzak eta laranjaz kentze ekintzak; horrek erakusten digu <em>E-5</em> etiketaz zehaztutako ikasleak ezabaketa (garbiketa?) jardunean ibili dela gehiago, edo ekinago behinik behin, beste egileek baino.</p>
+<p>Gutxien parte hartu duen egileak <em>E-7</em>k erakusten du eten gutxien, uste izatekoa zenez.</p>
+</div>
+<div id="testu-osoan-jardunaz" class="section level2">
+<h2>Testu osoan jardunaz</h2>
+<p>Hurrengo irudiak adierazten du ekintza bakoitza aurreko ekintzatik zenbat lerrotara egin duen. Hau da, idatzi jarraian aritzen bada lerroan bertan (0) edo hurrengoan (1) adieraziko da. Paragrafoen artean hutsune bat uzten duen egileak biko distantzia ere (2) marka lezake testuan aurrera idatziaz.</p>
+<p>Era berean, aurreko paragrafotik zenbat eta distantzia handiagoak hartu, badirudi orduan eta osotasunagoan hartzen duela testu osoa, egituraketa lanak osotasunean egin ohi dira-eta.</p>
+<p><img src="staticunnamed-chunk-5-1.png" width="672" /></p>
+<p>Aurreko irudi horretan ikusten denez, <em>E-5</em> etiketadun egileak egin ditu testua osotasunean egituratzeko ekintzarik hurrunenak. Baina baita <em>E-1</em>ak eta <em>E-2</em>k ere.</p>
+</div>
+<div id="testuaren-topografia" class="section level2">
+<h2>Testuaren topografia</h2>
+<p>Azkenik prozesu osoaren erakusgarri: <strong>testuaren eraikuntzaren topografia</strong>.</p>
+<p>Lerrorik lerro nork idatzi ala ezabatu duen adierazten da dagokion kolorez. Testua gehitu den (●) ala ezabatu den (▲) ikurrez erakusten da. Eta beste nonbaitetik ekarritakoak zein testu handiak ezabatu diren, ikurraren tamainaz adierazten da. Amaitzeko, prozesuaren hurrenkera ezkerretik eskuinera adierazoten da, pausorik pausu (ez denboran zehar).</p>
+<p><img src="staticunnamed-chunk-6-1.png" width="672" /></p>
+<p>Aurreko irudietan ikusi ditugun testu antolaketako akdaketa horiek argiago uler daitezke. Begiratu, bestela, <em>E-5</em>ari eta <em>E-2</em>ri. Horietan. Hasieran <em>E-2</em>k ezabatzen ditu aurretiko testuak eta segidan <em>E-5</em>k itsasten du testu handi bat. Ematen du hurrengo pausuetan testu horretan hasten direla idazten hasieran <em>E-6</em> eta lehenengo esaldi batzuk idatzitakoan <em>E-4</em>k eta <em>E-7</em>k beranduagoko esaldi bi batera idazten dute.</p>
+</div>
+<div id="beraz" class="section level1">
+<h1>Beraz…</h1>
+<p>… hurreraketa grafiko batetik hainbat informazio lor daiteke.</p>
+<p>… taldeko lan baten egituratze prozesuaz hainbat ezaugarri erraz ikus daitezke.</p>
+<p>… ikasleak balira egileak, haiei prozesuaz galdetzeko eta hausnartzeko aukera eman lezake honek.</p>
+<div id="eta" class="section level2">
+<h2>Eta…</h2>
+<p>… komenigarria litzateke berau ondo eta erraz lortzeko interface grafikoa eskura izatea.</p>
+<p>… zenbakizko laburpena ere egingarria da.</p>
+<p>…idazketaz ikertzeko tresna eraginkorra izan daiteke hauek denak egiteko erabili dodan IDAT.</p>
+<p>Hori, laster batean, baina ez oraindik:</p>
+<p><img src="images/logo.png" width="150" /></p>
+</div>
+</div>
+<div id="erreferentziak" class="section level1 unnumbered">
+<h1>Erreferentziak</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-abasoloIDATTaldeLaneko2023" class="csl-entry">
+Abasolo, J., &amp; Eguskiza, N. (2023). <span>IDAT: talde laneko idatzian banakako ekarpenei begira</span>. In A. Romero, I. Alonso, A. Urrutia, M. Gezuraga, N. Berasategi, &amp; N. Idoiaga (Eds.), <em><span>Estructura modular, metodologías activas y compromiso social en innovación educativa secundaria. La experiencia de la Facultad de Educación de Bilbao, UPV/EHU (2011-2021)</span></em> (pp. 127–139). <span>Octaedro</span>.
+</div>
+<div id="ref-abasoloOnlinekoIdazkuntzaProzesua2020" class="csl-entry">
+Abasolo, J., Eguskiza, N., &amp; Etxebarria, A. (2020). <em><span>Onlineko idazkuntza prozesua aztertzeko: IDAT</span></em>.
+</div>
+<div id="ref-abasoloCaracteristicasCuantitativasProceso2021" class="csl-entry">
+Abasolo, J., Eguskiza, N., &amp; Unamuno, L. (2021). <span>Características cuantitativas del proceso de escritura en contexto diglósico: futuro profesorado bilingüe</span>. <em>ÑEMITỸRÃ Revista Multilingüe de Lengüa Sociedad y Educación</em>, <em>3</em>(1), 10–24. <a href="https://doi.org/10.47133/NEMITYRA2021102">https://doi.org/10.47133/NEMITYRA2021102</a>
+</div>
+<div id="ref-abasoloIdazketaAztertzekoTresna2018" class="csl-entry">
+Abasolo, J., Unamuno, L., &amp; de Pablo, I. (2018, November). <span>Idazketa aztertzeko tresna</span>. <em><span>Enseñanza-Aprendizaje De La Lengua</span></em>.
+</div>
+<div id="ref-hayesIdentifyingOrganizationWriting1980" class="csl-entry">
+Hayes, J. R., &amp; Flower, L. (1980). Identifying the organization of writing processes. <em>Cognitive Processes in Writing</em>.
+</div>
+<div id="ref-hayesNaturePlanningWriting1996" class="csl-entry">
+Hayes, J. R., &amp; Nash, J. G. (1996). On the nature of planning in writing. In <em>The <span>Science</span> of <span>Writing</span> : <span>Theories</span>, <span>Methods</span>, <span>Individual Differences</span> and <span>Applications</span></em> (pp. 29–55). <span>Routledge</span>.
+</div>
+<div id="ref-kauferComposingWrittenSentences1986" class="csl-entry">
+Kaufer, D. S., Hayes, J. R., &amp; Flower, L. (1986). Composing <span>Written Sentences</span>. <em>Research in the Teaching of English</em>, <em>20</em>(2), 121–140. <a href="https://www.jstor.org/stable/40171073">https://www.jstor.org/stable/40171073</a>
+</div>
+<div id="ref-kelloggWorkingMemoryWritten2013" class="csl-entry">
+Kellogg, R. T., Whiteford, A. P., Turner, C. E., &amp; Mertens, A. (2013). Working <span>Memory</span> in <span>Written Composition</span>: <span>An Evaluation</span> of the 1996 <span>Model</span>. <em>Journal of Writing Research</em>, <em>5</em>(2), 159–190. <a href="https://doi.org/gfpqbv">https://doi.org/gfpqbv</a>
+</div>
+<div id="ref-meulemansGeneralizabilityPauseTimes2022" class="csl-entry">
+Meulemans, C., De Maeyer, S., &amp; Leijten, M. (2022). Generalizability of pause times in sentence production to distinguish between adult writers. <em>Behavior Research Methods</em>, <em>54</em>(4), 1976–1988. <a href="https://doi.org/10.3758/s13428-021-01707-1">https://doi.org/10.3758/s13428-021-01707-1</a>
+</div>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://etherpad.org" class="uri">https://etherpad.org</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
